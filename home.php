@@ -22,22 +22,22 @@ get_header();
             <h3 class="fs-4 mb-4 lh-sm">
                Step 1
             </h3>
-            <div class="row gx-md-4 gy-4 mb-4">
-                  <div class="col-md-6 col-12">
+            <div class="row gx-md-3 gy-4 mb-4">
+                  <div class="col-md-4 col-12">
                      <label for="start_date" class="d-none">Date</label>
                      <input type="date" name="start_date" class="form-control fs-6 fw-normal" id="start_date" placeholder="From Date*" required>
                   </div>
-                  <div class="col-md-6 col-12">
+                  <div class="col-md-4 col-12">
                      <label for="end_date" class="d-none">Date</label>
                      <input type="date" name="end_date" class="form-control fs-6 fw-normal" id="end_date" placeholder="To Date*" required>
                   </div>
             </div>
-            <div class="row gx-md-4 gy-4 mb-4">
-                  <div class="col-md-6 col-12">
+            <div class="row gx-md-3 gy-4 mb-4">
+                  <div class="col-md-4 col-12">
                      <label for="firts_weeks" class="d-none">Date</label>
                      <input type="text" name="firts_weeks" class="form-control fs-6 fw-normal" id="firts_weeks" placeholder="Prior 4-weeks">
                   </div>
-                  <div class="col-md-6 col-12">
+                  <div class="col-md-4 col-12">
                      <label for="second_weeks" class="d-none">Date</label>
                      <input type="text" name="second_weeks" class="form-control fs-6 fw-normal" id="second_weeks" placeholder="Prior 52-weeks">
                   </div>
@@ -52,18 +52,18 @@ get_header();
             <h3 class="fs-4 mb-4 lh-sm">
                Step 2
             </h3>
-            <div class="row gx-md-4 gy-4 mb-4">
+            <div class="row gx-md-3 gy-4 mb-4">
                   <div class="col-md-12 col-12">
                      <label for="earnings" class="d-none">Date</label>
                      <input type="text" name="earnings" class="form-control fs-6 fw-normal" id="earnings" placeholder="Gross Earnings">
                   </div>
             </div>
-            <div class="row gx-md-4 gy-4 mb-4">
-                  <div class="col-md-6 col-12">
+            <div class="row gx-md-3 gy-4 mb-4">
+                  <div class="col-md-4 col-12">
                      <label for="date" class="d-none">Date</label>
                      <input type="date" name="date" class="form-control fs-6 fw-normal" id="date" placeholder="Date" required>
                   </div>
-                  <div class="col-md-6 col-12">
+                  <div class="col-md-4 col-12">
                      <label for="number" class="d-none">Date</label>
                      <input type="tel" name="number" class="form-control fs-6 fw-normal" id="number" placeholder="Number" required>
                   </div>
