@@ -1,0 +1,65 @@
+/*   
+Theme Name: Theme Theme
+Theme URI: http://mufaqar.com
+Author: M Mufaqar Islam
+Author URI: http://mufaqar.com
+Version: 1.0
+Description: WordPress theme 
+Tags: #
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
+*/
+
+/***** Reset CSS *****/
+
+:root {
+    --bs-pramry: #02B5EE;
+    --bs-scndry: #0085D0;
+    --bs-custmBg: #FAFAFA;
+    --bs-white: #ffffff;
+    --bs-black: #000000;
+    --bs-borderColor: #D2D2D2;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+body{
+    box-sizing: border-box;
+}
+
+section {
+    padding: 50px 0;
+}
+
+.Step_form{
+    background-color: var(--bs-custmBg);
+}
+.form-control{
+    border: none!important;
+    background: none!important;
+    border: 1px solid var(--bs-borderColor)!important;
+    border-radius: 0!important;
+}
+.form-control:focus{
+    background: none!important;
+    border: 1px solid var(--bs-scndry)!important;
+    box-shadow: none!important;
+}
+
+.btn {
+    background-color: var(--bs-pramry)!important;
+    border-color: var(--bs-pramry)!important;
+    padding: 7px 20px!important;
+    color: var(--bs-white)!important;
+}
+.btn:hover{
+    background-color: var(--bs-scndry)!important;
+    color: var(--bs-white)!important;
+}
+.step {
+    display: none;
+  }
+  .step.active {
+    display: block;
+  }
