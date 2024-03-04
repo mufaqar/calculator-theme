@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Home
+Template Name: Home calc
 */
 
 get_header();
@@ -24,22 +24,54 @@ get_header();
             </h3>
             <div class="row gx-md-3 gy-4 mb-4">
                   <div class="col-md-4 col-12">
-                     <label for="start_date" class="d-none">Date</label>
-                     <input type="date" name="start_date" class="form-control fs-6 fw-normal" id="start_date" placeholder="From Date*" required>
+                     <label for="first_name" class="d-none">Date</label>
+                     <input type="date" name="first_name" class="form-control fs-6 fw-normal" id="first_name" placeholder="First Name" >
                   </div>
                   <div class="col-md-4 col-12">
-                     <label for="end_date" class="d-none">Date</label>
-                     <input type="date" name="end_date" class="form-control fs-6 fw-normal" id="end_date" placeholder="To Date*" required>
+                     <label for="last_name" class="d-none">Date</label>
+                     <input type="date" name="last_name" class="form-control fs-6 fw-normal" id="last_name" placeholder="Last Name" >
+                  </div>
+                  <div class="col-md-4 col-12">
+                     <div class="form-check">
+                           <input class="form-check-input" type="radio" name="gender" id="male">
+                           <label class="form-check-label" for="male">
+                             Male
+                           </label>
+                     </div>
+                     <div class="form-check">
+                           <input class="form-check-input" type="radio" name="gender" id="female" checked>
+                           <label class="form-check-label" for="female">
+                              Female
+                           </label>
+                     </div>
                   </div>
             </div>
             <div class="row gx-md-3 gy-4 mb-4">
                   <div class="col-md-4 col-12">
-                     <label for="firts_weeks" class="d-none">Date</label>
-                     <input type="text" name="firts_weeks" class="form-control fs-6 fw-normal" id="firts_weeks" placeholder="Prior 4-weeks">
+                     <label for="birthdate" class="d-none">Birthdate</label>
+                     <input type="date" name="birthdate" class="form-control fs-6 fw-normal" id="birthdate" placeholder="Birthdate">
                   </div>
                   <div class="col-md-4 col-12">
-                     <label for="second_weeks" class="d-none">Date</label>
-                     <input type="text" name="second_weeks" class="form-control fs-6 fw-normal" id="second_weeks" placeholder="Prior 52-weeks">
+                     <label for="age" class="d-none">Date</label>
+                     <input type="number" name="age" class="form-control fs-6 fw-normal" id="age" placeholder="Age ">
+                  </div>
+                  <div class="col-md-4 col-12">
+                     <label for="dol1" class="d-none">DOL</label>
+                     <input type="date" name="dol1" class="form-control fs-6 fw-normal" id="dol1" placeholder="DOL">
+                  </div>
+            </div>
+            <div class="row gx-md-3 gy-4 mb-4">
+                  <div class="col-md-4 col-12">
+                     <label for="dol2" class="d-none">DOL</label>
+                     <input type="date" name="dol2" class="form-control fs-6 fw-normal" id="dol2" placeholder="DOL">
+                  </div>
+                  <div class="col-md-4 col-12">
+                     <label for="cal_date" class="d-none">Calculation Date</label>
+                     <input type="number" name="cal_date" class="form-control fs-6 fw-normal" id="cal_date" placeholder="Calculation Date">
+                  </div>
+                  <div class="col-md-4 col-12">
+                     <label for="birthdate" class="d-none">Birthdate</label>
+                     <input type="date" name="birthdate" class="form-control fs-6 fw-normal" id="birthdate" placeholder="Birthdate">
                   </div>
             </div>
             <div class="">
@@ -53,19 +85,37 @@ get_header();
                Step 2
             </h3>
             <div class="row gx-md-3 gy-4 mb-4">
-                  <div class="col-md-12 col-12">
-                     <label for="earnings" class="d-none">Date</label>
-                     <input type="text" name="earnings" class="form-control fs-6 fw-normal" id="earnings" placeholder="Gross Earnings">
+                  <div class="col-md-4 col-12">
+                     <label for="start_date" class="d-none">Date</label>
+                     <input type="date" name="start_date" class="form-control fs-6 fw-normal" id="start_date" placeholder="From Date*" >
+                  </div>
+                  <div class="col-md-4 col-12">
+                     <label for="end_date" class="d-none">Date</label>
+                     <input type="date" name="end_date" class="form-control fs-6 fw-normal" id="end_date" placeholder="To Date*" >
+                  </div>
+                  <div class="col-md-4 col-12">
+                     <label for="firts_weeks" class="d-none">Date</label>
+                     <input type="text" name="firts_weeks" class="form-control fs-6 fw-normal" id="firts_weeks" placeholder="Prior 4-weeks">
                   </div>
             </div>
             <div class="row gx-md-3 gy-4 mb-4">
                   <div class="col-md-4 col-12">
-                     <label for="date" class="d-none">Date</label>
-                     <input type="date" name="date" class="form-control fs-6 fw-normal" id="date" placeholder="Date" required>
+                     <label for="second_weeks" class="d-none">Date</label>
+                     <input type="text" name="second_weeks" class="form-control fs-6 fw-normal" id="second_weeks" placeholder="Prior 52-weeks">
                   </div>
                   <div class="col-md-4 col-12">
+                     <label for="earnings" class="d-none">Date</label>
+                     <input type="text" name="earnings" class="form-control fs-6 fw-normal" id="earnings" placeholder="Gross Earnings">
+                  </div>
+                  <div class="col-md-4 col-12">
+                     <label for="date" class="d-none">Date</label>
+                     <input type="date" name="date" class="form-control fs-6 fw-normal" id="date" placeholder="Date" >
+                  </div>
+            </div>
+            <div class="row gx-md-3 gy-4 mb-4">
+                  <div class="col-md-12 col-12">
                      <label for="number" class="d-none">Date</label>
-                     <input type="tel" name="number" class="form-control fs-6 fw-normal" id="number" placeholder="Number" required>
+                     <input type="tel" name="number" class="form-control fs-6 fw-normal" id="number" placeholder="Number" >
                   </div>
             </div>
             <div class="">
@@ -92,22 +142,22 @@ get_header();
             var currentStep = $(this).closest(".step");
             var nextStep = currentStep.next(".step");
             
-            // Check if any required fields in the current step are empty
-            var requiredInputs = currentStep.find('input[required], textarea[required]');
+            // Check if any  fields in the current step are empty
+            var Inputs = currentStep.find('input[], textarea[]');
             var isValid = true;
-            requiredInputs.each(function() {
+            Inputs.each(function() {
                 if ($(this).val() === '') {
                     isValid = false;
                     $(this).addClass('is-invalid'); // Add class to indicate invalid input
                     $(this).siblings('.invalid-feedback').remove(); // Remove any previous error messages
-                    $(this).after('<div class="invalid-feedback">This field is required.</div>'); // Add error message
+                    $(this).after('<div class="invalid-feedback">This field is .</div>'); // Add error message
                 } else {
                     $(this).removeClass('is-invalid'); // Remove class if input is valid
                     $(this).siblings('.invalid-feedback').remove(); // Remove error message if input is valid
                 }
             });
 
-            // If all required fields are filled, proceed to the next step
+            // If all  fields are filled, proceed to the next step
             if (isValid) {
                 currentStep.removeClass("active");
                 nextStep.addClass("active");
