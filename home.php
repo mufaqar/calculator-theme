@@ -9,30 +9,27 @@ get_header();
 <section>
    <div class="container mx-auto">
          <h2 class="display-6 fw-bold lh-sm text-center">
-            Setup your phone
+            MOCK CALCULATOR
          </h2>
-         <p class="text-center">
-            We will send you a SMS. Input the code to verify.
-         </p>
    </div>
    <div class="container mx-auto col p-md-5 py-5 Step_form">
       <div class="row">
-         <form class="mt-5">
+         <form class="">
             <div class="step active" id="step1">
                <h3 class="fs-4 mb-4 lh-sm">
                   CLAIM DETAILS
                </h3>
                <div class="row gx-md-3 gy-4 mb-4">
                      <div class="col-md-4 col-12">
-                        <label for="first_name">Claimant's First Name</label>
+                        <label for="first_name">  First Name</label>
                         <input type="text" name="first_name" class="form-control fs-6 fw-normal" id="first_name" placeholder="First Name" >
                      </div>
                      <div class="col-md-4 col-12">
-                        <label for="last_name">Claimant's Last Name</label>
+                        <label for="last_name">  Last Name</label>
                         <input type="text" name="last_name" class="form-control fs-6 fw-normal" id="last_name" placeholder="Last Name" >
                      </div>
                      <div class="col-md-4 col-12">
-                        <label for="gender">Claimant's Gender</label>
+                        <label for="gender">  Gender</label>
                         <div class="d-flex align-items-end">
                            <div class="form-check">
                                  <input class="form-check-input" type="radio" name="gender" id="male">
@@ -51,11 +48,11 @@ get_header();
                </div>
                <div class="row gx-md-3 gy-4 mb-4">
                      <div class="col-md-4 col-12">
-                        <label for="birthdate">Claimant's Birthdate</label>
+                        <label for="birthdate">  Birthdate</label>
                         <input type="date" name="birthdate" class="form-control fs-6 fw-normal" id="birthdate" placeholder="Birth Date">
                      </div>
                      <div class="col-md-4 col-12">
-                        <label for="age">Claimant's Age Today</label>
+                        <label for="age">  Age Today</label>
                         <input type="number" name="age" class="form-control fs-6 fw-normal" id="age" placeholder="Age">
                      </div>
                      <div class="col-md-4 col-12">
@@ -65,7 +62,7 @@ get_header();
                </div>
                <div class="row gx-md-3 gy-4 mb-4">
                      <div class="col-md-4 col-12">
-                        <label for="age_loss">Claimant's Age on DOL</label>
+                        <label for="age_loss">  Age on DOL</label>
                         <input type="number" name="age_loss" class="form-control fs-6 fw-normal" id="age_loss" placeholder="40">
                      </div>
                      <div class="col-md-4 col-12">
@@ -73,8 +70,8 @@ get_header();
                         <input type="date" name="calc_date" class="form-control fs-6 fw-normal" id="calc_date" placeholder="Calculation Date">
                      </div>
                      <div class="col-md-4 col-12">
-                        <label for="age_calc">Claimant's Age on Calculation Date</label>
-                        <input type="number" name="age_calc" class="form-control fs-6 fw-normal" id="age_calc" placeholder="Claimant's Age on Calculation Date">
+                        <label for="age_calc">  Age on Calculation Date</label>
+                        <input type="number" name="age_calc" class="form-control fs-6 fw-normal" id="age_calc" placeholder="  Age on Calculation Date">
                      </div>
                </div>
                <div class="row gx-md-3 gy-4 mb-4">
