@@ -265,3 +265,43 @@ function save_form_data() {
 //     wp_localize_script('custom-script', 'ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
 // }
 
+
+
+// Add the following code to your theme's functions.php file or in a custom plugin.
+
+function register_irr_orders_post_type() {
+    $labels = array(
+        'name'               => _x( 'IRR Orders', 'post type general name', 'textdomain' ),
+        'singular_name'      => _x( 'IRR Order', 'post type singular name', 'textdomain' ),
+        'menu_name'          => _x( 'IRR Orders', 'admin menu', 'textdomain' ),
+        'name_admin_bar'     => _x( 'IRR Order', 'add new on admin bar', 'textdomain' ),
+        'add_new'            => _x( 'Add New', 'irr_order', 'textdomain' ),
+        'add_new_item'       => __( 'Add New IRR Order', 'textdomain' ),
+        'new_item'           => __( 'New IRR Order', 'textdomain' ),
+        'edit_item'          => __( 'Edit IRR Order', 'textdomain' ),
+        'view_item'          => __( 'View IRR Order', 'textdomain' ),
+        'all_items'          => __( 'All IRR Orders', 'textdomain' ),
+        'search_items'       => __( 'Search IRR Orders', 'textdomain' ),
+        'not_found'          => __( 'No IRR Orders found', 'textdomain' ),
+        'not_found_in_trash' => __( 'No IRR Orders found in trash', 'textdomain' ),
+    );
+
+    $args = array(
+        'labels'             => $labels,
+        'public'             => true,
+        'publicly_queryable' => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'query_var'          => true,
+        'rewrite'            => array( 'slug' => 'irr_orders' ),
+        'capability_type'    => 'post',
+        'has_archive'        => true,
+        'hierarchical'       => false,
+        'menu_position'      => null,
+        'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
+    );
+
+    register_post_type( 'irr_orders', $args );
+}
+
+add_action( 'init', 'register_irr_orders_post_type' );
