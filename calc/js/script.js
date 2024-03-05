@@ -1,118 +1,140 @@
-(function($) {
-    "use strict";  
-    
-    //* Form js
-    function verificationForm(){
-        //jQuery time
-        var current_fs, next_fs, previous_fs; //fieldsets
-        var left, opacity, scale; //fieldset properties which we will animate
-        var animating; //flag to prevent quick multi-click glitches
+var fieldCounter = 1;
+var postfieldCounter = 1;
+var postbenifitCounter = 1;
 
-        $(".next").click(function () {
-            if (animating) return false;
-            animating = true;
+jQuery(document).ready(function ($) {
+  $('[data-provide="datepicker"]').datepicker({
+    format: 'yyyy-mm-dd', // Set your desired date format
+    autoclose: true,
+  });
+  $('.next').click(function () {
+    var currentStep = $(this).closest('.step');
+    var nextStep = currentStep.next('.step');
+    currentStep.removeClass('active');
+    nextStep.addClass('active');
+  });
 
-            current_fs = $(this).parent();
-            next_fs = $(this).parent().next();
+  $('.prev').click(function () {
+    var currentStep = $(this).closest('.step');
+    var prevStep = currentStep.prev('.step');
+    currentStep.removeClass('active');
+    prevStep.addClass('active');
+  });
 
-            //activate next step on progressbar using the index of next_fs
-            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
 
-            //show the next fieldset
-            next_fs.show();
-            //hide the current fieldset with style
-            current_fs.animate({
-                opacity: 0
-            }, {
-                step: function (now, mx) {
-                    //as the opacity of current_fs reduces to 0 - stored in "now"
-                    //1. scale current_fs down to 80%
-                    scale = 1 - (1 - now) * 0.2;
-                    //2. bring next_fs from the right(50%)
-                    left = (now * 50) + "%";
-                    //3. increase opacity of next_fs to 1 as it moves in
-                    opacity = 1 - now;
-                    current_fs.css({
-                        'transform': 'scale(' + scale + ')',
-                        'position': 'absolute'
-                    });
-                    next_fs.css({
-                        'left': left,
-                        'opacity': opacity
-                    });
-                },
-                duration: 800,
-                complete: function () {
-                    current_fs.hide();
-                    animating = false;
-                },
-                //this comes from the custom easing plugin
-                easing: 'easeInOutBack'
-            });
-        });
+  $('#addPreJob').click(function () {
+    fieldCounter++;
+    var preaccidentForm = `
+         <div class="row gx-md-3 gy-4 mb-4">
+                     <div class="col-md-2">
+                        <label for="pre_job${fieldCounter}_title">Job ${fieldCounter}</label>
+                        <input type="text" name="pre_job${fieldCounter}_title" class="form-control fs-6 fw-normal" id="pre_job${fieldCounter}_title" placeholder="Job ${fieldCounter}" >
+                     </div>
+                     <div class="col-md-2">
+                        <label for="pre_from_date">From Date</label>
+                        <input type="date" name="pre_job${fieldCounter}_from_date" class="form-control fs-6 fw-normal" id="pre_job${fieldCounter}_from_date" placeholder="From Date">
+                     </div>
+                     <div class="col-md-2">
+                        <label for="pre_job${fieldCounter}_to_date">To Date</label>
+                        <input type="date" name="pre_job${fieldCounter}_to_date" class="form-control fs-6 fw-normal" id="pre_job${fieldCounter}_to_date" placeholder="To Date">
+                     </div>
+                     <div class="col-md-1 col">
+                        <div class="form-check">
+                              <input class="form-check-input" type="checkbox" name="pre_job${fieldCounter}_4_weeks" id="pre_job${fieldCounter}_4_weeks">
+                              <label class="form-check-label" for="pre_job${fieldCounter}_4_weeks">
+                                 Prior 4-weeks
+                              </label>
+                        </div>
+                     </div>
+                     <div class="col-md-2 col">
+                        <div class="form-check ps-md-5">
+                              <input class="form-check-input" type="checkbox" name="pre_job${fieldCounter}_52_weeks" id="pre_job${fieldCounter}_52_weeks" checked>
+                              <label class="form-check-label" for="pre_job${fieldCounter}_52_weeks">
+                                 Prior 52-weeks
+                              </label>
+                        </div>
+                     </div>
+                     <div class="col-md-2">
+                        <label for="pre_job${fieldCounter}_earning">Gross Earnings</label>
+                        <input type="number" name="pre_job${fieldCounter}_earning" class="form-control fs-6 fw-normal" id="pre_job${fieldCounter}_earning" placeholder="Gross Earnings" >
+                     </div>
+                     
+               </div>`;
+    $('#pre_accident_form').append(preaccidentForm);
+  });
 
-        $(".previous").click(function () {
-            if (animating) return false;
-            animating = true;
+  $('#addPostJob').click(function () {
+    postfieldCounter++;
+    var postaccidentForm = `
+    <div class="row gx-md-3 gy-4 mb-4">
+                     <div class="col-md-2">
+                        <label for="post_job${postfieldCounter}_title">Job ${postfieldCounter}</label>
+                        <input type="text" name="post_job${postfieldCounter}_title" class="form-control fs-6 fw-normal" id="post_job${postfieldCounter}" placeholder="Job ${postfieldCounter}" >
+                     </div>
+                     <div class="col-md-2">
+                        <label for="post_job${postfieldCounter}_from_date">From Date</label>
+                        <input type="date" name="post_job${postfieldCounter}_from_date" class="form-control fs-6 fw-normal" id="post_job${postfieldCounter}_from_date" placeholder="From Date">
+                     </div>
+                     <div class="col-md-2">
+                        <label for="post_job${postfieldCounter}_to_date">To Date</label>
+                        <input type="date" name="post_job${postfieldCounter}_to_date" class="form-control fs-6 fw-normal" id="post_job${postfieldCounter}_to_date" placeholder="To Date">
+                     </div>
+                     <div class="col-md-2">
+                        <label for="post_job${postfieldCounter}_earning">Gross Earnings</label>
+                        <input type="number" name="post_job${postfieldCounter}_earning" class="form-control fs-6 fw-normal" id="post_job${postfieldCounter}_earning" placeholder="Gross Earnings" >
+                     </div>
+                     
+               </div>
+`;
+    $('#post_accident_form').append(postaccidentForm);
+  });
 
-            current_fs = $(this).parent();
-            previous_fs = $(this).parent().prev();
+  $('#addPostJobBenifit').click(function () {
+    postbenifitCounter++;
+    var postBenigitForm = `
+    <div class="row gx-md-3 gy-4 mb-4">
+    <div class="col-md-3">
+       <label for="post_ben${postbenifitCounter}">Post-accident Benefits ${postbenifitCounter}</label>
+       <input type="text" name="post_ben${postbenifitCounter}_title" class="form-control fs-6 fw-normal" id="post_ben${postbenifitCounter}" placeholder="Post-accident Benefits ${postbenifitCounter}" >
+    </div>
+    <div class="col-md-2">
+       <label for="post_ben${postbenifitCounter}_from_date">From Date</label>
+       <input type="date" name="post_ben${postbenifitCounter}_from_date" class="form-control fs-6 fw-normal" id="post_ben${postbenifitCounter}_from_date" placeholder="From Date">
+    </div>
+    <div class="col-md-2">
+       <label for="post_ben${postbenifitCounter}_to_date">To Date</label>
+       <input type="date" name="post_ben${postbenifitCounter}_to_date" class="form-control fs-6 fw-normal" id="post_ben${postbenifitCounter}_to_date" placeholder="To Date">
+    </div>
+    <div class="col-md-2">
+       <label for="post_ben${postbenifitCounter}_earning">Gross BENEFIT</label>
+       <input type="number" name="post_ben${postbenifitCounter}_earning" class="form-control fs-6 fw-normal" id="post_ben${postbenifitCounter}_earning" placeholder="Gross BENEFIT" >
+    </div>
+       
+    </div>
+`;
+    $('#post_job_benifit_form').append(postBenigitForm);
+  });
+});
 
-            //de-activate current step on progressbar
-            $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
 
-            //show the previous fieldset
-            previous_fs.show();
-            //hide the current fieldset with style
-            current_fs.animate({
-                opacity: 0
-            }, {
-                step: function (now, mx) {
-                    //as the opacity of current_fs reduces to 0 - stored in "now"
-                    //1. scale previous_fs from 80% to 100%
-                    scale = 0.8 + (1 - now) * 0.2;
-                    //2. take current_fs to the right(50%) - from 0%
-                    left = ((1 - now) * 50) + "%";
-                    //3. increase opacity of previous_fs to 1 as it moves in
-                    opacity = 1 - now;
-                    current_fs.css({
-                        'left': left
-                    });
-                    previous_fs.css({
-                        'transform': 'scale(' + scale + ')',
-                        'opacity': opacity
-                    });
-                },
-                duration: 800,
-                complete: function () {
-                    current_fs.hide();
-                    animating = false;
-                },
-                //this comes from the custom easing plugin
-                easing: 'easeInOutBack'
-            });
-        });
 
-        $(".submit").click(function () {
-            return false;
-        })
-    }; 
-    
-    //* Add Phone no select
-    function phoneNoselect(){
-        if ( $('#msform').length ){   
-            $("#phone").intlTelInput(); 
-            $("#phone").intlTelInput("setNumber", "+880"); 
-        };
-    }; 
-    //* Select js
-    function nice_Select(){
-        if ( $('.product_select').length ){ 
-            $('select').niceSelect();
-        };
-    }; 
-    /*Function Calls*/  
-    verificationForm ();
-    phoneNoselect ();
-    nice_Select ();
-})(jQuery);
+// Add action for saving form data
+add_action('wp_ajax_save_form_data', 'save_form_data');
+add_action('wp_ajax_nopriv_save_form_data', 'save_form_data');
+
+function save_form_data() {
+    // Security check
+    check_ajax_referer('save_form_data_nonce', 'nonce');
+
+    // Get the form data
+    $form_data = $_POST['form_data'];
+
+    // Process and save the form data (customize this part based on your needs)
+    // For example, you can use update_user_meta or insert_post to save the data in WordPress
+
+    // Send a response back to the client
+    wp_send_json_success('Form data saved successfully');
+
+    // Always exit to avoid further execution
+    wp_die();
+}
