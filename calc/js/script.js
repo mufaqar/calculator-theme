@@ -2,11 +2,7 @@ var fieldCounter = 1;
 var postfieldCounter = 1;
 var postbenifitCounter = 1;
 
-jQuery(document).ready(function ($) {
-  $('[data-provide="datepicker"]').datepicker({
-    format: 'yyyy-mm-dd', // Set your desired date format
-    autoclose: true,
-  });
+jQuery(document).ready(function ($) { 
   $('.next').click(function () {
     var currentStep = $(this).closest('.step');
     var nextStep = currentStep.next('.step');
