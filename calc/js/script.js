@@ -117,24 +117,3 @@ jQuery(document).ready(function ($) {
 });
 
 
-
-// Add action for saving form data
-add_action('wp_ajax_save_form_data', 'save_form_data');
-add_action('wp_ajax_nopriv_save_form_data', 'save_form_data');
-
-function save_form_data() {
-    // Security check
-    check_ajax_referer('save_form_data_nonce', 'nonce');
-
-    // Get the form data
-    $form_data = $_POST['form_data'];
-
-    // Process and save the form data (customize this part based on your needs)
-    // For example, you can use update_user_meta or insert_post to save the data in WordPress
-
-    // Send a response back to the client
-    wp_send_json_success('Form data saved successfully');
-
-    // Always exit to avoid further execution
-    wp_die();
-}
