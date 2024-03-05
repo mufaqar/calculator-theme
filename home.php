@@ -20,15 +20,15 @@ get_header();
                   CLAIM DETAILS
                </h3>
                <div class="row gx-md-3 gy-4 mb-4">
-                     <div class="col-md-4 col-12">
+                     <div class="col-md-3 col-12">
                         <label for="first_name">  First Name</label>
                         <input type="text" name="first_name" class="form-control fs-6 fw-normal" id="first_name" placeholder="First Name" >
                      </div>
-                     <div class="col-md-4 col-12">
+                     <div class="col-md-3 col-12">
                         <label for="last_name">  Last Name</label>
                         <input type="text" name="last_name" class="form-control fs-6 fw-normal" id="last_name" placeholder="Last Name" >
                      </div>
-                     <div class="col-md-4 col-12">
+                     <div class="col-md-3 col-12">
                         <label for="gender">  Gender</label>
                         <div class="d-flex align-items-end">
                            <div class="form-check">
@@ -45,51 +45,43 @@ get_header();
                            </div>
                         </div>
                      </div>
-               </div>
-               <div class="row gx-md-3 gy-4 mb-4">
-                     <div class="col-md-4 col-12">
+                     <div class="col-md-3 col-12">
                         <label for="birthdate">  Birthdate</label>
                         <input type="date" name="birthdate" class="form-control fs-6 fw-normal" id="birthdate" placeholder="Birth Date">
                      </div>
-                     <div class="col-md-4 col-12">
+                     <div class="col-md-3 col-12">
                         <label for="age">  Age Today</label>
                         <input type="number" name="age" class="form-control fs-6 fw-normal" id="age" placeholder="Age">
                      </div>
-                     <div class="col-md-4 col-12">
+                     <div class="col-md-3 col-12">
                         <label for="date_loss">Date of Loss (DOL)</label>
                         <input type="date" name="date_loss" class="form-control fs-6 fw-normal" id="date_loss" placeholder="Date of Loss (DOL)">
                      </div>
-               </div>
-               <div class="row gx-md-3 gy-4 mb-4">
-                     <div class="col-md-4 col-12">
+                     <div class="col-md-3 col-12">
                         <label for="age_loss">  Age on DOL</label>
                         <input type="number" name="age_loss" class="form-control fs-6 fw-normal" id="age_loss" placeholder="40">
                      </div>
-                     <div class="col-md-4 col-12">
+                     <div class="col-md-3 col-12">
                         <label for="calc_date">Calculation Date</label>
                         <input type="date" name="calc_date" class="form-control fs-6 fw-normal" id="calc_date" placeholder="Calculation Date">
                      </div>
-                     <div class="col-md-4 col-12">
+                     <div class="col-md-3 col-12">
                         <label for="age_calc">  Age on Calculation Date</label>
                         <input type="number" name="age_calc" class="form-control fs-6 fw-normal" id="age_calc" placeholder="  Age on Calculation Date">
-                     </div>
-               </div>
-               <div class="row gx-md-3 gy-4 mb-4">
-                     <div class="col-md-4 col-12">
+                     </div> 
+                     <div class="col-md-3 col-12">
                         <label for="insurer">Insurer</label>
                         <input type="text" name="insurer" class="form-control fs-6 fw-normal" id="insurer" placeholder="Insurer" >
                      </div>
-                     <div class="col-md-4 col-12">
+                     <div class="col-md-3 col-12">
                         <label for="policy_no">Policy no</label>
                         <input type="text" name="policy_no" class="form-control fs-6 fw-normal" id="policy_no" placeholder="Policy no" >
                      </div>
-                     <div class="col-md-4 col-12">
+                     <div class="col-md-3 col-12">
                         <label for="claim_no">Claim no</label>
                         <input type="text" name="claim_no" class="form-control fs-6 fw-normal" id="claim_no" placeholder="Claim no" >
-                     </div>
-               </div>
-               <div class="row gx-md-3 gy-4 mb-4">
-                     <div class="col-md-4 col-12">
+                     </div>               
+                     <div class="col-md-3 col-12">
                         <label for="employment_status">Employment Status on the DOL</label>
                         <input class="form-control" list="employment" name="employment_status" id="employment_status" placeholder="Employment Status on the DOL">
                         <datalist id="employment">
@@ -97,7 +89,7 @@ get_header();
                            <option value="Self employed">
                         </datalist>
                      </div>
-                     <div class="col-md-4 col-12">
+                     <div class="col-md-3 col-12">
                         <label for="irb_policy">Max IRB per Policy</label>
                         <input class="form-control" list="irb_policy_list" name="irb_policy" id="irb_policy" placeholder="Max IRB per Policy">
                         <datalist id="irb_policy_list">
@@ -108,7 +100,7 @@ get_header();
                      </div>
                </div>
                <div class="">
-                  <button class="btn rounded-0 fs-6 fw-bold mt-2 w-fit next" type="button" data-step="step2">
+                  <button class="btn fs-6 fw-bold mt-2 w-fit next" type="button" data-step="step2">
                         Next
                   </button>
                </div>
@@ -118,58 +110,49 @@ get_header();
                   PRE-ACCIDENT INCOME
                </h3>
                <div class="row gx-md-3 gy-4 mb-4">
-                     <div class="col-md-12 col-12">
+                     <div class="col-md-2">
                         <label for="pre_job1">Job 1</label>
                         <input type="text" name="pre_job1" class="form-control fs-6 fw-normal" id="pre_job1" placeholder="Job 1" >
                      </div>
-               </div>
-               <div class="row gx-md-3 gy-4 mb-4">
-                     <div class="col-md-4 col-12">
+                     <div class="col-md-2">
                         <label for="pre_from_date">From Date</label>
                         <input type="date" name="pre_from_date" class="form-control fs-6 fw-normal" id="pre_from_date" placeholder="From Date">
                      </div>
-                     <div class="col-md-4 col-12">
+                     <div class="col-md-2">
                         <label for="pre_to_date">To Date</label>
                         <input type="date" name="pre_to_date" class="form-control fs-6 fw-normal" id="pre_to_date" placeholder="To Date">
                      </div>
-                     <div class="col-md-4 col-12">
-                        <label for="pre_prior_weeks">Prior weeks</label>
-                        <div class="d-flex align-items-end">
-                           <div class="form-check">
-                                 <input class="form-check-input" type="radio" name="pre_prior_weeks" id="pre_4_weeks">
-                                 <label class="form-check-label" for="pre_4_weeks">
-                                    Prior 4-weeks
-                                 </label>
-                           </div>
-                           <div class="form-check ps-5">
-                                 <input class="form-check-input" type="radio" name="pre_prior_weeks" id="pre_52_weeks" checked>
-                                 <label class="form-check-label" for="pre_52_weeks">
-                                    Prior 52-weeks
-                                 </label>
-                           </div>
+                     <div class="col-md-1 col">
+                        <div class="form-check">
+                              <input class="form-check-input" type="checkbox" name="pre_4_weeks" id="pre_4_weeks">
+                              <label class="form-check-label" for="pre_4_weeks">
+                                 Prior 4-weeks
+                              </label>
                         </div>
                      </div>
-               </div>
-               <div class="row gx-md-3 gy-4 mb-4">
-                     <div class="col-md-4 col-12">
+                     <div class="col-md-2 col">
+                        <div class="form-check ps-md-5">
+                              <input class="form-check-input" type="checkbox" name="pre_52_weeks" id="pre_52_weeks" checked>
+                              <label class="form-check-label" for="pre_52_weeks">
+                                 Prior 52-weeks
+                              </label>
+                        </div>
+                     </div>
+                     <div class="col-md-2">
                         <label for="pre_earning">Gross Earnings</label>
                         <input type="number" name="pre_earning" class="form-control fs-6 fw-normal" id="pre_earning" placeholder="Gross Earnings" >
                      </div>
-                     <div class="col-md-4 col-12">
-                        <label for="pre_number">Gross Earnings</label>
-                        <input type="number" name="pre_number" class="form-control fs-6 fw-normal" id="pre_number" placeholder="Gross Earnings" >
-                     </div>
-                     <div class="col-md-4 col-12 align-self-end">
-                        <button class="bg-primary text-white border-0 rounded-0 fs-6 fw-bold mt-2 w-fit" type="button">
-                           <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 50 50" height="30px" width="30px" id="Layer_1" version="1.1" viewBox="0 0 50 50" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><rect fill="none" height="50" width="50"/><line fill="none" stroke="#ffffff" stroke-miterlimit="10" stroke-width="4" x1="9" x2="41" y1="25" y2="25"/><line fill="none" stroke="#ffffff" stroke-miterlimit="10" stroke-width="4" x1="25" x2="25" y1="9" y2="41"/></svg>
+                     <div class="col-md-1 align-self-end">
+                        <button class="add_btn text-white border-0 fs-6 fw-bold mt-2 w-fit" type="button">
+                           <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 50 50" height="26px" width="30px" id="Layer_1" version="1.1" viewBox="0 0 50 50" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><rect fill="none" height="50" width="50"/><line fill="none" stroke="#ffffff" stroke-miterlimit="10" stroke-width="4" x1="9" x2="41" y1="25" y2="25"/><line fill="none" stroke="#ffffff" stroke-miterlimit="10" stroke-width="4" x1="25" x2="25" y1="9" y2="41"/></svg>
                         </button>
                      </div>
                </div>
                <div class="">
-                  <button class="btn rounded-0 fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step1">
+                  <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step1">
                         Previous
                   </button>
-                  <button class="btn rounded-0 fs-6 fw-bold mt-2 w-fit next" type="button" data-step="step3">
+                  <button class="btn fs-6 fw-bold mt-2 w-fit next" type="button" data-step="step3">
                         Next
                   </button>
                </div>
@@ -179,35 +162,33 @@ get_header();
                   POST-ACCIDENT INCOME
                </h3>
                <div class="row gx-md-3 gy-4 mb-4">
-                     <div class="col-md-12 col-12">
+                     <div class="col-md-2">
                         <label for="post_job1">Job 1</label>
                         <input type="text" name="post_job1" class="form-control fs-6 fw-normal" id="post_job1" placeholder="Job 1" >
                      </div>
-               </div>
-               <div class="row gx-md-3 gy-4 mb-4">
-                     <div class="col-md-3 col-12">
+                     <div class="col-md-2">
                         <label for="post_from_date">From Date</label>
                         <input type="date" name="post_from_date" class="form-control fs-6 fw-normal" id="post_from_date" placeholder="From Date">
                      </div>
-                     <div class="col-md-3 col-12">
+                     <div class="col-md-2">
                         <label for="post_to_date">To Date</label>
                         <input type="date" name="post_to_date" class="form-control fs-6 fw-normal" id="post_to_date" placeholder="To Date">
                      </div>
-                     <div class="col-md-3 col-12">
+                     <div class="col-md-2">
                         <label for="post_earning">Gross Earnings</label>
                         <input type="number" name="post_earning" class="form-control fs-6 fw-normal" id="post_earning" placeholder="Gross Earnings" >
                      </div>
-                     <div class="col-md-3 col-12 align-self-end">
-                        <button class="bg-primary text-white border-0 rounded-0 fs-6 fw-bold mt-2 w-fit" type="button">
-                           <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 50 50" height="30px" width="30px" id="Layer_1" version="1.1" viewBox="0 0 50 50" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><rect fill="none" height="50" width="50"/><line fill="none" stroke="#ffffff" stroke-miterlimit="10" stroke-width="4" x1="9" x2="41" y1="25" y2="25"/><line fill="none" stroke="#ffffff" stroke-miterlimit="10" stroke-width="4" x1="25" x2="25" y1="9" y2="41"/></svg>
+                     <div class="col-md-1 align-self-end">
+                        <button class="add_btn text-white border-0 fs-6 fw-bold mt-2 w-fit" type="button">
+                           <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 50 50" height="26px" width="30px" id="Layer_1" version="1.1" viewBox="0 0 50 50" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><rect fill="none" height="50" width="50"/><line fill="none" stroke="#ffffff" stroke-miterlimit="10" stroke-width="4" x1="9" x2="41" y1="25" y2="25"/><line fill="none" stroke="#ffffff" stroke-miterlimit="10" stroke-width="4" x1="25" x2="25" y1="9" y2="41"/></svg>
                         </button>
                      </div>
                </div>
                <div class="">
-                  <button class="btn rounded-0 fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step2">
+                  <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step2">
                         Previous
                   </button>
-                  <button class="btn rounded-0 fs-6 fw-bold mt-2 w-fit next" type="button" data-step="step4">
+                  <button class="btn fs-6 fw-bold mt-2 w-fit next" type="button" data-step="step4">
                         Next
                   </button>
                </div>
@@ -217,35 +198,33 @@ get_header();
                   POST-ACCIDENT BENEFITS
                </h3>
                <div class="row gx-md-3 gy-4 mb-4">
-                     <div class="col-md-12 col-12">
+                     <div class="col-md-3">
                         <label for="benifit1">Post-accident Benefits 1</label>
                         <input type="text" name="benifit1" class="form-control fs-6 fw-normal" id="benifit1" placeholder="Post-accident Benefits 1" >
                      </div>
-               </div>
-               <div class="row gx-md-3 gy-4 mb-4">
-                     <div class="col-md-3 col-12">
-                        <label for="benift_from_date">From Date</label>
-                        <input type="date" name="benift_from_date" class="form-control fs-6 fw-normal" id="benift_from_date" placeholder="From Date">
+                     <div class="col-md-2">
+                        <label for="benifit_from_date">From Date</label>
+                        <input type="date" name="benifit_from_date" class="form-control fs-6 fw-normal" id="benifit_from_date" placeholder="From Date">
                      </div>
-                     <div class="col-md-3 col-12">
+                     <div class="col-md-2">
                         <label for="benifit_to_date">To Date</label>
                         <input type="date" name="benifit_to_date" class="form-control fs-6 fw-normal" id="benifit_to_date" placeholder="To Date">
                      </div>
-                     <div class="col-md-3 col-12">
-                        <label for="benifit_gross">Gross Benefit</label>
-                        <input type="number" name="benifit_gross" class="form-control fs-6 fw-normal" id="benifit_gross" placeholder="Gross Earnings" >
+                     <div class="col-md-2">
+                        <label for="benifit_earning">Gross BENEFIT</label>
+                        <input type="number" name="benifit_earning" class="form-control fs-6 fw-normal" id="benifit_earning" placeholder="Gross BENEFIT" >
                      </div>
-                     <div class="col-md-3 col-12 align-self-end">
-                        <button class="bg-primary text-white border-0 rounded-0 fs-6 fw-bold mt-2 w-fit" type="button">
-                           <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 50 50" height="30px" width="30px" id="Layer_1" version="1.1" viewBox="0 0 50 50" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><rect fill="none" height="50" width="50"/><line fill="none" stroke="#ffffff" stroke-miterlimit="10" stroke-width="4" x1="9" x2="41" y1="25" y2="25"/><line fill="none" stroke="#ffffff" stroke-miterlimit="10" stroke-width="4" x1="25" x2="25" y1="9" y2="41"/></svg>
+                     <div class="col-md-1 align-self-end">
+                        <button class="add_btn text-white border-0 fs-6 fw-bold mt-2 w-fit" type="button">
+                           <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 50 50" height="26px" width="30px" id="Layer_1" version="1.1" viewBox="0 0 50 50" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><rect fill="none" height="50" width="50"/><line fill="none" stroke="#ffffff" stroke-miterlimit="10" stroke-width="4" x1="9" x2="41" y1="25" y2="25"/><line fill="none" stroke="#ffffff" stroke-miterlimit="10" stroke-width="4" x1="25" x2="25" y1="9" y2="41"/></svg>
                         </button>
                      </div>
                </div>
                <div class="">
-                  <button class="btn rounded-0 fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step3">
+                  <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step3">
                         Previous
                   </button>
-                  <button class="btn rounded-0 fs-6 fw-bold mt-2 w-fit" type="submit">
+                  <button class="btn fs-6 fw-bold mt-2 w-fit" type="submit">
                         Submit
                   </button>
                </div>

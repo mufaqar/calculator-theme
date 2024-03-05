@@ -24,7 +24,8 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
     margin: 0;
     padding: 0;
 }
-body{
+
+body {
     box-sizing: border-box;
 }
 
@@ -32,45 +33,130 @@ section {
     padding: 50px 0;
 }
 
-.Step_form{
+.Step_form {
     box-shadow: 0px 6px 22px #00000014;
     border-radius: 10px;
 }
-::-webkit-calendar-picker-indicator {
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="%235FB227" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>');
-  }
-label{
-    font-size: 16px!important;
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="%2302B5EE" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>');
+}
+
+label {
+    font-size: 16px !important;
     font-weight: 600;
     margin-bottom: 10px;
 }
-.form-control{
+
+.form-control {
     font-size: 16px;
     font-weight: 400;
     padding: 10px 20px !important;
-    background-color: var(--bs-borderColor)!important;
-    border: none!important;
-    border: 1px solid var(--bs-borderColor)!important;
-    border-radius: 5px!important;
-}
-.form-control:focus{
-    border: 1px solid var(--bs-scndry)!important;
-    box-shadow: none!important;
+    background-color: var(--bs-borderColor) !important;
+    border: none !important;
+    border: 1px solid var(--bs-borderColor) !important;
+    border-radius: 5px !important;
 }
 
-.btn {
-    background-color: var(--bs-pramry)!important;
-    border-color: var(--bs-pramry)!important;
-    padding: 7px 20px!important;
-    color: var(--bs-white)!important;
+.form-control:focus {
+    border: 1px solid var(--bs-scndry) !important;
+    box-shadow: none !important;
 }
-.btn:hover{
-    background-color: var(--bs-scndry)!important;
-    color: var(--bs-white)!important;
+
+.btn,
+.add_btn {
+    background-color: var(--bs-pramry) !important;
+    border-color: var(--bs-pramry) !important;
+    padding: 7px 40px !important;
+    color: var(--bs-white) !important;
+    border-radius: 52px!important;
 }
+
+.btn:hover {
+    background-color: var(--bs-scndry) !important;
+    color: var(--bs-white) !important;
+}
+
 .step {
     display: none;
-  }
-  .step.active {
+}
+
+.step.active {
     display: block;
-  }
+}
+
+input[type="checkbox"]:not(:checked),
+input[type="checkbox"]:checked {
+    position: absolute;
+    left: -9999px;
+}
+
+input[type="checkbox"]:not(:checked)+label,
+input[type="checkbox"]:checked+label {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    width: max-content;
+    height: 100%;
+}
+
+
+/* checkbox aspect */
+input[type="checkbox"]:not(:checked)+label:before,
+input[type="checkbox"]:checked+label:before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 40px;
+    height: 40px;
+    background: var(--bs-borderColor);
+    border-radius: 3px;
+    border: 1px solid var(--bs-borderColor);
+    -webkit-box-shadow: groove 0 0 13px rgba(0, 0, 0, 0.5);
+    box-shadow: groove 0 0 13px rgba(0, 0, 0, 0.5);
+    transform: translateX(-50%) !important;
+}
+
+/* checked mark aspect */
+input[type="checkbox"]:not(:checked)+label:after,
+input[type="checkbox"]:checked+label:after {
+    content: '✔';
+    position: absolute;
+    top: 40px;
+    left: 0;
+    right: 0;
+    font-size: 24px;
+    color: green !important;
+    transition: all .2s;
+    -webkit-transition: all .2s;
+    -moz-transition: all .2s;
+    -ms-transition: all .2s;
+    -o-transition: all .2s;
+    text-align: center;
+}
+
+/* checked mark aspect changes */
+input[type="checkbox"]:not(:checked)+label:after {
+    opacity: 0;
+    transform: scale(0);
+}
+
+input[type="checkbox"]:checked+label:after {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.form-check {
+    min-height: auto;
+    padding-left: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+@media (max-width: 768px) {
+    .form-check {
+        min-height: auto;
+        padding-left: 0 !important;
+        margin-bottom: 40px !important;
+    }
+}
