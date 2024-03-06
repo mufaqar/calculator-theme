@@ -72,7 +72,7 @@ label {
     border-radius: 52px!important;
 }
 
-.btn:hover {
+.btn:hover,.add_btn:hover {
     background-color: var(--bs-scndry) !important;
     color: var(--bs-white) !important;
 }
@@ -121,7 +121,7 @@ input[type="checkbox"]:checked+label:before {
 /* checked mark aspect */
 input[type="checkbox"]:not(:checked)+label:after,
 input[type="checkbox"]:checked+label:after {
-    content: '✔';
+    content: '✓';
     position: absolute;
     top: 40px;
     left: 0;
