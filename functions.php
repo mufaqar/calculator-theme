@@ -103,6 +103,8 @@ function add_first_and_last($items) {
     $items[count($items)]->classes[] = 'last-menu-item';
     return $items;
 }
+
+include('calc/func.php');
  
 add_filter('wp_nav_menu_objects', 'add_first_and_last');
 
@@ -145,13 +147,12 @@ add_action('wp_enqueue_scripts', 'enqueue_custom_scripts');
 
 
 // Add action for saving form data
-add_action('wp_ajax_save_form_data', 'save_form_data');
-add_action('wp_ajax_nopriv_save_form_data', 'save_form_data');
+add_action('wp_ajax_save_form_user_data', 'save_form_user_data');
+add_action('wp_ajax_nopriv_save_form_user_data', 'save_form_user_data');
 
-function save_form_data() {    
+function save_form_user_data() {   
 
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] == 'save_form_data') {
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] == 'save_form_user_data') {
         $formData = $_POST['form_data'];
          $first_name = $formData['first_name'];
          $last_name = $formData['last_name'];
@@ -167,10 +168,8 @@ function save_form_data() {
          $claim_no = $formData['claim_no'];
          $empl_status = $formData['empl_status'];
          $irb_policy = $formData['irb_policy'];
-         $gender = $formData['gender'];  
-       
+         $gender = $formData['gender'];         
     }
-
     // Create an array with user data
     $user_data = array(
         'user_login' => $email, 
@@ -346,6 +345,58 @@ function save_form_data() {
    // wp_send_json_success('Form data saved successfully');
 
     // Always exit to avoid further execution
+    wp_die();
+}
+
+
+// Add action for saving form data
+add_action('wp_ajax_save_user_income_data', 'save_user_income_data');
+add_action('wp_ajax_nopriv_save_user_income_data', 'save_user_income_data');
+
+function save_user_income_data() {   
+
+    
+    $preJobs = [];
+    $postJobs = [];
+    $benefits = [];
+    $benefits_arr = [];
+    parse_str($_POST['form_data'], $form_data);
+    $arranged_data = array();
+    if (!empty($form_data)) {
+        foreach ($form_data as $field_name => $field_value) {
+            $sanitized_value = sanitize_text_field($field_value);
+            $arranged_data[$field_name] = $sanitized_value;
+        }
+    }   
+ 
+
+    foreach ($arranged_data as $key => $value) {
+        if (strpos($key, 'pre_job') === 0) {          
+            preg_match('/\d+/', $key, $matches);
+            $index = $matches[0];
+             $preJobs[$index][$key] = $value;
+
+
+        } elseif (strpos($key, 'post_job') === 0) {
+            preg_match('/\d+/', $key, $matches);
+            $index = $matches[0];
+            $postJobs[$index][$key] = $value;
+        } elseif (strpos($key, 'post_ben') === 0) {
+            preg_match('/\d+/', $key, $matches);
+            $index = $matches[0];
+            $benefits[$index][$key] = $value;
+        }
+    }     
+         // Set the post data
+        $post_data = array(
+            'post_title'    => $claim_no,
+            'post_status'   => 'publish', 
+            'post_type'     => 'irr_orders'
+        );
+
+    
+    
+
     wp_die();
 }
 
