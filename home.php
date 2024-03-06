@@ -104,6 +104,9 @@ get_header();
                   <button class="btn fs-6 fw-bold mt-2 w-fit next" type="button" data-step="step2">
                         Next
                   </button>
+                  <button class="btn fs-6 fw-bold mt-2 w-fit " type="submit" >
+                        Save Data
+                  </button>
                </div>
             </div>
             <div class="step" id="step2">
@@ -229,8 +232,8 @@ get_header();
                   <!-- Step1 PRE-ACCIDENT INCOME Job1-->
                   <div class="row gx-md-3 gy-4 mb-4">
                         <div class="col-md-12">
-                           <label for="pre_job1_title" class="fs-4 mb-4 lh-sm">PRE-ACCIDENT INCOME Job 1</label>
-                           <input type="text" name="pre_job1_title" class="form-control fs-6 fw-normal" id="pre_job1_title" placeholder="PRE-ACCIDENT INCOME Job 1" >
+                           <h3 class="fs-4 mb-4 lh-sm">PRE-ACCIDENT INCOME Job 1</h3>
+                        
                         </div>
                   </div>
                   <div class="row gx-md-3 gy-4 mb-4">
@@ -276,6 +279,22 @@ get_header();
                   <div id="pre_accident_form">            
                      
                   </div>
+                   
+                  
+                  
+               
+               <div class="">
+                  <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step3">
+                        Previous
+                  </button>
+                  <button class="btn fs-6 fw-bold mt-2 w-fit next" type="button" data-step="step4">
+                        Next
+                  </button>
+               </div>
+            </div>
+
+            <div class="step" id="step4">
+                  
                    <!-- Step2 POST-ACCIDENT INCOME -->
                   <div class="row gx-md-3 gy-4 mb-4">
                         <div class="col-md-12">
@@ -310,49 +329,64 @@ get_header();
                         
                   </div>
                   
-                  <!-- Step3 Post Form Benfits -->
-                  <div class="row gx-md-3 gy-4 mb-4">
-                     <div class="col-md-12">
-                        <label for="post_ben1" class="fs-4 mb-4 lh-sm">POST-ACCIDENT BENEFITS Post-accident Benefits 1</label>
-                        <input type="text" name="post_ben1_title" class="form-control fs-6 fw-normal" id="post_ben1" placeholder="Post-accident Benefits 1" >
-                     </div>
-                  </div>
-                  <div class="row gx-md-3 gy-4 mb-4">
-                     <div class="col-md-2">
-                        <label for="post_ben1_from_date">From Date</label>
-                        <input type="date" value="<?php echo date('Y-m-d'); ?>" name="post_ben1_from_date" class="form-control fs-6 fw-normal" id="post_ben1_from_date" placeholder="From Date">
-                     </div>
-                     <div class="col-md-2">
-                        <label for="post_ben1_to_date">To Date</label>
-                        <input type="date" value="<?php echo date('Y-m-d'); ?>" name="post_ben1_to_date" class="form-control fs-6 fw-normal" id="post_ben1_to_date" placeholder="To Date">
-                     </div>
-                     <div class="col-md-2">
-                        <label for="post_ben1_earning">Gross BENEFIT</label>
-                        <input type="number" name="post_ben1_earning" class="form-control fs-6 fw-normal" id="post_ben1_earning" placeholder="Gross BENEFIT" >
-                     </div>
-                     <div class="col-md-2">
-                           <label for="benifit_comment">Special Condition</label>
-                           <input type="text" name="benifit_comment" class="form-control fs-6 fw-normal" id="benifit_comment" placeholder="Special Condition" >
-                        </div>
-                     <div class="col-md-1 align-self-end">
-                        <button class="add_btn text-white border-0 fs-6 fw-bold mt-2 w-fit" type="button" id="addPostJobBenifit">
-                           <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 50 50" height="26px" width="30px" id="Layer_1" version="1.1" viewBox="0 0 50 50" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><rect fill="none" height="50" width="50"/><line fill="none" stroke="#ffffff" stroke-miterlimit="10" stroke-width="4" x1="9" x2="41" y1="25" y2="25"/><line fill="none" stroke="#ffffff" stroke-miterlimit="10" stroke-width="4" x1="25" x2="25" y1="9" y2="41"/></svg>
-                        </button>
-                     </div>
-                  </div>
-               <div id="post_job_benifit_form">         
-                     
-                </div>
+                  
                
                <div class="">
-                  <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step2">
+                  <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step4">
                         Previous
                   </button>
-                  <button class="btn fs-6 fw-bold mt-2 w-fit" type="submit">
-                        Submit
+                  <button class="btn fs-6 fw-bold mt-2 w-fit next" type="button" data-step="step5">
+                        Next
                   </button>
                </div>
             </div>
+
+            <div class="step" id="step5">
+                  
+                  
+                 <!-- Step5 Post Form Benfits -->
+                 <div class="row gx-md-3 gy-4 mb-4">
+                    <div class="col-md-12">
+                       <label for="post_ben1" class="fs-4 mb-4 lh-sm">POST-ACCIDENT BENEFITS Post-accident Benefits 1</label>
+                       <input type="text" name="post_ben1_title" class="form-control fs-6 fw-normal" id="post_ben1" placeholder="Post-accident Benefits 1" >
+                    </div>
+                 </div>
+                 <div class="row gx-md-3 gy-4 mb-4">
+                    <div class="col-md-2">
+                       <label for="post_ben1_from_date">From Date</label>
+                       <input type="date" value="<?php echo date('Y-m-d'); ?>" name="post_ben1_from_date" class="form-control fs-6 fw-normal" id="post_ben1_from_date" placeholder="From Date">
+                    </div>
+                    <div class="col-md-2">
+                       <label for="post_ben1_to_date">To Date</label>
+                       <input type="date" value="<?php echo date('Y-m-d'); ?>" name="post_ben1_to_date" class="form-control fs-6 fw-normal" id="post_ben1_to_date" placeholder="To Date">
+                    </div>
+                    <div class="col-md-2">
+                       <label for="post_ben1_earning">Gross BENEFIT</label>
+                       <input type="number" name="post_ben1_earning" class="form-control fs-6 fw-normal" id="post_ben1_earning" placeholder="Gross BENEFIT" >
+                    </div>
+                    <div class="col-md-2">
+                          <label for="benifit_comment">Special Condition</label>
+                          <input type="text" name="benifit_comment" class="form-control fs-6 fw-normal" id="benifit_comment" placeholder="Special Condition" >
+                       </div>
+                    <div class="col-md-1 align-self-end">
+                       <button class="add_btn text-white border-0 fs-6 fw-bold mt-2 w-fit" type="button" id="addPostJobBenifit">
+                          <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg enable-background="new 0 0 50 50" height="26px" width="30px" id="Layer_1" version="1.1" viewBox="0 0 50 50" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><rect fill="none" height="50" width="50"/><line fill="none" stroke="#ffffff" stroke-miterlimit="10" stroke-width="4" x1="9" x2="41" y1="25" y2="25"/><line fill="none" stroke="#ffffff" stroke-miterlimit="10" stroke-width="4" x1="25" x2="25" y1="9" y2="41"/></svg>
+                       </button>
+                    </div>
+                 </div>
+              <div id="post_job_benifit_form">         
+                    
+               </div>
+              
+              <div class="">
+                 <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step2">
+                       Previous
+                 </button>
+                 <button class="btn fs-6 fw-bold mt-2 w-fit" type="submit">
+                       Submit
+                 </button>
+              </div>
+           </div>
             <div class="step" id="step4">
                
                <div class="">
