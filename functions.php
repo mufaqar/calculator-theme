@@ -149,88 +149,88 @@ add_action('wp_ajax_save_form_data', 'save_form_data');
 add_action('wp_ajax_nopriv_save_form_data', 'save_form_data');
 
 function save_form_data() {    
-    $preJobs = [];
-    $postJobs = [];
-    $benefits = [];
-    $benefits_arr = [];
-    parse_str($_POST['form_data'], $form_data);
-    $arranged_data = array();
-    if (!empty($form_data)) {
-        foreach ($form_data as $field_name => $field_value) {
-            $sanitized_value = sanitize_text_field($field_value);
-            $arranged_data[$field_name] = $sanitized_value;
-        }
-    }
+    // $preJobs = [];
+    // $postJobs = [];
+    // $benefits = [];
+    // $benefits_arr = [];
+    // parse_str($_POST['form_data'], $form_data);
+    // $arranged_data = array();
+    // if (!empty($form_data)) {
+    //     foreach ($form_data as $field_name => $field_value) {
+    //         $sanitized_value = sanitize_text_field($field_value);
+    //         $arranged_data[$field_name] = $sanitized_value;
+    //     }
+    // }
 
-    $first_name =  $arranged_data['first_name'];
-    $last_name =  $arranged_data['last_name'];
-    $gender =  $arranged_data['gender'];
-    $birthdate =  $arranged_data['birthdate']; 
-    $age =  $arranged_data['age']; 
-    $date_loss =  $arranged_data['date_loss']; 
-    $age_loss =  $arranged_data['age_loss']; 
-    $calc_date =  $arranged_data['calc_date']; 
-    $age_calc =  $arranged_data['age_calc']; 
-    $insurer =  $arranged_data['insurer']; 
-    $policy_no =  $arranged_data['policy_no'];  
-    $claim_no =  $arranged_data['claim_no'];
-    $employment_status =  $arranged_data['employment_status']; 
-    $irb_policy =  $arranged_data['irb_policy'];    
+    // $first_name =  $arranged_data['first_name'];
+    // $last_name =  $arranged_data['last_name'];
+    // $gender =  $arranged_data['gender'];
+    // $birthdate =  $arranged_data['birthdate']; 
+    // $age =  $arranged_data['age']; 
+    // $date_loss =  $arranged_data['date_loss']; 
+    // $age_loss =  $arranged_data['age_loss']; 
+    // $calc_date =  $arranged_data['calc_date']; 
+    // $age_calc =  $arranged_data['age_calc']; 
+    // $insurer =  $arranged_data['insurer']; 
+    // $policy_no =  $arranged_data['policy_no'];  
+    // $claim_no =  $arranged_data['claim_no'];
+    // $employment_status =  $arranged_data['employment_status']; 
+    // $irb_policy =  $arranged_data['irb_policy'];    
  
 
-    foreach ($arranged_data as $key => $value) {
-        if (strpos($key, 'pre_job') === 0) {          
-            preg_match('/\d+/', $key, $matches);
-            $index = $matches[0];
-             $preJobs[$index][$key] = $value;
+    // foreach ($arranged_data as $key => $value) {
+    //     if (strpos($key, 'pre_job') === 0) {          
+    //         preg_match('/\d+/', $key, $matches);
+    //         $index = $matches[0];
+    //          $preJobs[$index][$key] = $value;
 
 
-        } elseif (strpos($key, 'post_job') === 0) {
-            preg_match('/\d+/', $key, $matches);
-            $index = $matches[0];
-            $postJobs[$index][$key] = $value;
-        } elseif (strpos($key, 'post_ben') === 0) {
-            preg_match('/\d+/', $key, $matches);
-            $index = $matches[0];
-            $benefits[$index][$key] = $value;
-        }
-    }     
-         // Set the post data
-        $post_data = array(
-            'post_title'    => $claim_no,
-            'post_status'   => 'publish', 
-            'post_type'     => 'irr_orders'
-        );
+    //     } elseif (strpos($key, 'post_job') === 0) {
+    //         preg_match('/\d+/', $key, $matches);
+    //         $index = $matches[0];
+    //         $postJobs[$index][$key] = $value;
+    //     } elseif (strpos($key, 'post_ben') === 0) {
+    //         preg_match('/\d+/', $key, $matches);
+    //         $index = $matches[0];
+    //         $benefits[$index][$key] = $value;
+    //     }
+    // }     
+    //      // Set the post data
+    //     $post_data = array(
+    //         'post_title'    => $claim_no,
+    //         'post_status'   => 'publish', 
+    //         'post_type'     => 'irr_orders'
+    //     );
 
-        $post_id = wp_insert_post($post_data);
-        if ($post_id) {
-            $meta_data = array(
-                'first_name' => $first_name,
-                'last_name' => $last_name,
-                'gender' => $gender,
-                'birthdate' => $birthdate,
-                'age' => $age,
-                'date_loss' => $date_loss,
-                'age_loss' => $age_loss,
-                'calc_date' => $calc_date,
-                'insurer' => $insurer,
-                'policy_no' => $policy_no,
-                'claim_no' => $claim_no,
-                'employment_status' => $employment_status,
-                'irb_policy' => $irb_policy,
-                'preJobs' => $benefits,
-                'postJobs' => $postJobs,
-                'benefits' => $benefits
-            );
+    //     $post_id = wp_insert_post($post_data);
+    //     if ($post_id) {
+    //         $meta_data = array(
+    //             'first_name' => $first_name,
+    //             'last_name' => $last_name,
+    //             'gender' => $gender,
+    //             'birthdate' => $birthdate,
+    //             'age' => $age,
+    //             'date_loss' => $date_loss,
+    //             'age_loss' => $age_loss,
+    //             'calc_date' => $calc_date,
+    //             'insurer' => $insurer,
+    //             'policy_no' => $policy_no,
+    //             'claim_no' => $claim_no,
+    //             'employment_status' => $employment_status,
+    //             'irb_policy' => $irb_policy,
+    //             'preJobs' => $benefits,
+    //             'postJobs' => $postJobs,
+    //             'benefits' => $benefits
+    //         );
 
-            foreach ($meta_data as $meta_key => $meta_value) {
-                add_post_meta($post_id, $meta_key, $meta_value, true);
-            }
+    //         foreach ($meta_data as $meta_key => $meta_value) {
+    //             add_post_meta($post_id, $meta_key, $meta_value, true);
+    //         }
 
-            echo "Form Added Sucessfully $post_id inserted successfully with meta data.";
-        } else {
-            echo "Error inserting post.";
-        }
+    //         echo "Form Added Sucessfully $post_id inserted successfully with meta data.";
+    //     } else {
+    //         echo "Error inserting post.";
+    //     }
 
     // // Print the results
     // echo "Pre Jobs:\n";

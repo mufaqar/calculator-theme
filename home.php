@@ -28,22 +28,11 @@ get_header();
                         <label for="last_name">  Last Name</label>
                         <input type="text" name="last_name" class="form-control fs-6 fw-normal" id="last_name" placeholder="Last Name" >
                      </div>
+                     
                      <div class="col-md-3 col-12">
-                        <label for="gender">  Gender</label>
-                        <div class="d-flex align-items-end">
-                           <div class="form-check">
-                                 <input class="form-check-input" type="radio" name="gender" id="male">
-                                 <label class="form-check-label" for="male">
-                                 Male
-                                 </label>
-                           </div>
-                           <div class="form-check ps-5">
-                                 <input class="form-check-input" type="radio" name="gender" id="female" checked>
-                                 <label class="form-check-label" for="female">
-                                    Female
-                                 </label>
-                           </div>
-                        </div>
+                        <label for="birthdate">  Email</label>
+                        <input type="text" name="birthdate" class="form-control fs-6 fw-normal" id="email" placeholder="Enter Email Address">
+                        
                      </div>
                      <div class="col-md-3 col-12">
                         <label for="birthdate">  Birthdate</label>
@@ -84,29 +73,42 @@ get_header();
                      </div>               
                      <div class="col-md-3 col-12">
                         <label for="employment_status">Employment Status on the DOL</label>
-                        <input class="form-control" list="employment" name="employment_status" id="employment_status" placeholder="Employment Status on the DOL">
-                        <datalist id="employment">
-                           <option value="Employed">
-                           <option value="Self employed">
-                        </datalist>
+                        <select id="employment_status" name="employment_status" class="form-select" aria-label="employment_status">
+                           <option value="employed">Employed</option>
+                           <option value="self_employed">Self employed</option>
+                        </select>
                      </div>
                      <div class="col-md-3 col-12">
                         <label for="irb_policy">Max IRB per Policy</label>
-                        <input class="form-control" list="irb_policy_list" name="irb_policy" id="irb_policy" placeholder="Max IRB per Policy">
-                        <datalist id="irb_policy_list">
-                           <option value="$400">
-                           <option value="$800">
-                           <option value="$1000">
-                        </datalist>
+                        <select id="irb_policy" name="irb_policy" class="form-select" aria-label="irb_policy">
+                        <option value="$400">$400</option>
+                           <option value="$800">$800</option>
+                           <option value="$1000">$1000</option>
+                        </select>
+                     </div>
+                     <div class="col-md-3 col-12 ps-5">
+                        <label for="gender">  Gender</label>
+                        <div class="d-flex align-items-end">
+                           <div class="form-check">
+                                 <input class="form-check-input" type="radio" name="gender" id="male">
+                                 <label class="form-check-label" for="male">
+                                 Male
+                                 </label>
+                           </div>
+                           <div class="form-check ps-5">
+                                 <input class="form-check-input" type="radio" name="gender" id="female" checked>
+                                 <label class="form-check-label" for="female">
+                                    Female
+                                 </label>
+                           </div>
+                        </div>
                      </div>
                </div>
                <div class="">
-                  <button class="btn fs-6 fw-bold mt-2 w-fit next" type="button" data-step="step2">
+                  <button class="btn fs-6 fw-bold mt-2 w-fit next2" type="button" data-step="step2">
                         Next
                   </button>
-                  <button class="btn fs-6 fw-bold mt-2 w-fit " type="submit" >
-                        Save Data
-                  </button>
+                  
                </div>
             </div>
             <div class="step" id="step2">
@@ -437,31 +439,68 @@ get_header();
 <?php get_footer(); ?>
 
 <script>
-jQuery(document).ready(function($) {
-    $("#mock_calc").submit(function(e) {      
-      e.preventDefault();     
 
-        var formData = $("#mock_calc").serialize();
-        $.ajax({
-            type: "post",    
-            url: "<?php echo admin_url('admin-ajax.php'); ?>",
-            data: {
-                action: "save_form_data",
-                form_data: formData
-            },
-            success: function(data) {               
-                console.log(response);  
-                console.log("12355");               
-                $('#mock_calc').hide();
-                $('#data_data').show();
-              
-            },
-            error: function(error) {
-                // Handle error response
-                console.log(error.responseText);
-            }
-        });
+jQuery(document).ready(function($) {
+
+$('.next2').click(function () {
+
+
+  //  $('#step2').addClass('active');
+  //  $('#step1').removeClass('active');
+
+
+
+
+
+    // Perform your AJAX call here
+    $.ajax({
+      url: "<?php echo admin_url('admin-ajax.php'); ?>",
+        type: 'POST', // or 'GET' depending on your needs
+        data: { 
+         action: "save_form_data",
+         form_data: formData
+         },
+        success: function (data) {
+            
+          $('#step2').addClass('active');
+          $('#step1').removeClass('active');
+            
+        },
+        error: function (error) {
+            // Handle the AJAX error if needed
+            console.error('Error during AJAX call:', error);
+        }
     });
 });
+});
+
+
+
+// jQuery(document).ready(function($) {
+//     $("#mock_calc").submit(function(e) {      
+//       e.preventDefault();     
+
+//         var formData = $("#mock_calc").serialize();
+//         $.ajax({
+//             type: "post",    
+//             url: "<?php echo admin_url('admin-ajax.php'); ?>",
+//             data: {
+//                 action: "save_form_data",
+//                 form_data: formData
+//             },
+//             success: function(data) {               
+//                 console.log(response);  
+//                 console.log("12355");               
+//                 $('#mock_calc').hide();
+//                 $('#data_data').show();
+              
+//             },
+//             error: function(error) {
+//                 // Handle error response
+//                 console.log(error.responseText);
+//             }
+//         });
+//     });
+// });
 
    </script>

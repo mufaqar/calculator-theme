@@ -48,7 +48,7 @@ label {
     margin-bottom: 10px;
 }
 
-.form-control {
+.form-control, .form-select {
     font-size: 16px;
     font-weight: 400;
     padding: 10px 20px !important;
@@ -57,8 +57,11 @@ label {
     border: 1px solid var(--bs-borderColor) !important;
     border-radius: 5px !important;
 }
+.form-select option{
+    background-color: #fff;
+}
 
-.form-control:focus {
+.form-control:focus, .form-select:focus {
     border: 1px solid var(--bs-scndry) !important;
     box-shadow: none !important;
 }
