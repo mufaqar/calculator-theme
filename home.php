@@ -36,7 +36,7 @@ get_header();
                      </div>
                      <div class="col-md-3 col-12">
                         <label for="birthdate">  Birthdate</label>
-                        <input type="date" value="<?php echo date('Y-m-d'); ?>" data-date-format="DD MMMM YYYY" value="2015-08-09" name="birthdate" class="form-control fs-6 fw-normal" id="birthdate" placeholder="Birth Date">
+                        <input type="date" value="<?php echo date('Y-m-d'); ?>" data-date-format="DD MMMM YYYY" value="2015-08-09" name="dob" class="form-control fs-6 fw-normal" id="dob" placeholder="Birth Date">
                         
                      </div>
                      <div class="col-md-3 col-12">
@@ -72,8 +72,8 @@ get_header();
                         <input type="text" name="claim_no" class="form-control fs-6 fw-normal" id="claim_no" placeholder="Claim no" >
                      </div>               
                      <div class="col-md-3 col-12">
-                        <label for="employment_status">Employment Status on the DOL</label>
-                        <select id="employment_status" name="employment_status" class="form-select" aria-label="employment_status">
+                        <label for="empl_status">Employment Status on the DOL</label>
+                        <select id="empl_status" name="empl_status" class="form-select" aria-label="empl_status">
                            <option value="employed">Employed</option>
                            <option value="self_employed">Self employed</option>
                         </select>
@@ -81,7 +81,7 @@ get_header();
                      <div class="col-md-3 col-12">
                         <label for="irb_policy">Max IRB per Policy</label>
                         <select id="irb_policy" name="irb_policy" class="form-select" aria-label="irb_policy">
-                        <option value="$400">$400</option>
+                          <option value="$400">$400</option>
                            <option value="$800">$800</option>
                            <option value="$1000">$1000</option>
                         </select>
@@ -449,13 +449,22 @@ $('.next2').click(function () {
   //  $('#step1').removeClass('active');
 
   var formData = {
-                name: $('#name').val(),
-                email: $('#email').val()
-            };
-
-
-
-
+        first_name: $('#first_name').val(),
+        last_name: $('#last_name').val(),
+        email: $('#email').val(),
+        dob: $('#dob').val(),
+        age: $('#age').val(),
+        date_loss: $('#date_loss').val(),
+        age_loss: $('#age_loss').val(),
+        calc_date: $('#calc_date').val(),
+        age_calc: $('#age_calc').val(),
+        insurer: $('#insurer').val(),
+        policy_no: $('#policy_no').val(),
+        claim_no: $('#claim_no').val(),
+        empl_status: $('#empl_status').val(),
+        irb_policy: $('#irb_policy').val(),
+        gender: $('input[name="gender"]:checked').val()
+    };
 
     // Perform your AJAX call here
     $.ajax({
