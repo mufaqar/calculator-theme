@@ -448,6 +448,11 @@ $('.next2').click(function () {
   //  $('#step2').addClass('active');
   //  $('#step1').removeClass('active');
 
+  var formData = {
+                name: $('#name').val(),
+                email: $('#email').val()
+            };
+
 
 
 
