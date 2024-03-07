@@ -215,7 +215,7 @@ function save_user_income_data() {
     $preJobs = [];
     $postJobs = [];
     $benefits = [];
-    $benefits_arr = [];
+
     parse_str($_POST['form_data'], $form_data);
     $arranged_data = array();
     if (!empty($form_data)) {
@@ -224,25 +224,25 @@ function save_user_income_data() {
             $arranged_data[$field_name] = $sanitized_value;
         }
     }   
+
+	print_r($arranged_data);
  
 
-    foreach ($arranged_data as $key => $value) {
-        if (strpos($key, 'pre_job') === 0) {          
-            preg_match('/\d+/', $key, $matches);
-            $index = $matches[0];
-             $preJobs[$index][$key] = $value;
-
-
-        } elseif (strpos($key, 'post_job') === 0) {
-            preg_match('/\d+/', $key, $matches);
-            $index = $matches[0];
-            $postJobs[$index][$key] = $value;
-        } elseif (strpos($key, 'post_ben') === 0) {
-            preg_match('/\d+/', $key, $matches);
-            $index = $matches[0];
-            $benefits[$index][$key] = $value;
-        }
-    }     
+	foreach ($arranged_data as $key => $value) {
+		if (strpos($key, 'pre_job') === 0) {          
+			preg_match('/\d+/', $key, $matches);
+			$index = $matches[0];
+			$preJobs[$index][$key] = $value;
+		} elseif (strpos($key, 'post_job') === 0) {
+			preg_match('/\d+/', $key, $matches);
+			$index = $matches[0];
+			$postJobs[$index][$key] = $value;
+		} elseif (strpos($key, 'post_ben') === 0) {
+			preg_match('/\d+/', $key, $matches);
+			$index = $matches[0];
+			$benefits[$index][$key] = $value;
+		}
+	}   
 
 	// foreach($preJobs as  $preJob)
 	// {
@@ -271,56 +271,116 @@ function save_user_income_data() {
 	// }
 
 
-	
-
-foreach ($preJobs as $key => $job_data) {
-   
-    $post_title = isset($job_data["pre_job{$key}_title"]) ? $job_data["pre_job{$key}_title"] : '';
-    $from_date = isset($job_data["pre_job{$key}_from_date"]) ? $job_data["pre_job{$key}_from_date"] : '';
-    $to_date = isset($job_data["pre_job{$key}_to_date"]) ? $job_data["pre_job{$key}_to_date"] : '';
-    $weeks_4 = isset($job_data["pre_job{$key}_4_weeks"]) && $job_data["pre_job{$key}_4_weeks"] == 'on';
-    $weeks_52 = isset($job_data["pre_job{$key}_52_weeks"]) && $job_data["pre_job{$key}_52_weeks"] == 'on';
-    $earning = isset($job_data["pre_job{$key}_earning"]) ? $job_data["pre_job{$key}_earning"] : '';
-
-    // Prepare post data
-    $post_data = array(
-        'post_title'   => $post_title,
-        'post_status'  => 'publish',
-        'post_author'  => 2, 
-        'post_type'    => 'jobs'
-    );
-
-    // Insert the job post into the database
-    $post_id = wp_insert_post($post_data);
-
-    // Check if the post was inserted successfully
-    if ($post_id) {
-        echo "Job post inserted successfully. ID: $post_id\n";
-		update_post_meta($post_id, 'pre_job_from_date', $from_date);
-        update_post_meta($post_id, 'pre_job_to_date', $to_date);
-        update_post_meta($post_id, 'pre_job_4_weeks', $weeks_4);
-        update_post_meta($post_id, 'pre_job_52_weeks', $weeks_52);
-        update_post_meta($post_id, 'pre_job_earning', $earning);
-
-		   // Set custom taxonomy term based on the slug
-		   $taxonomy_slug = 'job_type'; // Replace with your custom taxonomy slug
-		   $term_slug = 'pre-income'; // Replace with the slug you want to assign
-   
-		   wp_set_object_terms($post_id, $term_slug, $taxonomy_slug);
-		
-
-    } else {
-        echo "Failed to insert job post\n";
-    }
-}
-
+	//print_r($preJobs);
+	print_r($postJobs);
+	//print_r($benefits);
 
 	
+		die();
+
+	foreach ($preJobs as $key => $job_data) {
+   
+		$post_title = isset($job_data["pre_job{$key}_title"]) ? $job_data["pre_job{$key}_title"] : '';
+		$from_date = isset($job_data["pre_job{$key}_from_date"]) ? $job_data["pre_job{$key}_from_date"] : '';
+		$to_date = isset($job_data["pre_job{$key}_to_date"]) ? $job_data["pre_job{$key}_to_date"] : '';
+		$weeks_4 = isset($job_data["pre_job{$key}_4_weeks"]) && $job_data["pre_job{$key}_4_weeks"] == 'on';
+		$weeks_52 = isset($job_data["pre_job{$key}_52_weeks"]) && $job_data["pre_job{$key}_52_weeks"] == 'on';
+		$earning = isset($job_data["pre_job{$key}_earning"]) ? $job_data["pre_job{$key}_earning"] : '';
+	 
+		$post_data = array(
+			'post_title'   => $post_title,
+			'post_status'  => 'publish',
+			'post_author'  => 2, 
+			'post_type'    => 'jobs'
+		);
+	
+		$post_id = wp_insert_post($post_data);
+	
+		if ($post_id) {
+			update_post_meta($post_id, 'pre_job_from_date', $from_date);
+			update_post_meta($post_id, 'pre_job_to_date', $to_date);
+			update_post_meta($post_id, 'pre_job_4_weeks', $weeks_4);
+			update_post_meta($post_id, 'pre_job_52_weeks', $weeks_52);
+			update_post_meta($post_id, 'pre_job_earning', $earning);		  
+			$taxonomy_slug = 'job_type';
+			$term_slug = 'pre-income'; 
+			wp_set_object_terms($post_id, $term_slug, $taxonomy_slug);
+			echo "Pre-Job post inserted successfully. ID: $post_id\n";
+		} else {
+			echo "Failed to insert pre-job post\n";
+		}
+	}
+	
+	foreach ($postJobs as $key => $job_data) {
+	   
+		$post_title = isset($job_data["post_job{$key}_title"]) ? $job_data["post_job{$key}_title"] : '';
+		$from_date = isset($job_data["post_job{$key}_from_date"]) ? $job_data["post_job{$key}_from_date"] : '';
+		$to_date = isset($job_data["post_job{$key}_to_date"]) ? $job_data["post_job{$key}_to_date"] : '';
+		$weeks_4 = isset($job_data["post_job{$key}_4_weeks"]) && $job_data["post_job{$key}_4_weeks"] == 'on';
+		$weeks_52 = isset($job_data["post_job{$key}_52_weeks"]) && $job_data["post_job{$key}_52_weeks"] == 'on';
+		$earning = isset($job_data["post_job{$key}_earning"]) ? $job_data["post_job{$key}_earning"] : '';
+	 
+		$post_data = array(
+			'post_title'   => $post_title,
+			'post_status'  => 'publish',
+			'post_author'  => 2, 
+			'post_type'    => 'jobs'
+		);
+	
+		$post_id = wp_insert_post($post_data);
+	
+		if ($post_id) {
+			update_post_meta($post_id, 'post_job_from_date', $from_date);
+			update_post_meta($post_id, 'post_job_to_date', $to_date);
+			update_post_meta($post_id, 'post_job_4_weeks', $weeks_4);
+			update_post_meta($post_id, 'post_job_52_weeks', $weeks_52);
+			update_post_meta($post_id, 'post_job_earning', $earning);		  
+			$taxonomy_slug = 'job_type';
+			$term_slug = 'post-income'; 
+			wp_set_object_terms($post_id, $term_slug, $taxonomy_slug);
+			echo "Post-Job post inserted successfully. ID: $post_id\n";
+		} else {
+			echo "Failed to insert post-job post\n";
+		}
+	}
+
+	foreach ($benefits as $key => $job_data) {
+	   
+		$post_title = isset($job_data["post_job{$key}_title"]) ? $job_data["post_job{$key}_title"] : '';
+		$from_date = isset($job_data["post_job{$key}_from_date"]) ? $job_data["post_job{$key}_from_date"] : '';
+		$to_date = isset($job_data["post_job{$key}_to_date"]) ? $job_data["post_job{$key}_to_date"] : '';
+		$weeks_4 = isset($job_data["post_job{$key}_4_weeks"]) && $job_data["post_job{$key}_4_weeks"] == 'on';
+		$weeks_52 = isset($job_data["post_job{$key}_52_weeks"]) && $job_data["post_job{$key}_52_weeks"] == 'on';
+		$earning = isset($job_data["post_job{$key}_earning"]) ? $job_data["post_job{$key}_earning"] : '';
+	 
+		$post_data = array(
+			'post_title'   => $post_title,
+			'post_status'  => 'publish',
+			'post_author'  => 2, 
+			'post_type'    => 'jobs'
+		);
+	
+		$post_id = wp_insert_post($post_data);
+	
+		if ($post_id) {
+			update_post_meta($post_id, 'post_benefit_from_date', $from_date);
+			update_post_meta($post_id, 'post_benefit_to_date', $to_date);
+			update_post_meta($post_id, 'post_benefit_4_weeks', $weeks_4);
+			update_post_meta($post_id, 'post_benefit_52_weeks', $weeks_52);
+			update_post_meta($post_id, 'post_benefit_earning', $earning);		  
+			$taxonomy_slug = 'job_type';
+			$term_slug = 'post-benefits'; 
+			wp_set_object_terms($post_id, $term_slug, $taxonomy_slug);
+			echo "Post-benefits post inserted successfully. ID: $post_id\n";
+		} else {
+			echo "Failed to insert post-benefits post\n";
+		}
+	}
+	
+	
 
 
-	 print_r($preJobs);
-	// print_r($postJobs);
-	// print_r($benefits);
+	
 	
 	
         

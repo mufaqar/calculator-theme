@@ -60,12 +60,12 @@
 
 <!-- Step2 POST-ACCIDENT INCOME -->
 <h3 class="fs-4 mb-4 lh-sm">
-    POST-ACCIDENT INCOME
+    POST-ACCIDENT INCOME 1
 </h3>
 <div class="row gx-md-3 gy-4 mb-4">
     <div class="col-md-2">
         <label for="post_job1_title">Job 1</label>
-        <input type="text" name="post_job1_title" class="form-control fs-6 fw-normal" id="post_job1"
+        <input type="text" name="post_job1_title" class="form-control fs-6 fw-normal" id="post_job1_title"
             placeholder="Job 1">
     </div>
     <div class="col-md-2">
@@ -110,7 +110,7 @@
 <div class="row gx-md-3 gy-4 mb-4">
     <div class="col-md-3">
         <label for="post_ben1">Post-accident Benefits 1</label>
-        <input type="text" name="post_ben1_title" class="form-control fs-6 fw-normal" id="post_ben1"
+        <input type="text" name="post_ben1_title" class="form-control fs-6 fw-normal" id="post_ben1_title"
             placeholder="Post-accident Benefits 1">
     </div>
     <div class="col-md-2">

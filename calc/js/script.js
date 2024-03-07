@@ -65,7 +65,7 @@ jQuery(document).ready(function ($) {
     <div class="row gx-md-3 gy-4 mb-4">
                      <div class="col-md-2">
                         <label for="post_job${postfieldCounter}_title">Job ${postfieldCounter}</label>
-                        <input type="text" name="post_job${postfieldCounter}_title" class="form-control fs-6 fw-normal" id="post_job${postfieldCounter}" placeholder="Job ${postfieldCounter}" >
+                        <input type="text" name="post_job${postfieldCounter}_title" class="form-control fs-6 fw-normal" id="post_job${postfieldCounter}_title" placeholder="Job ${postfieldCounter}" >
                      </div>
                      <div class="col-md-2">
                         <label for="post_job${postfieldCounter}_from_date">From Date</label>
@@ -90,8 +90,8 @@ jQuery(document).ready(function ($) {
     var postBenigitForm = `
     <div class="row gx-md-3 gy-4 mb-4">
     <div class="col-md-3">
-       <label for="post_ben${postbenifitCounter}">Post-accident Benefits ${postbenifitCounter}</label>
-       <input type="text" name="post_ben${postbenifitCounter}_title" class="form-control fs-6 fw-normal" id="post_ben${postbenifitCounter}" placeholder="Post-accident Benefits ${postbenifitCounter}" >
+       <label for="post_ben${postbenifitCounter}_title">Post-accident Benefits ${postbenifitCounter}</label>
+       <input type="text" name="post_ben${postbenifitCounter}_title" class="form-control fs-6 fw-normal" id="post_ben${postbenifitCounter}_title" placeholder="Post-accident Benefits ${postbenifitCounter}" >
     </div>
     <div class="col-md-2">
        <label for="post_ben${postbenifitCounter}_from_date">From Date</label>
