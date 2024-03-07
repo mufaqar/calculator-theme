@@ -225,7 +225,7 @@ function save_user_income_data() {
         }
     }   
 
-	print_r($arranged_data);
+	
  
 
 	foreach ($arranged_data as $key => $value) {
@@ -244,39 +244,14 @@ function save_user_income_data() {
 		}
 	}   
 
-	// foreach($preJobs as  $preJob)
-	// {
-	// 	print_r($preJob);
-	// 	echo $index;
-
-	// 	echo $preJob['pre_job1_title']."----";
-
-	// 	// $new_post = array(
-	// 	// 	'post_title'    => 'Your Post Title',
-	// 	// 	'post_content'  => 'Your post content goes here.',
-	// 	// 	'post_status'   => 'publish',
-	// 	// 	'post_author'   => 1, // Replace with the user ID of the post author
-	// 	// 	'post_type'     => 'post', // You can use 'page' for pages
-	// 	// );
-		
-	// 	// // Insert the post into the database
-	// 	// $post_id = wp_insert_post($new_post);
-		
-	// 	// // Check if the post was successfully inserted
-	// 	// if ($post_id) {
-	// 	// 	echo "Post inserted successfully with ID: $post_id";
-	// 	// } else {
-	// 	// 	echo "Failed to insert post";
-	// 	// }
-	// }
-
+	
 
 	//print_r($preJobs);
-	print_r($postJobs);
-	//print_r($benefits);
+	//print_r($postJobs);
+	print_r($benefits);
 
 	
-		die();
+	
 
 	foreach ($preJobs as $key => $job_data) {
    
@@ -346,12 +321,12 @@ function save_user_income_data() {
 
 	foreach ($benefits as $key => $job_data) {
 	   
-		$post_title = isset($job_data["post_job{$key}_title"]) ? $job_data["post_job{$key}_title"] : '';
-		$from_date = isset($job_data["post_job{$key}_from_date"]) ? $job_data["post_job{$key}_from_date"] : '';
-		$to_date = isset($job_data["post_job{$key}_to_date"]) ? $job_data["post_job{$key}_to_date"] : '';
-		$weeks_4 = isset($job_data["post_job{$key}_4_weeks"]) && $job_data["post_job{$key}_4_weeks"] == 'on';
-		$weeks_52 = isset($job_data["post_job{$key}_52_weeks"]) && $job_data["post_job{$key}_52_weeks"] == 'on';
-		$earning = isset($job_data["post_job{$key}_earning"]) ? $job_data["post_job{$key}_earning"] : '';
+		$post_title = isset($job_data["post_ben{$key}_title"]) ? $job_data["post_ben{$key}_title"] : '';
+		$from_date = isset($job_data["post_ben{$key}_from_date"]) ? $job_data["post_ben{$key}_from_date"] : '';
+		$to_date = isset($job_data["post_ben{$key}_to_date"]) ? $job_data["post_ben{$key}_to_date"] : '';
+		$weeks_4 = isset($job_data["post_ben{$key}_4_weeks"]) && $job_data["post_ben{$key}_4_weeks"] == 'on';
+		$weeks_52 = isset($job_data["post_ben{$key}_52_weeks"]) && $job_data["post_ben{$key}_52_weeks"] == 'on';
+		$earning = isset($job_data["post_ben{$key}_earning"]) ? $job_data["post_ben{$key}_earning"] : '';
 	 
 		$post_data = array(
 			'post_title'   => $post_title,

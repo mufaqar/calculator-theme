@@ -15,7 +15,7 @@
 
     <div class="col-md-3 col-12">
         <label for="birthdate"> Email</label>
-        <input type="text" name="birthdate" class="form-control fs-6 fw-normal" id="email" value="mufaqar2@gmail.com"
+        <input type="text" name="birthdate" class="form-control fs-6 fw-normal" id="email" value="mufaqar@gmail.com"
             placeholder="Enter Email Address">
 
     </div>

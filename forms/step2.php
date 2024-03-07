@@ -60,7 +60,7 @@
 
 <!-- Step2 POST-ACCIDENT INCOME -->
 <h3 class="fs-4 mb-4 lh-sm">
-    POST-ACCIDENT INCOME 1
+    POST-ACCIDENT INCOME 1 123
 </h3>
 <div class="row gx-md-3 gy-4 mb-4">
     <div class="col-md-2">
