@@ -1,6 +1,6 @@
 <div class="row gx-md-3 gy-4 mb-4">
     <?php
-               $author_id = 2;  // Replace with the desired author ID
+               $author_id = 1;  // Replace with the desired author ID
                $taxonomy = 'job_type';  // Replace with the name of your taxonomy
                $term_slug = 'pre-income';  // Replace with the slug of the term
 
