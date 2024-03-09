@@ -106,6 +106,43 @@ get_header();
 
 <script>
 jQuery(document).ready(function($) {
+
+    $('#email').blur(function() {
+        var userData;
+        var email = $(this).val();
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo admin_url('admin-ajax.php'); ?>",
+            data: {
+                action: "check_user_data",
+                email: email
+            },
+            success: function(data) {
+                if (data) {
+                    $('#first_name').val(data.first_name);
+                    $('#last_name').val(data.last_name);
+                    $('#dob').val(data.dob); 
+                    $('#age').val(data.age);
+                    $('#date_loss').val(data.date_loss);
+                    $('#age_loss').val(data.age_loss);
+                    $('#calc_date').val(data.calc_date);
+                    $('#age_calc').val(data.age_calc);
+                    $('#insurer').val(data.insurer);
+                    $('#policy_no').val(data.policy_no);
+                    $('#claim_no').val(data.claim_no);
+                    $('#empl_status').val(data.empl_status);
+                    $('#irb_policy').val(data.irb_policy);
+                    $('#gender').val(data.gender);
+                }
+
+
+
+            }
+        });
+    });
+
+
+
     $('.next2').click(function() {
         var formData = {
             first_name: $('#first_name').val(),

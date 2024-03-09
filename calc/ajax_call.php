@@ -1,6 +1,59 @@
 <?php
 
 
+// Add action for saving form data
+add_action('wp_ajax_check_user_data', 'check_user_data');
+add_action('wp_ajax_nopriv_check_user_data', 'check_user_data');
+
+function check_user_data() {   
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] == 'check_user_data') {
+            $email = sanitize_email($_POST['email']);          
+            $user = get_user_by('email', $email);    
+            if ($user) {        
+                
+                $dob = get_user_meta($user->ID, 'dob', true);
+                $age = get_user_meta($user->ID, 'age', true);
+                $date_loss = get_user_meta($user->ID, 'date_loss', true);
+                $age_loss = get_user_meta($user->ID, 'age_loss', true);
+                $calc_date = get_user_meta($user->ID, 'calc_date', true);
+                $age_calc = get_user_meta($user->ID, 'age_calc', true);
+                $insurer = get_user_meta($user->ID, 'insurer', true);
+                $policy_no = get_user_meta($user->ID, 'policy_no', true);
+                $claim_no = get_user_meta($user->ID, 'claim_no', true);
+                $empl_status = get_user_meta($user->ID, 'empl_status', true);
+                $irb_policy = get_user_meta($user->ID, 'irb_policy', true);
+                $gender = get_user_meta($user->ID, 'gender', true);
+            
+                
+                $userData = array(
+                    'first_name' => $user->first_name,
+                    'last_name' => $user->last_name,
+                    'dob' => $dob,
+                    'age' => $age,
+                    'date_loss' => $date_loss,
+                    'age_loss' => $age_loss,
+                    'calc_date' => $calc_date,
+                    'age_calc' => $age_calc,
+                    'insurer' => $insurer,
+                    'policy_no' => $policy_no,
+                    'claim_no' => $claim_no,
+                    'empl_status' => $empl_status,
+                    'irb_policy' => $irb_policy,
+                    'gender' => $gender,
+                );
+
+
+               
+                wp_send_json($userData);
+            } 
+           
+    
+        }
+}
+
+
+
 
 // Add action for saving form data
 add_action('wp_ajax_save_form_user_data', 'save_form_user_data');
@@ -377,5 +430,3 @@ function save_user_income_data() {
 //     // Localize the script with new data
 //     wp_localize_script('custom-script', 'ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
 // }
-
-
