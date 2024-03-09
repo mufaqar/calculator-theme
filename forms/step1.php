@@ -3,6 +3,11 @@
                </h3>
 
 <div class="row gx-md-3 gy-4 mb-4">
+<div class="col-md-3 col-12">
+        <label for="birthdate"> Email</label>
+        <input type="text" name="birthdate" class="form-control fs-6 fw-normal" id="email"  placeholder="Enter Email Address">
+
+    </div>
     <div class="col-md-3 col-12">
         <label for="first_name"> First Name</label>
         <input type="text" name="first_name" class="form-control fs-6 fw-normal" id="first_name"
@@ -13,11 +18,7 @@
         <input type="text" name="last_name" class="form-control fs-6 fw-normal" id="last_name" placeholder="Last Name">
     </div>
 
-    <div class="col-md-3 col-12">
-        <label for="birthdate"> Email</label>
-        <input type="text" name="birthdate" class="form-control fs-6 fw-normal" id="email"  placeholder="Enter Email Address">
-
-    </div>
+    
     <div class="col-md-3 col-12">
         <label for="birthdate"> Birthdate</label>
         <input type="date" value="<?php echo date('Y-m-d'); ?>" data-date-format="DD MMMM YYYY" value="2015-08-09"
