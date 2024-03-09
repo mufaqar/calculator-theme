@@ -10,8 +10,9 @@ function check_user_data() {
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] == 'check_user_data') {
             $email = sanitize_email($_POST['email']);          
             $user = get_user_by('email', $email);    
-            if ($user) {        
-                
+            if ($user) {   
+                $first_name = $user->first_name,
+                $last_name = $user->last_name, 
                 $dob = get_user_meta($user->ID, 'dob', true);
                 $age = get_user_meta($user->ID, 'age', true);
                 $date_loss = get_user_meta($user->ID, 'date_loss', true);
@@ -23,12 +24,11 @@ function check_user_data() {
                 $claim_no = get_user_meta($user->ID, 'claim_no', true);
                 $empl_status = get_user_meta($user->ID, 'empl_status', true);
                 $irb_policy = get_user_meta($user->ID, 'irb_policy', true);
-                $gender = get_user_meta($user->ID, 'gender', true);
-            
+                $gender = get_user_meta($user->ID, 'gender', true);           
                 
                 $userData = array(
-                    'first_name' => $user->first_name,
-                    'last_name' => $user->last_name,
+                    'first_name' => $first_name,
+                    'last_name' => $last_name,
                     'dob' => $dob,
                     'age' => $age,
                     'date_loss' => $date_loss,
