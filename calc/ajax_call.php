@@ -10,7 +10,8 @@ function check_user_data() {
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] == 'check_user_data') {
             $email = sanitize_email($_POST['email']);          
             $user = get_user_by('email', $email);    
-            if ($user) {   
+            if ($user) {                   
+                $user_id = $user->ID;           
                 $first_name = $user->first_name;
                 $last_name = $user->last_name;
                 $dob = get_user_meta($user->ID, 'dob', true);
@@ -24,8 +25,7 @@ function check_user_data() {
                 $claim_no = get_user_meta($user->ID, 'claim_no', true);
                 $empl_status = get_user_meta($user->ID, 'empl_status', true);
                 $irb_policy = get_user_meta($user->ID, 'irb_policy', true);
-                $gender = get_user_meta($user->ID, 'gender', true);           
-                
+                $gender = get_user_meta($user->ID, 'gender', true); 
                 $userData = array(
                     'first_name' => $first_name,
                     'last_name' => $last_name,
@@ -41,7 +41,25 @@ function check_user_data() {
                     'empl_status' => $empl_status,
                     'irb_policy' => $irb_policy,
                     'gender' => $gender,
-                );               
+                );  
+                
+                
+                // $args=array(
+                //     'post_type' => 'jobs',
+                //     'post_status' => 'publish',
+                //     'posts_per_page' => -1,
+                //     'author' => $user_id
+                //      );
+                   
+                //    $current_user_posts = get_posts( $args );
+
+                  
+                //    if ($current_user_posts) {
+                //     $userData['posts'] = $current_user_posts;
+                // } else {
+                //     $userData['posts'] = array();
+                // }
+
                 wp_send_json($userData);
             } 
            

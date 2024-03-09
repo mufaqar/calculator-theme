@@ -62,6 +62,13 @@
 <h3 class="fs-4 mb-4 lh-sm">
     Post-accident Income
 </h3>
+
+<div id="post_accident_form_pre">
+
+</div>
+
+
+
 <div class="row gx-md-3 gy-4 mb-4">
     <div class="col-md-2">
         <label for="post_job1_title">Job 1</label>

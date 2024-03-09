@@ -4,8 +4,8 @@
 
 <div class="row gx-md-3 gy-4 mb-4">
     <div class="col-md-3 col-12">
-        <label for="birthdate"> Email</label>
-        <input type="text" name="birthdate" class="form-control fs-6 fw-normal" id="email"
+        <label for="email"> Email</label>
+        <input type="text" name="email" class="form-control fs-6 fw-normal" id="email"
             placeholder="Enter Email Address">
 
     </div>
