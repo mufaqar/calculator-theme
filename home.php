@@ -134,9 +134,6 @@ jQuery(document).ready(function($) {
                     $('#irb_policy').val(data.irb_policy);
                     $('#gender').val(data.gender);
                 }
-
-
-
             }
         });
     });
