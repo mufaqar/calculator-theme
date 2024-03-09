@@ -11,8 +11,8 @@ function check_user_data() {
             $email = sanitize_email($_POST['email']);          
             $user = get_user_by('email', $email);    
             if ($user) {   
-                $first_name = $user->first_name,
-                $last_name = $user->last_name, 
+                $first_name = $user->first_name;
+                $last_name = $user->last_name;
                 $dob = get_user_meta($user->ID, 'dob', true);
                 $age = get_user_meta($user->ID, 'age', true);
                 $date_loss = get_user_meta($user->ID, 'date_loss', true);
