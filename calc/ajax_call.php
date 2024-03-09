@@ -41,10 +41,7 @@ function check_user_data() {
                     'empl_status' => $empl_status,
                     'irb_policy' => $irb_policy,
                     'gender' => $gender,
-                );
-
-
-               
+                );               
                 wp_send_json($userData);
             } 
            
