@@ -445,3 +445,38 @@ function save_user_income_data() {
 //     // Localize the script with new data
 //     wp_localize_script('custom-script', 'ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
 // }
+
+
+
+
+// Add action for saving form data
+add_action('wp_ajax_save_pre_income_data', 'save_pre_income_data');
+add_action('wp_ajax_nopriv_save_pre_income_data', 'save_pre_income_data');
+
+function save_pre_income_data() {   
+
+   
+
+        print "<pre>";  
+    
+                
+                parse_str($_POST['form_data'], $form_data);
+                $arranged_data = array();
+                if (!empty($form_data)) {
+                    foreach ($form_data as $field_name => $field_value) {
+                        $sanitized_value = sanitize_text_field($field_value);
+                        $arranged_data[$field_name] = $sanitized_value;
+                    }
+                }   
+
+                print_r($arranged_data);
+           
+                
+               
+       
+           die();
+           
+    
+        
+}
+

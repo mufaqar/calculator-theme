@@ -12,11 +12,31 @@ get_header();
             MOCK CALCULATOR
         </h2>
     </div>
+
+
+
     <div class="container mx-auto col p-md-5 py-5 Step_form">
-        <div class="row">
+
+        <form class="" id="pre_jobs_data" method="POST">
+            <?php get_template_part('forms/step3');  ?>
+            <div class="steps" id="step4">
+                <div class="">
+                    <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step3">
+                        Previous
+                    </button>
+                    <button class="btn fs-6 fw-bold mt-2 w-fit post_job" type="submit">
+                        Next Post JOb
+                    </button>
+                </div>
+            </div>
+        </form>
+
+
+
+        <!-- <div class="row">
             <form class="" id="mock_user" method="POST">
                 <div class="step active" id="step1">
-                    <?php get_template_part('forms/step1');  ?>
+                    <?php //get_template_part('forms/step1');  ?>
                     <div class="">
                         <button class="btn fs-6 fw-bold mt-2 w-fit next2" type="button" data-step="step2">
                             Next
@@ -28,7 +48,7 @@ get_header();
 
             <div class="step" id="step2">
                 <form class="" id="mock_calc" method="POST">
-                    <?php get_template_part('forms/step2');  ?>
+                    <?php //get_template_part('forms/step2');  ?>
 
                     <div class="">
                         <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step1">
@@ -43,7 +63,7 @@ get_header();
 
             <div class="step" id="step3">
                 <form class="" id="mock_calc" method="POST">
-                    <?php get_template_part('forms/step3');  ?>
+                    <?php //get_template_part('forms/step3');  ?>
 
                     <div class="">
                         <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step2">
@@ -66,38 +86,9 @@ get_header();
                     </button>
                 </div>
             </div>
-            </form>
+            </form>          
 
-            <div id="data_data" style="display:none">
-                <?php
-            print "<pre>";
-           // Specify the post ID you want to retrieve
-            $post_id = 21; // Replace with the actual post ID
-
-            // Get the post data
-            $post = get_post($post_id);
-
-            // Check if the post exists
-            if ($post) {
-               // Get post meta data
-               $benefits = get_post_meta($post_id, 'benefits', true);
-               foreach ($benefits as $index => $item) {
-               
-                  foreach ($item as $key => $value) {
-                      echo "  [$key] => $value\n";
-                  }
-                  echo "\n";
-              }
-               print_r($benefits);
-              
-            } else {
-               echo 'Post not found';
-            }
-
-            ?>
-            </div>
-
-        </div>
+        </div> -->
     </div>
 </section>
 
@@ -121,7 +112,7 @@ jQuery(document).ready(function($) {
                 if (data) {
                     $('#first_name').val(data.first_name);
                     $('#last_name').val(data.last_name);
-                    $('#dob').val(data.dob); 
+                    $('#dob').val(data.dob);
                     $('#age').val(data.age);
                     $('#date_loss').val(data.date_loss);
                     $('#age_loss').val(data.age_loss);
@@ -187,6 +178,27 @@ jQuery(document).ready(function($) {
             success: function(data) {
                 $('#step3').addClass('active');
                 $('#step2').removeClass('active');
+            },
+            error: function(error) {
+                console.error('Error during AJAX call:', error);
+            }
+        });
+    });
+
+    $('.post_job').click(function(e) {
+      
+        var pre_jobs_data = $("#pre_jobs_data").serialize();
+        e.preventDefault();
+        $.ajax({
+            url: "<?php echo admin_url('admin-ajax.php'); ?>",
+            type: 'POST',
+            data: {
+                action: "save_pre_income_data",
+                form_data: pre_jobs_data
+            },
+            success: function(data) {
+              //  $('#step3').addClass('active');
+              //  $('#step2').removeClass('active');
             },
             error: function(error) {
                 console.error('Error during AJAX call:', error);
