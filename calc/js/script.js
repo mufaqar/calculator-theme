@@ -2,6 +2,7 @@ var fieldCounter = 1;
 var postfieldCounter = 1;
 var postbenifitCounter = 1;
 var predatafieldCounter = 1;
+var newfitCounter = 1;
 
 jQuery(document).ready(function ($) {
   $('.next').click(function () {
@@ -112,36 +113,31 @@ jQuery(document).ready(function ($) {
   });
 
   $('.dynamic-btn').click(function () {
-
-   var predatafieldCounter = $(this).attr('id');
-
- 
+   var predatafieldCounter = $(this).attr('id'); 
+      newfitCounter++;
     var preJobDataForm = `
       <div class="row gx-md-3 gy-4 mb-4">
          <div class="col-md-2">
-            <label for="job_entry${predatafieldCounter}_from_date">From Date 123</label>
-            <input type="date" value="<?php echo date('Y-m-d'); ?>" name="job_entry${predatafieldCounter}_from_date"
-                  class="form-control fs-6 fw-normal" id="job_entry${predatafieldCounter}_from_date" placeholder="From Date">
+            <label for="job_entry_${predatafieldCounter}_${newfitCounter}_from_date">From Date ${newfitCounter}</label>
+            <input type="date" value="<?php echo date('Y-m-d'); ?>" name="job_entry_${predatafieldCounter}_${newfitCounter}_from_date"
+                  class="form-control fs-6 fw-normal" id="job_entry_${predatafieldCounter}_${newfitCounter}_from_date" placeholder="From Date">
          </div>
          <div class="col-md-2">
-            <label for="job_entry${predatafieldCounter}_to_date">To Date</label>
-            <input type="date" value="<?php echo date('Y-m-d'); ?>" name="job_entry${predatafieldCounter}_to_date"
-                  class="form-control fs-6 fw-normal" id="job_entry${predatafieldCounter}_to_date" placeholder="To Date">
+            <label for="job_entry_${predatafieldCounter}_${newfitCounter}_to_date">To Date</label>
+            <input type="date" value="<?php echo date('Y-m-d'); ?>" name="job_entry_${predatafieldCounter}_${newfitCounter}_to_date"
+                  class="form-control fs-6 fw-normal" id="job_entry_${predatafieldCounter}_${newfitCounter}_to_date" placeholder="To Date">
          </div>
          <div class="col-md-2">
-            <label for="job_entry${predatafieldCounter}_earning">Gross Earnings</label>
-            <input type="number" name="job_entry${predatafieldCounter}_earning" class="form-control fs-6 fw-normal" id="job_entry${predatafieldCounter}_earning"
+            <label for="job_entry_${predatafieldCounter}_${newfitCounter}_earning">Gross Earnings</label>
+            <input type="number" name="job_entry_${predatafieldCounter}_${newfitCounter}_earning" class="form-control fs-6 fw-normal" id="job_entry_${predatafieldCounter}_${newfitCounter}_earning"
                   placeholder="Gross Earnings">
          </div>
          <div class="col-md-2">
-            <label for="job_entry${predatafieldCounter}_pre_comment">Special Condition</label>
-            <input type="text" name="job_entry${predatafieldCounter}_pre_comment" class="form-control fs-6 fw-normal" id="job_entry${predatafieldCounter}_pre_comment"
+            <label for="job_entry_${predatafieldCounter}_${newfitCounter}_pre_comment">Special Condition</label>
+            <input type="text" name="job_entry_${predatafieldCounter}_${newfitCounter}_pre_comment" class="form-control fs-6 fw-normal" id="job_entry_${predatafieldCounter}_${newfitCounter}_pre_comment"
                   placeholder="Special Condition">
          </div>         
       </div>
-
-
-
 `;
     $('#showPreJobData'+predatafieldCounter).append(preJobDataForm);
   });

@@ -455,6 +455,9 @@ add_action('wp_ajax_nopriv_save_pre_income_data', 'save_pre_income_data');
 
 function save_pre_income_data() {   
 
+
+    
+
    
 
         print "<pre>";  
@@ -470,7 +473,34 @@ function save_pre_income_data() {
                 }   
 
                 print_r($arranged_data);
-           
+
+
+             
+
+                $resultArray = array();
+                
+                foreach ($arranged_data as $key => $value) {
+                    // Split the input key into parts based on underscores
+                    $parts = explode('_', $key);
+                
+                    // Check if the key starts with "job_entry" and has enough parts
+                    if ($parts[0] == 'job' && isset($parts[2]) && isset($parts[3]) && is_numeric($parts[3])) {
+                        $jobId = $parts[2];
+                        $entryId = $parts[3];
+                        $subKey = implode('_', array_slice($parts, 4)); // Create subkey without "job_entry_{$jobId}_{$entryId}_"
+                
+                        // Create subarrays for each job entry based on job ID and entry ID
+                        if (!isset($resultArray[$jobId][$entryId])) {
+                            $resultArray[$jobId][$entryId] = array();
+                        }
+                
+                        // Add the value to the subarray
+                        $resultArray[$jobId][$entryId][$subKey] = $value;
+                    }
+                }
+                
+                // Output the result
+                print_r($resultArray);
                 
                
        

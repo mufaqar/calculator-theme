@@ -1,24 +1,24 @@
 <div class="row gx-md-3 gy-4 mb-4"> 
     <div class="col-md-2">
-    <input type="text" value="<?php echo get_the_ID(); ?>" name="job_id_<?php echo get_the_ID(); ?>"
-            class="form-control fs-6 fw-normal" id="job_id_<?php echo get_the_ID(); ?>" >
-        <label for="pre_job<?php echo get_the_ID(); ?>_from_date">From Date 1</label>
-        <input type="date" value="<?php echo date('Y-m-d'); ?>" name="pre_job<?php echo get_the_ID(); ?>_from_date"
-            class="form-control fs-6 fw-normal" id="pre_job<?php echo get_the_ID(); ?>_from_date" placeholder="From Date">
+    <input type="text" value="<?php echo get_the_ID(); ?>" name="job_entry_<?php echo get_the_ID(); ?>"
+            class="form-control fs-6 fw-normal" id="job_entry_<?php echo get_the_ID(); ?>" >
+        <label for="job_entry_<?php echo get_the_ID(); ?>_1_from_date">From Date 1</label>
+        <input type="date" value="<?php echo date('Y-m-d'); ?>" name="job_entry_<?php echo get_the_ID(); ?>_1_from_date"
+            class="form-control fs-6 fw-normal" id="job_entry_<?php echo get_the_ID(); ?>_1_from_date" placeholder="From Date">
     </div>
     <div class="col-md-2">
-        <label for="pre_job<?php echo get_the_ID(); ?>_to_date">To Date</label>
-        <input type="date" value="<?php echo date('Y-m-d'); ?>" name="pre_job<?php echo get_the_ID(); ?>_to_date"
-            class="form-control fs-6 fw-normal" id="pre_job<?php echo get_the_ID(); ?>_to_date" placeholder="To Date">
+        <label for="job_entry_<?php echo get_the_ID(); ?>_1_to_date">To Date</label>
+        <input type="date" value="<?php echo date('Y-m-d'); ?>" name="job_entry_<?php echo get_the_ID(); ?>_1_to_date"
+            class="form-control fs-6 fw-normal" id="job_entry_<?php echo get_the_ID(); ?>_1_to_date" placeholder="To Date">
     </div>
     <div class="col-md-2">
-        <label for="pre_job<?php echo get_the_ID(); ?>_gross_earning">Gross Earnings</label>
-        <input type="number" name="pre_job<?php echo get_the_ID(); ?>_gross_earning" class="form-control fs-6 fw-normal" id="pre_job<?php echo get_the_ID(); ?>_gross_earning"
+        <label for="job_entry_<?php echo get_the_ID(); ?>_1_gross_earning">Gross Earnings</label>
+        <input type="number" name="job_entry_<?php echo get_the_ID(); ?>_1_gross_earning" class="form-control fs-6 fw-normal" id="job_entry_<?php echo get_the_ID(); ?>_1_gross_earning"
             placeholder="Gross Earnings">
     </div>
     <div class="col-md-2">
-        <label for="pre_job<?php echo get_the_ID(); ?>_pre_comment">Special Condition</label>
-        <input type="text" name="pre_job<?php echo get_the_ID(); ?>_pre_comment" class="form-control fs-6 fw-normal" id="pre_job<?php echo get_the_ID(); ?>_pre_comment"
+        <label for="job_entry_<?php echo get_the_ID(); ?>_1_pre_comment">Special Condition</label>
+        <input type="text" name="job_entry_<?php echo get_the_ID(); ?>_1_pre_comment" class="form-control fs-6 fw-normal" id="job_entry_<?php echo get_the_ID(); ?>_1_pre_comment"
             placeholder="Special Condition">
     </div>
     <div class="col-md-1 align-self-end">
