@@ -1,6 +1,6 @@
 <div class="row gx-md-3 gy-4 mb-4"> 
     <div class="col-md-2">
-    <input type="text" value="<?php echo get_the_ID(); ?>" name="job_entry_<?php echo get_the_ID(); ?>"
+    <input type="hidden" value="<?php echo get_the_ID(); ?>" name="job_entry_<?php echo get_the_ID(); ?>"
             class="form-control fs-6 fw-normal" id="job_entry_<?php echo get_the_ID(); ?>" >
         <label for="job_entry_<?php echo get_the_ID(); ?>_1_from_date">From Date 1</label>
         <input type="date" value="<?php echo date('Y-m-d'); ?>" name="job_entry_<?php echo get_the_ID(); ?>_1_from_date"

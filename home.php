@@ -16,79 +16,101 @@ get_header();
 
 
     <div class="container mx-auto col p-md-5 py-5 Step_form">
+        <div class="row">
 
-        <form class="" id="pre_jobs_data" method="POST">
-            <?php get_template_part('forms/step3');  ?>
-            <div class="steps" id="step4">
-                <div class="">
-                    <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step3">
-                        Previous
-                    </button>
-                    <button class="btn fs-6 fw-bold mt-2 w-fit post_job" type="submit">
-                        Next Post JOb
-                    </button>
-                </div>
-            </div>
-        </form>
-
-
-
-        <!-- <div class="row">
-            <form class="" id="mock_user" method="POST">
-                <div class="step active" id="step1">
-                    <?php //get_template_part('forms/step1');  ?>
+            <div class="step active" id="step1">
+                <form class="" id="mock_user" method="POST">
+                    <?php get_template_part('forms/step1');  ?>
                     <div class="">
                         <button class="btn fs-6 fw-bold mt-2 w-fit next2" type="button" data-step="step2">
                             Next
                         </button>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
+
 
 
             <div class="step" id="step2">
                 <form class="" id="mock_calc" method="POST">
-                    <?php //get_template_part('forms/step2');  ?>
+                    <?php get_template_part('forms/step2');  ?>
 
                     <div class="">
                         <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step1">
                             Previous
                         </button>
                         <button class="btn fs-6 fw-bold mt-2 w-fit next3" type="button" data-step="step3">
-                            Next
+                            Pre Jobs
                         </button>
                     </div>
                 </form>
             </div>
 
             <div class="step" id="step3">
-                <form class="" id="mock_calc" method="POST">
-                    <?php //get_template_part('forms/step3');  ?>
+                <form class="" id="pre_jobs_data" method="POST">
+                    <?php get_template_part('forms/step3');  ?>
 
                     <div class="">
-                        <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step2">
+                        <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step3">
                             Previous
                         </button>
-                        <button class="btn fs-6 fw-bold mt-2 w-fit next4" type="button" data-step="step4">
-                            Next
+                        <button class="btn fs-6 fw-bold mt-2 w-fit post_job" type="submit">
+                             Post Jobs
                         </button>
+                    </div>
+
+                </form>
+
+            </div>
+
+            <div class="step" id="step4">
+                <form class="" id="post_jobs_data" method="POST">
+                    <?php get_template_part('forms/step4');  ?>
+
+                    <div class="">
+                        <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step3">
+                            Previous
+                        </button>
+                        <button class="btn fs-6 fw-bold mt-2 w-fit ben_job" type="submit">
+                           Post Accident Benfits
+                        </button>
+
                     </div>
                 </form>
             </div>
 
-            <div class="step" id="step4">
-                <div class="">
-                    <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step3">
-                        Previous
-                    </button>
-                    <button class="btn fs-6 fw-bold mt-2 w-fit" type="submit">
-                        Next
-                    </button>
-                </div>
-            </div>
-            </form>          
+            <div class="step" id="step5">
+                <form class="" id="post_jobs_data" method="POST">
+                    <?php get_template_part('forms/step5');  ?>
 
-        </div> -->
+                    <div class="">
+                        <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step3">
+                            Previous
+                        </button>
+                        <button class="btn fs-6 fw-bold mt-2 w-fit calculation" type="submit">
+                            Calculations
+                        </button>
+
+                    </div>
+                </form>
+            </div>
+
+            <div class="step" id="step6">
+                <form class="" id="post_jobs_data" method="POST">
+                    <?php get_template_part('forms/step6');  ?>
+
+                    <div class="">
+                        <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step3">
+                            Previous
+                        </button>
+
+
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
     </div>
 </section>
 
@@ -186,7 +208,7 @@ jQuery(document).ready(function($) {
     });
 
     $('.post_job').click(function(e) {
-      
+
         var pre_jobs_data = $("#pre_jobs_data").serialize();
         e.preventDefault();
         $.ajax({
@@ -197,14 +219,64 @@ jQuery(document).ready(function($) {
                 form_data: pre_jobs_data
             },
             success: function(data) {
-              //  $('#step3').addClass('active');
-              //  $('#step2').removeClass('active');
+                $('#step4').addClass('active');
+                $('#step3').removeClass('active');
             },
             error: function(error) {
                 console.error('Error during AJAX call:', error);
             }
         });
     });
+
+    $('.ben_job').click(function(e) {
+
+        var pre_jobs_data = $("#pre_jobs_data").serialize();
+        e.preventDefault();
+        $.ajax({
+            url: "<?php echo admin_url('admin-ajax.php'); ?>",
+            type: 'POST',
+            data: {
+                action: "save_pre_income_data",
+                form_data: pre_jobs_data
+            },
+            success: function(data) {
+                $('#step5').addClass('active');
+                $('#step4').removeClass('active');
+            },
+            error: function(error) {
+                console.error('Error during AJAX call:', error);
+            }
+        });
+    });
+
+    $('.calculation').click(function(e) {
+
+        var pre_jobs_data = $("#pre_jobs_data").serialize();
+        e.preventDefault();
+        $.ajax({
+            url: "<?php echo admin_url('admin-ajax.php'); ?>",
+            type: 'POST',
+            data: {
+                action: "calculation",
+                form_data: pre_jobs_data
+            },
+            success: function(data) {
+                $('#step6').addClass('active');
+                $('#step5').removeClass('active');
+            },
+            error: function(error) {
+                console.error('Error during AJAX call:', error);
+            }
+        });
+    });
+
+
+
+
+
+
+
+
 
 
 });

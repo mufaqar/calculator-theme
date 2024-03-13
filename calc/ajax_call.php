@@ -472,7 +472,7 @@ function save_pre_income_data() {
                     }
                 }   
 
-                print_r($arranged_data);
+                //print_r($arranged_data);
 
 
              
@@ -499,8 +499,19 @@ function save_pre_income_data() {
                     }
                 }
                 
-                // Output the result
-                print_r($resultArray);
+              
+
+                foreach ($resultArray as $index => $meta_values) {                
+
+               
+                    foreach ($meta_values as $meta_key => $meta_value) {
+                       // print_r($meta_value);
+                         update_post_meta($index, "earning_$meta_key", $meta_value);
+
+                       
+                        
+                    }
+                }
                 
                
        
@@ -510,3 +521,28 @@ function save_pre_income_data() {
         
 }
 
+
+
+
+// Add action for saving form data
+add_action('wp_ajax_calculation', 'calculation');
+add_action('wp_ajax_nopriv_calculation', 'calculation');
+
+function calculation() {   
+
+
+    
+
+   
+
+       echo "Calculation";
+    
+                
+              
+               
+       
+           die();
+           
+    
+        
+}

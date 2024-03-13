@@ -79,3 +79,15 @@ function cptui_register_my_taxes_job_type() {
 	register_taxonomy( "job_type", [ "jobs" ], $args );
 }
 add_action( 'init', 'cptui_register_my_taxes_job_type' );
+
+
+function save_custom_array($post_id, $custom_array) {
+    // Generate a unique identifier
+    $unique_key = uniqid();
+    // Serialize the array
+    $serialized_array = serialize($custom_array);
+
+    // Save the serialized array to post meta with the unique key
+    update_post_meta($post_id, 'custom_array_' . $unique_key, $serialized_array);
+	echo "done";
+}
