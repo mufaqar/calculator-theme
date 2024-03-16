@@ -4,6 +4,8 @@ var postbenifitCounter = 1;
 var predatafieldCounter = 1;
 var newfitCounter = 1;
 
+var currentDate = new Date().toISOString().split('T')[0];
+
 jQuery(document).ready(function ($) {
   $('.next').click(function () {
     var currentStep = $(this).closest('.step');
@@ -24,7 +26,7 @@ jQuery(document).ready(function ($) {
     var preaccidentForm = `
          <div class="row gx-md-3 gy-4 mb-4">
                      <div class="col-md-2">
-                        <label for="pre_job${fieldCounter}_title">Job ${fieldCounter}</label>
+                        <label for="pre_job${fieldCounter}_title">Job ${fieldCounter} ${currentDate}</label>
                         <input type="text" name="pre_job${fieldCounter}_title" class="form-control fs-6 fw-normal" id="pre_job${fieldCounter}_title" placeholder="Job ${fieldCounter}" >
                      </div>
                      <div class="col-md-2">
@@ -119,12 +121,12 @@ jQuery(document).ready(function ($) {
       <div class="row gx-md-3 gy-4 mb-4">
          <div class="col-md-2">
             <label for="job_entry_${predatafieldCounter}_${newfitCounter}_from_date">From Date ${newfitCounter}</label>
-            <input type="date" value="<?php echo date('Y-m-d'); ?>" name="job_entry_${predatafieldCounter}_${newfitCounter}_from_date"
+            <input type="date" value="${currentDate}" name="job_entry_${predatafieldCounter}_${newfitCounter}_from_date"
                   class="form-control fs-6 fw-normal" id="job_entry_${predatafieldCounter}_${newfitCounter}_from_date" placeholder="From Date">
          </div>
          <div class="col-md-2">
             <label for="job_entry_${predatafieldCounter}_${newfitCounter}_to_date">To Date</label>
-            <input type="date" value="<?php echo date('Y-m-d'); ?>" name="job_entry_${predatafieldCounter}_${newfitCounter}_to_date"
+            <input type="date" value="${currentDate}" name="job_entry_${predatafieldCounter}_${newfitCounter}_to_date"
                   class="form-control fs-6 fw-normal" id="job_entry_${predatafieldCounter}_${newfitCounter}_to_date" placeholder="To Date">
          </div>
          <div class="col-md-2">

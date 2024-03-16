@@ -16,7 +16,7 @@ function check_user_data() {
                 $last_name = $user->last_name;
                 $dob = get_user_meta($user->ID, 'dob', true);
                 $age = get_user_meta($user->ID, 'age', true);
-                $date_loss = get_user_meta($user->ID, 'date_loss', true);
+                $dol = get_user_meta($user->ID, 'dol', true);
                 $age_loss = get_user_meta($user->ID, 'age_loss', true);
                 $calc_date = get_user_meta($user->ID, 'calc_date', true);
                 $age_calc = get_user_meta($user->ID, 'age_calc', true);
@@ -31,7 +31,7 @@ function check_user_data() {
                     'last_name' => $last_name,
                     'dob' => $dob,
                     'age' => $age,
-                    'date_loss' => $date_loss,
+                    'dol' => $dol,
                     'age_loss' => $age_loss,
                     'calc_date' => $calc_date,
                     'age_calc' => $age_calc,
@@ -42,23 +42,6 @@ function check_user_data() {
                     'irb_policy' => $irb_policy,
                     'gender' => $gender,
                 );  
-                
-                
-                // $args=array(
-                //     'post_type' => 'jobs',
-                //     'post_status' => 'publish',
-                //     'posts_per_page' => -1,
-                //     'author' => $user_id
-                //      );
-                   
-                //    $current_user_posts = get_posts( $args );
-
-                  
-                //    if ($current_user_posts) {
-                //     $userData['posts'] = $current_user_posts;
-                // } else {
-                //     $userData['posts'] = array();
-                // }
 
                 wp_send_json($userData);
             } 
@@ -83,7 +66,7 @@ function save_form_user_data() {
          $email = $formData['email'];
          $dob = $formData['dob'];
          $age = $formData['age'];
-         $date_loss = $formData['date_loss'];
+         $dol = $formData['dol'];
          $age_loss = $formData['age_loss'];
          $calc_date = $formData['calc_date'];
          $age_calc = $formData['age_calc'];
@@ -104,7 +87,7 @@ function save_form_user_data() {
         // Add other user meta data as needed
         'dob' => $dob,
         'age' => $age,
-        'date_loss' => $date_loss,
+        'dol' => $dol,
         'age_loss' => $age_loss,
         'calc_date' => $calc_date,
         'age_calc' => $age_calc,
@@ -134,14 +117,13 @@ function save_form_user_data() {
 
         // Check if the user was created or updated successfully
         if (!is_wp_error($user_id)) {
-            // User created or updated successfully
 
             // Update user meta data
             update_user_meta($user_id, 'first_name', $first_name);
             update_user_meta($user_id, 'last_name', $last_name);
             update_user_meta($user_id, 'dob', $dob);
             update_user_meta($user_id, 'age', $age);
-            update_user_meta($user_id, 'date_loss', $date_loss);
+            update_user_meta($user_id, 'dol', $dol);
             update_user_meta($user_id, 'age_loss', $age_loss);
             update_user_meta($user_id, 'calc_date', $calc_date);
             update_user_meta($user_id, 'age_calc', $age_calc);
@@ -151,124 +133,16 @@ function save_form_user_data() {
             update_user_meta($user_id, 'empl_status', $empl_status);
             update_user_meta($user_id, 'irb_policy', $irb_policy);
             update_user_meta($user_id, 'gender', $gender);
-            // Add other user meta updates as needed
 
             echo "User created/updated successfully with ID: " . $user_id;
+           
+            
         } else {
             // There was an error creating or updating the user
             echo "Error creating/updating user: " . $user_id->get_error_message();
         }
 
 
-
-
-
-
-  
-    
-
-
-
-    // $preJobs = [];
-    // $postJobs = [];
-    // $benefits = [];
-    // $benefits_arr = [];
-    // parse_str($_POST['form_data'], $form_data);
-    // $arranged_data = array();
-    // if (!empty($form_data)) {
-    //     foreach ($form_data as $field_name => $field_value) {
-    //         $sanitized_value = sanitize_text_field($field_value);
-    //         $arranged_data[$field_name] = $sanitized_value;
-    //     }
-    // }
-
-    // $first_name =  $arranged_data['first_name'];
-    // $last_name =  $arranged_data['last_name'];
-    // $gender =  $arranged_data['gender'];
-    // $birthdate =  $arranged_data['birthdate']; 
-    // $age =  $arranged_data['age']; 
-    // $date_loss =  $arranged_data['date_loss']; 
-    // $age_loss =  $arranged_data['age_loss']; 
-    // $calc_date =  $arranged_data['calc_date']; 
-    // $age_calc =  $arranged_data['age_calc']; 
-    // $insurer =  $arranged_data['insurer']; 
-    // $policy_no =  $arranged_data['policy_no'];  
-    // $claim_no =  $arranged_data['claim_no'];
-    // $employment_status =  $arranged_data['employment_status']; 
-    // $irb_policy =  $arranged_data['irb_policy'];    
- 
-
-    // foreach ($arranged_data as $key => $value) {
-    //     if (strpos($key, 'pre_job') === 0) {          
-    //         preg_match('/\d+/', $key, $matches);
-    //         $index = $matches[0];
-    //          $preJobs[$index][$key] = $value;
-
-
-    //     } elseif (strpos($key, 'post_job') === 0) {
-    //         preg_match('/\d+/', $key, $matches);
-    //         $index = $matches[0];
-    //         $postJobs[$index][$key] = $value;
-    //     } elseif (strpos($key, 'post_ben') === 0) {
-    //         preg_match('/\d+/', $key, $matches);
-    //         $index = $matches[0];
-    //         $benefits[$index][$key] = $value;
-    //     }
-    // }     
-    //      // Set the post data
-    //     $post_data = array(
-    //         'post_title'    => $claim_no,
-    //         'post_status'   => 'publish', 
-    //         'post_type'     => 'irr_orders'
-    //     );
-
-    //     $post_id = wp_insert_post($post_data);
-    //     if ($post_id) {
-    //         $meta_data = array(
-    //             'first_name' => $first_name,
-    //             'last_name' => $last_name,
-    //             'gender' => $gender,
-    //             'birthdate' => $birthdate,
-    //             'age' => $age,
-    //             'date_loss' => $date_loss,
-    //             'age_loss' => $age_loss,
-    //             'calc_date' => $calc_date,
-    //             'insurer' => $insurer,
-    //             'policy_no' => $policy_no,
-    //             'claim_no' => $claim_no,
-    //             'employment_status' => $employment_status,
-    //             'irb_policy' => $irb_policy,
-    //             'preJobs' => $benefits,
-    //             'postJobs' => $postJobs,
-    //             'benefits' => $benefits
-    //         );
-
-    //         foreach ($meta_data as $meta_key => $meta_value) {
-    //             add_post_meta($post_id, $meta_key, $meta_value, true);
-    //         }
-
-    //         echo "Form Added Sucessfully $post_id inserted successfully with meta data.";
-    //     } else {
-    //         echo "Error inserting post.";
-    //     }
-
-    // // Print the results
-    // echo "Pre Jobs:\n";
-    // print_r($preJobs);
-
-    // echo "\nPost Jobs:\n";
-    // print_r($postJobs);
-
-    // echo "\nBenefits:\n";
-    // print_r($benefits);
-
-    // // Print the results
-    // echo "Post Benefits:\n";
-    // print_r($postBenefits);
-   
-   // wp_send_json_success('Form data saved successfully');
-
-    // Always exit to avoid further execution
     wp_die();
 }
 
@@ -291,10 +165,7 @@ function save_user_income_data() {
             $sanitized_value = sanitize_text_field($field_value);
             $arranged_data[$field_name] = $sanitized_value;
         }
-    }   
-
-	
- 
+    }    
 
 	foreach ($arranged_data as $key => $value) {
 		if (strpos($key, 'pre_job') === 0) {          
@@ -312,32 +183,30 @@ function save_user_income_data() {
 		}
 	}   
 
-	
 
 	//print_r($preJobs);
 	//print_r($postJobs);
 	print_r($benefits);
-
-	
 	
 
-	foreach ($preJobs as $key => $job_data) {
-   
+	foreach ($preJobs as $key => $job_data) {   
 		$post_title = isset($job_data["pre_job{$key}_title"]) ? $job_data["pre_job{$key}_title"] : '';
 		$from_date = isset($job_data["pre_job{$key}_from_date"]) ? $job_data["pre_job{$key}_from_date"] : '';
 		$to_date = isset($job_data["pre_job{$key}_to_date"]) ? $job_data["pre_job{$key}_to_date"] : '';
 		$weeks_4 = isset($job_data["pre_job{$key}_4_weeks"]) && $job_data["pre_job{$key}_4_weeks"] == 'on';
 		$weeks_52 = isset($job_data["pre_job{$key}_52_weeks"]) && $job_data["pre_job{$key}_52_weeks"] == 'on';
-		$earning = isset($job_data["pre_job{$key}_earning"]) ? $job_data["pre_job{$key}_earning"] : '';
-	 
-		$post_data = array(
-			'post_title'   => $post_title,
-			'post_status'  => 'publish',
-			'post_author'  => 2, 
-			'post_type'    => 'jobs'
-		);
+		$earning = isset($job_data["pre_job{$key}_earning"]) ? $job_data["pre_job{$key}_earning"] : '';	 
+        if (!empty($post_title)) {
+            $post_data = array(
+                'post_title'   => $post_title,
+                'post_status'  => 'publish',
+                'post_author'  => 1, 
+                'post_type'    => 'jobs'
+            );
 	
-		$post_id = wp_insert_post($post_data);
+		    $post_id = wp_insert_post($post_data);
+
+        }
 	
 		if ($post_id) {
 			update_post_meta($post_id, 'pre_job_from_date', $from_date);
@@ -363,14 +232,19 @@ function save_user_income_data() {
 		$weeks_52 = isset($job_data["post_job{$key}_52_weeks"]) && $job_data["post_job{$key}_52_weeks"] == 'on';
 		$earning = isset($job_data["post_job{$key}_earning"]) ? $job_data["post_job{$key}_earning"] : '';
 	 
-		$post_data = array(
-			'post_title'   => $post_title,
-			'post_status'  => 'publish',
-			'post_author'  => 2, 
-			'post_type'    => 'jobs'
-		);
+		
+
+        if (!empty($post_title)) {
+            $post_data = array(
+                'post_title'   => $post_title,
+                'post_status'  => 'publish',
+                'post_author'  => 1, 
+                'post_type'    => 'jobs'
+            );
 	
-		$post_id = wp_insert_post($post_data);
+		    $post_id = wp_insert_post($post_data);
+
+        }
 	
 		if ($post_id) {
 			update_post_meta($post_id, 'post_job_from_date', $from_date);
@@ -396,14 +270,17 @@ function save_user_income_data() {
 		$weeks_52 = isset($job_data["post_ben{$key}_52_weeks"]) && $job_data["post_ben{$key}_52_weeks"] == 'on';
 		$earning = isset($job_data["post_ben{$key}_earning"]) ? $job_data["post_ben{$key}_earning"] : '';
 	 
-		$post_data = array(
-			'post_title'   => $post_title,
-			'post_status'  => 'publish',
-			'post_author'  => 2, 
-			'post_type'    => 'jobs'
-		);
+        if (!empty($post_title)) {
+            $post_data = array(
+                'post_title'   => $post_title,
+                'post_status'  => 'publish',
+                'post_author'  => 1, 
+                'post_type'    => 'jobs'
+            );
 	
-		$post_id = wp_insert_post($post_data);
+		    $post_id = wp_insert_post($post_data);
+
+        }
 	
 		if ($post_id) {
 			update_post_meta($post_id, 'post_benefit_from_date', $from_date);
@@ -418,33 +295,13 @@ function save_user_income_data() {
 		} else {
 			echo "Failed to insert post-benefits post\n";
 		}
-	}
-	
-	
-
-
-	
-	
-	
-        
+	}      
     
-    
+    echo "updated";
 
     wp_die();
 }
 
-
-
-
-// // Localize the AJAX URL
-// add_action('wp_enqueue_scripts', 'enqueue_custom_scripts');
-
-// function enqueue_custom_scripts() {
-//     wp_enqueue_script('custom-script', get_template_directory_uri() . '/js/custom-script.js', array('jquery'), '1.0', true);
-
-//     // Localize the script with new data
-//     wp_localize_script('custom-script', 'ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
-// }
 
 
 
@@ -454,10 +311,6 @@ add_action('wp_ajax_save_pre_income_data', 'save_pre_income_data');
 add_action('wp_ajax_nopriv_save_pre_income_data', 'save_pre_income_data');
 
 function save_pre_income_data() {   
-
-
-    
-
    
 
         print "<pre>";  
@@ -472,18 +325,12 @@ function save_pre_income_data() {
                     }
                 }   
 
-                //print_r($arranged_data);
-
-
-             
+                //print_r($arranged_data);            
 
                 $resultArray = array();
                 
                 foreach ($arranged_data as $key => $value) {
-                    // Split the input key into parts based on underscores
                     $parts = explode('_', $key);
-                
-                    // Check if the key starts with "job_entry" and has enough parts
                     if ($parts[0] == 'job' && isset($parts[2]) && isset($parts[3]) && is_numeric($parts[3])) {
                         $jobId = $parts[2];
                         $entryId = $parts[3];
@@ -498,11 +345,8 @@ function save_pre_income_data() {
                         $resultArray[$jobId][$entryId][$subKey] = $value;
                     }
                 }
-                
-              
 
-                foreach ($resultArray as $index => $meta_values) {                
-
+                foreach ($resultArray as $index => $meta_values) {  
                
                     foreach ($meta_values as $meta_key => $meta_value) {
                        // print_r($meta_value);

@@ -12,9 +12,6 @@ get_header();
             MOCK CALCULATOR
         </h2>
     </div>
-
-
-
     <div class="container mx-auto col p-md-5 py-5 Step_form">
         <div class="row">
 
@@ -30,11 +27,9 @@ get_header();
             </div>
 
 
-
             <div class="step" id="step2">
                 <form class="" id="mock_calc" method="POST">
                     <?php get_template_part('forms/step2');  ?>
-
                     <div class="">
                         <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step1">
                             Previous
@@ -55,7 +50,7 @@ get_header();
                             Previous
                         </button>
                         <button class="btn fs-6 fw-bold mt-2 w-fit post_job" type="submit">
-                             Post Jobs
+                            Post Jobs
                         </button>
                     </div>
 
@@ -72,15 +67,15 @@ get_header();
                             Previous
                         </button>
                         <button class="btn fs-6 fw-bold mt-2 w-fit ben_job" type="submit">
-                           Post Accident Benfits
+                            Post Accident Benfits
                         </button>
 
                     </div>
                 </form>
             </div>
-
+            <!-- Bennifit Insert Data  -->
             <div class="step" id="step5">
-                <form class="" id="post_jobs_data" method="POST">
+                <form class="" id="benifit_data" method="POST">
                     <?php get_template_part('forms/step5');  ?>
 
                     <div class="">
@@ -94,6 +89,8 @@ get_header();
                     </div>
                 </form>
             </div>
+
+            <!-- Calculation Insert Data  -->
 
             <div class="step" id="step6">
                 <form class="" id="post_jobs_data" method="POST">
@@ -136,7 +133,7 @@ jQuery(document).ready(function($) {
                     $('#last_name').val(data.last_name);
                     $('#dob').val(data.dob);
                     $('#age').val(data.age);
-                    $('#date_loss').val(data.date_loss);
+                    $('#dol').val(data.dol);
                     $('#age_loss').val(data.age_loss);
                     $('#calc_date').val(data.calc_date);
                     $('#age_calc').val(data.age_calc);
@@ -152,15 +149,46 @@ jQuery(document).ready(function($) {
     });
 
 
+    $('#dob').blur(function() {
+      
+        var dob = $(this).val();    
+        var dobDate = new Date(dob);  
+        var today = new Date();
+        var age = today.getFullYear() - dobDate.getFullYear();
+        if (today.getMonth() < dobDate.getMonth() || (today.getMonth() === dobDate.getMonth() && today
+                .getDate() < dobDate.getDate())) {
+            age--;
+        }
+        $('#age').val(age);
+    });
+
+    $('#dol').blur(function() {
+   
+        var dol = $(this).val();   
+        var dob = $("#dob").val(); 
+
+        var lossDate = new Date(dol);
+        var birthDate = new Date(dob);  
+        var ageDifference = lossDate.getFullYear() - birthDate.getFullYear();
+        var m = lossDate.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && lossDate.getDate() < birthDate.getDate())) {
+            ageDifference--;
+        }
+      
+        $('#age_loss').val(ageDifference);
+    });
+
+
 
     $('.next2').click(function() {
+
         var formData = {
             first_name: $('#first_name').val(),
             last_name: $('#last_name').val(),
             email: $('#email').val(),
             dob: $('#dob').val(),
             age: $('#age').val(),
-            date_loss: $('#date_loss').val(),
+            dol: $('#dol').val(),
             age_loss: $('#age_loss').val(),
             calc_date: $('#calc_date').val(),
             age_calc: $('#age_calc').val(),
@@ -172,6 +200,8 @@ jQuery(document).ready(function($) {
             gender: $('input[name="gender"]:checked').val()
         };
 
+
+
         $.ajax({
             url: "<?php echo admin_url('admin-ajax.php'); ?>",
             type: 'POST',
@@ -180,6 +210,8 @@ jQuery(document).ready(function($) {
                 form_data: formData
             },
             success: function(data) {
+
+                //  $('#user_id').val(data.email);
                 $('#step2').addClass('active');
                 $('#step1').removeClass('active');
             },
@@ -229,8 +261,7 @@ jQuery(document).ready(function($) {
     });
 
     $('.ben_job').click(function(e) {
-
-        var pre_jobs_data = $("#pre_jobs_data").serialize();
+        var pre_jobs_data = $("#post_jobs_data").serialize();
         e.preventDefault();
         $.ajax({
             url: "<?php echo admin_url('admin-ajax.php'); ?>",
@@ -251,14 +282,14 @@ jQuery(document).ready(function($) {
 
     $('.calculation').click(function(e) {
 
-        var pre_jobs_data = $("#pre_jobs_data").serialize();
+        var benifit_data = $("#benifit_data").serialize();
         e.preventDefault();
         $.ajax({
             url: "<?php echo admin_url('admin-ajax.php'); ?>",
             type: 'POST',
             data: {
                 action: "calculation",
-                form_data: pre_jobs_data
+                form_data: benifit_data
             },
             success: function(data) {
                 $('#step6').addClass('active');
