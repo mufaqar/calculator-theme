@@ -150,9 +150,9 @@ jQuery(document).ready(function($) {
 
 
     $('#dob').blur(function() {
-      
-        var dob = $(this).val();    
-        var dobDate = new Date(dob);  
+
+        var dob = $(this).val();
+        var dobDate = new Date(dob);
         var today = new Date();
         var age = today.getFullYear() - dobDate.getFullYear();
         if (today.getMonth() < dobDate.getMonth() || (today.getMonth() === dobDate.getMonth() && today
@@ -163,19 +163,35 @@ jQuery(document).ready(function($) {
     });
 
     $('#dol').blur(function() {
-   
-        var dol = $(this).val();   
-        var dob = $("#dob").val(); 
+
+        var dol = $(this).val();
+        var dob = $("#dob").val();
 
         var lossDate = new Date(dol);
-        var birthDate = new Date(dob);  
+        var birthDate = new Date(dob);
         var ageDifference = lossDate.getFullYear() - birthDate.getFullYear();
         var m = lossDate.getMonth() - birthDate.getMonth();
         if (m < 0 || (m === 0 && lossDate.getDate() < birthDate.getDate())) {
             ageDifference--;
         }
-      
+
         $('#age_loss').val(ageDifference);
+    });
+
+    $('#calc_date').blur(function() {
+
+        var dol = $(this).val();
+        var dob = $("#dob").val();
+
+        var lossDate = new Date(dol);
+        var birthDate = new Date(dob);
+        var ageDifference = lossDate.getFullYear() - birthDate.getFullYear();
+        var m = lossDate.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && lossDate.getDate() < birthDate.getDate())) {
+            ageDifference--;
+        }
+
+        $('#age_calc').val(ageDifference);
     });
 
 
