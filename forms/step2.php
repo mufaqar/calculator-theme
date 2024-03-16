@@ -11,13 +11,13 @@
     </div>
     <div class="col-md-2">
         <label for="pre_job1_from_date">From Date</label>
-        <input type="date" value="<?php echo date('Y-m-d'); ?>" name="pre_job1_from_date"
-            class="form-control fs-6 fw-normal" id="pre_job1_from_date" placeholder="From Date">
+        <input type="text" value="<?php echo date('M-d-Y'); ?>" name="pre_job1_from_date"
+            class="form-control fs-6 fw-normal datepicker" id="pre_job1_from_date" placeholder="From Date">
     </div>
     <div class="col-md-2">
         <label for="pre_job1_to_date">To Date</label>
-        <input type="date" value="<?php echo date('Y-m-d'); ?>" name="pre_job1_to_date"
-            class="form-control fs-6 fw-normal" id="pre_job1_to_date" placeholder="To Date">
+        <input type="text" value="<?php echo date('M-d-Y'); ?>" name="pre_job1_to_date"
+            class="form-control fs-6 fw-normal datepicker" id="pre_job1_to_date" placeholder="To Date">
     </div>
     <div class="col-md-1 col">
         <div class="form-check">
@@ -82,12 +82,12 @@
     </div>
     <div class="col-md-2">
         <label for="post_job1_from_date">From Date</label>
-        <input type="date" value="<?php echo date('Y-m-d'); ?>" name="post_job1_from_date"
+        <input type="text" value="<?php echo date('M-d-y'); ?>" name="post_job1_from_date"
             class="form-control fs-6 fw-normal" id="post_job1_from_date" placeholder="From Date">
     </div>
     <div class="col-md-2">
         <label for="post_job1_to_date">To Date</label>
-        <input type="date" value="<?php echo date('Y-m-d'); ?>" name="post_job1_to_date"
+        <input type="text" value="<?php echo date('M-d-y'); ?>" name="post_job1_to_date"
             class="form-control fs-6 fw-normal" id="post_job1_to_date" placeholder="To Date">
     </div>
     <div class="col-md-2">
@@ -127,12 +127,12 @@
     </div>
     <div class="col-md-2">
         <label for="post_ben1_from_date">From Date</label>
-        <input type="date" value="<?php echo date('Y-m-d'); ?>" name="post_ben1_from_date"
+        <input type="text" value="<?php echo date('M-d-y'); ?>" name="post_ben1_from_date"
             class="form-control fs-6 fw-normal" id="post_ben1_from_date" placeholder="From Date">
     </div>
     <div class="col-md-2">
         <label for="post_ben1_to_date">To Date</label>
-        <input type="date" value="<?php echo date('Y-m-d'); ?>" name="post_ben1_to_date"
+        <input type="text" value="<?php echo date('M-d-y'); ?>" name="post_ben1_to_date"
             class="form-control fs-6 fw-normal" id="post_ben1_to_date" placeholder="To Date">
     </div>
     <div class="col-md-2">

@@ -15,6 +15,8 @@ get_header();
     <div class="container mx-auto col p-md-5 py-5 Step_form">
         <div class="row">
 
+            <?php //get_template_part('forms/step2');  ?>
+
             <div class="step active" id="step1">
                 <form class="" id="mock_user" method="POST">
                     <?php get_template_part('forms/step1');  ?>
@@ -116,6 +118,18 @@ get_header();
 
 <script>
 jQuery(document).ready(function($) {
+    $(document).ready(function() {
+        $('.datepicker').datepicker({
+            uiLibrary: 'bootstrap5',
+            dateFormat: 'M-dd-yy',
+            changeYear: true,
+            yearRange: '1970:+nn',
+            onSelect: function(dateText, inst) {
+                // Do something when a date is selected
+            }
+        });
+    });
+
 
     $('#email').blur(function() {
         var userData;
@@ -159,6 +173,7 @@ jQuery(document).ready(function($) {
                 .getDate() < dobDate.getDate())) {
             age--;
         }
+
         $('#age').val(age);
     });
 
@@ -174,7 +189,6 @@ jQuery(document).ready(function($) {
         if (m < 0 || (m === 0 && lossDate.getDate() < birthDate.getDate())) {
             ageDifference--;
         }
-
         $('#age_loss').val(ageDifference);
     });
 

@@ -3,13 +3,13 @@
     <input type="hidden" value="<?php echo get_the_ID(); ?>" name="job_entry_<?php echo get_the_ID(); ?>"
             class="form-control fs-6 fw-normal" id="job_entry_<?php echo get_the_ID(); ?>" >
         <label for="job_entry_<?php echo get_the_ID(); ?>_1_from_date">From Date 1</label>
-        <input type="date" value="<?php echo date('Y-m-d'); ?>" name="job_entry_<?php echo get_the_ID(); ?>_1_from_date"
-            class="form-control fs-6 fw-normal" id="job_entry_<?php echo get_the_ID(); ?>_1_from_date" placeholder="From Date">
+        <input type="text" value="<?php echo date('M-d-y'); ?>" name="job_entry_<?php echo get_the_ID(); ?>_1_from_date"
+            class="form-control fs-6 fw-normal datepicker" id="job_entry_<?php echo get_the_ID(); ?>_1_from_date" placeholder="From Date">
     </div>
     <div class="col-md-2">
         <label for="job_entry_<?php echo get_the_ID(); ?>_1_to_date">To Date</label>
-        <input type="date" value="<?php echo date('Y-m-d'); ?>" name="job_entry_<?php echo get_the_ID(); ?>_1_to_date"
-            class="form-control fs-6 fw-normal" id="job_entry_<?php echo get_the_ID(); ?>_1_to_date" placeholder="To Date">
+        <input type="text" value="<?php echo date('M-d-y'); ?>" name="job_entry_<?php echo get_the_ID(); ?>_1_to_date"
+            class="form-control fs-6 fw-normal datepicker" id="job_entry_<?php echo get_the_ID(); ?>_1_to_date" placeholder="To Date">
     </div>
     <div class="col-md-2">
         <label for="job_entry_<?php echo get_the_ID(); ?>_1_gross_earning">Gross Earnings</label>

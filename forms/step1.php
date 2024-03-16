@@ -20,9 +20,7 @@
     </div>
     <div class="col-md-3 col-12">
         <label for="birthdate"> Birthdate</label>
-        <input type="date" value="<?php echo date('Y-m-d'); ?>" data-date-format="DD MMMM YYYY" value="2015-08-09"
-            name="dob" class="form-control fs-6 fw-normal" id="dob" placeholder="Birth Date">
-
+        <input type="text" value="<?php echo date('M-d-Y'); ?>" name="dob" class="form-control fs-6 fw-normal datepicker" id="dob" placeholder="Birth Date">            
     </div>
     <div class="col-md-3 col-12">
         <label for="age"> Age Today</label>
@@ -30,7 +28,7 @@
     </div>
     <div class="col-md-3 col-12">
         <label for="dol">Date of Loss (DOL)</label>
-        <input type="date" value="<?php echo date('Y-m-d'); ?>" name="dol" class="form-control fs-6 fw-normal"
+        <input type="text" value="<?php echo date('M-d-Y'); ?>" name="dol" class="form-control fs-6 fw-normal datepicker"
             id="dol" placeholder="Date of Loss (DOL)">
     </div>
     <div class="col-md-3 col-12">
@@ -39,7 +37,7 @@
     </div>
     <div class="col-md-3 col-12">
         <label for="calc_date">Calculation Date</label>
-        <input type="date" value="<?php echo date('Y-m-d'); ?>" name="calc_date" class="form-control fs-6 fw-normal"
+        <input type="text" value="<?php echo date('M-d-Y'); ?>" name="calc_date" class="form-control fs-6 fw-normal datepicker"
             id="calc_date" placeholder="Calculation Date">
     </div>
     <div class="col-md-3 col-12">

@@ -26,16 +26,16 @@ jQuery(document).ready(function ($) {
     var preaccidentForm = `
          <div class="row gx-md-3 gy-4 mb-4">
                      <div class="col-md-2">
-                        <label for="pre_job${fieldCounter}_title">Job ${fieldCounter} ${currentDate}</label>
+                        <label for="pre_job${fieldCounter}_title">Job ${fieldCounter} </label>
                         <input type="text" name="pre_job${fieldCounter}_title" class="form-control fs-6 fw-normal" id="pre_job${fieldCounter}_title" placeholder="Job ${fieldCounter}" >
                      </div>
                      <div class="col-md-2">
-                        <label for="pre_from_date">From Date</label>
-                        <input type="date" name="pre_job${fieldCounter}_from_date" class="form-control fs-6 fw-normal" id="pre_job${fieldCounter}_from_date" placeholder="From Date">
+                        <label for="pre_from_date">From Date </label>
+                        <input type="text" name="pre_job${fieldCounter}_from_date" class="form-control fs-6 fw-normal datepicker" id="pre_job${fieldCounter}_from_date" placeholder="From Date">
                      </div>
                      <div class="col-md-2">
                         <label for="pre_job${fieldCounter}_to_date">To Date</label>
-                        <input type="date" name="pre_job${fieldCounter}_to_date" class="form-control fs-6 fw-normal" id="pre_job${fieldCounter}_to_date" placeholder="To Date">
+                        <input type="text" name="pre_job${fieldCounter}_to_date" class="form-control fs-6 fw-normal datepicker" id="pre_job${fieldCounter}_to_date" placeholder="To Date">
                      </div>
                      <div class="col-md-1 col">
                         <div class="form-check">
@@ -67,16 +67,16 @@ jQuery(document).ready(function ($) {
     var postaccidentForm = `
     <div class="row gx-md-3 gy-4 mb-4">
                      <div class="col-md-2">
-                        <label for="post_job${postfieldCounter}_title">Job ${postfieldCounter}</label>
+                        <label for="post_job${postfieldCounter}_title">Job ${postfieldCounter}111</label>
                         <input type="text" name="post_job${postfieldCounter}_title" class="form-control fs-6 fw-normal" id="post_job${postfieldCounter}_title" placeholder="Job ${postfieldCounter}" >
                      </div>
                      <div class="col-md-2">
                         <label for="post_job${postfieldCounter}_from_date">From Date</label>
-                        <input type="date" name="post_job${postfieldCounter}_from_date" class="form-control fs-6 fw-normal" id="post_job${postfieldCounter}_from_date" placeholder="From Date">
+                        <input type="text" name="post_job${postfieldCounter}_from_date" class="form-control fs-6 fw-normal datepicker" id="post_job${postfieldCounter}_from_date" placeholder="From Date">
                      </div>
                      <div class="col-md-2">
                         <label for="post_job${postfieldCounter}_to_date">To Date</label>
-                        <input type="date" name="post_job${postfieldCounter}_to_date" class="form-control fs-6 fw-normal" id="post_job${postfieldCounter}_to_date" placeholder="To Date">
+                        <input type="text" name="post_job${postfieldCounter}_to_date" class="form-control fs-6 fw-normal datepicker" id="post_job${postfieldCounter}_to_date" placeholder="To Date">
                      </div>
                      <div class="col-md-2">
                         <label for="post_job${postfieldCounter}_earning">Gross Earnings</label>
@@ -98,11 +98,11 @@ jQuery(document).ready(function ($) {
     </div>
     <div class="col-md-2">
        <label for="post_ben${postbenifitCounter}_from_date">From Date</label>
-       <input type="date" name="post_ben${postbenifitCounter}_from_date" class="form-control fs-6 fw-normal" id="post_ben${postbenifitCounter}_from_date" placeholder="From Date">
+       <input type="text" name="post_ben${postbenifitCounter}_from_date" class="form-control fs-6 fw-normal datepicker" id="post_ben${postbenifitCounter}_from_date" placeholder="From Date">
     </div>
     <div class="col-md-2">
        <label for="post_ben${postbenifitCounter}_to_date">To Date</label>
-       <input type="date" name="post_ben${postbenifitCounter}_to_date" class="form-control fs-6 fw-normal" id="post_ben${postbenifitCounter}_to_date" placeholder="To Date">
+       <input type="text" name="post_ben${postbenifitCounter}_to_date" class="form-control fs-6 fw-normal datepicker" id="post_ben${postbenifitCounter}_to_date" placeholder="To Date">
     </div>
     <div class="col-md-2">
        <label for="post_ben${postbenifitCounter}_earning">Gross BENEFIT</label>
@@ -115,18 +115,18 @@ jQuery(document).ready(function ($) {
   });
 
   $('.dynamic-btn').click(function () {
-   var predatafieldCounter = $(this).attr('id'); 
-      newfitCounter++;
+    var predatafieldCounter = $(this).attr('id');
+    newfitCounter++;
     var preJobDataForm = `
       <div class="row gx-md-3 gy-4 mb-4">
          <div class="col-md-2">
             <label for="job_entry_${predatafieldCounter}_${newfitCounter}_from_date">From Date ${newfitCounter}</label>
-            <input type="date" value="${currentDate}" name="job_entry_${predatafieldCounter}_${newfitCounter}_from_date"
+            <input type="text" value="${currentDate}" name="job_entry_${predatafieldCounter}_${newfitCounter}_from_date"
                   class="form-control fs-6 fw-normal" id="job_entry_${predatafieldCounter}_${newfitCounter}_from_date" placeholder="From Date">
          </div>
          <div class="col-md-2">
             <label for="job_entry_${predatafieldCounter}_${newfitCounter}_to_date">To Date</label>
-            <input type="date" value="${currentDate}" name="job_entry_${predatafieldCounter}_${newfitCounter}_to_date"
+            <input type="text" value="${currentDate}" name="job_entry_${predatafieldCounter}_${newfitCounter}_to_date"
                   class="form-control fs-6 fw-normal" id="job_entry_${predatafieldCounter}_${newfitCounter}_to_date" placeholder="To Date">
          </div>
          <div class="col-md-2">
@@ -141,6 +141,6 @@ jQuery(document).ready(function ($) {
          </div>         
       </div>
 `;
-    $('#showPreJobData'+predatafieldCounter).append(preJobDataForm);
+    $('#showPreJobData' + predatafieldCounter).append(preJobDataForm);
   });
 });
