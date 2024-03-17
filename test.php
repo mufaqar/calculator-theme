@@ -4,6 +4,8 @@ Template Name: Testing
 */
 get_header();
 
+echo "dateOfLoss = Jan-15-2024";
+
 // The Query
 $the_query = new WP_Query(array(
     'post_type' => 'jobs', // Change 'post' to whatever post type you want to retrieve
