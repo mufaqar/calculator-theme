@@ -11,9 +11,25 @@
         <input type="text" value="<?php echo date('M-d-y'); ?>" name="job_entry_<?php echo get_the_ID(); ?>_1_to_date"
             class="form-control fs-6 fw-normal datepicker" id="job_entry_<?php echo get_the_ID(); ?>_1_to_date" placeholder="To Date">
     </div>
+    <div class="col-md-1 col">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="job_entry_<?php echo get_the_ID(); ?>_1_4_weeks" id="job_entry_<?php echo get_the_ID(); ?>_4_weeks">
+            <label class="form-check-label" for="job_entry_<?php echo get_the_ID(); ?>_4_weeks">
+                Prior 4-weeks
+            </label>
+        </div>
+    </div>
+    <div class="col-md-2 col">
+        <div class="form-check ps-md-5">
+            <input class="form-check-input" type="checkbox" name="job_entry_<?php echo get_the_ID(); ?>_1_52_weeks" id="job_entry_<?php echo get_the_ID(); ?>_52_weeks" checked>
+            <label class="form-check-label" for="job_entry_<?php echo get_the_ID(); ?>_52_weeks">
+                Prior 52-weeks
+            </label>
+        </div>
+    </div>
     <div class="col-md-2">
-        <label for="job_entry_<?php echo get_the_ID(); ?>_1_gross_earning">Gross Earnings</label>
-        <input type="number" name="job_entry_<?php echo get_the_ID(); ?>_1_gross_earning" class="form-control fs-6 fw-normal" id="job_entry_<?php echo get_the_ID(); ?>_1_gross_earning"
+        <label for="job_entry_<?php echo get_the_ID(); ?>_1_earning">Gross Earnings</label>
+        <input type="number" name="job_entry_<?php echo get_the_ID(); ?>_1_earning" class="form-control fs-6 fw-normal" id="job_entry_<?php echo get_the_ID(); ?>_1_earning"
             placeholder="Gross Earnings">
     </div>
     <div class="col-md-2">

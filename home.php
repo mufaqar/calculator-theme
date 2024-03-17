@@ -14,9 +14,6 @@ get_header();
     </div>
     <div class="container mx-auto col p-md-5 py-5 Step_form">
         <div class="row">
-
-            <?php //get_template_part('forms/step2');  ?>
-
             <div class="step active" id="step1">
                 <form class="" id="mock_user" method="POST">
                     <?php get_template_part('forms/step1');  ?>
@@ -51,8 +48,8 @@ get_header();
                         <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step3">
                             Previous
                         </button>
-                        <button class="btn fs-6 fw-bold mt-2 w-fit post_job" type="submit">
-                            Post Jobs
+                        <button class="btn fs-6 fw-bold mt-2 w-fit savePreJobData" type="submit">
+                        savePreJobData
                         </button>
                     </div>
 
@@ -269,15 +266,14 @@ jQuery(document).ready(function($) {
         });
     });
 
-    $('.post_job').click(function(e) {
-
+    $('.savePreJobData').click(function(e) {
         var pre_jobs_data = $("#pre_jobs_data").serialize();
         e.preventDefault();
         $.ajax({
             url: "<?php echo admin_url('admin-ajax.php'); ?>",
             type: 'POST',
             data: {
-                action: "save_pre_income_data",
+                action: "savePreJobData",
                 form_data: pre_jobs_data
             },
             success: function(data) {
@@ -297,7 +293,7 @@ jQuery(document).ready(function($) {
             url: "<?php echo admin_url('admin-ajax.php'); ?>",
             type: 'POST',
             data: {
-                action: "save_pre_income_data",
+                action: "savePreJobData",
                 form_data: pre_jobs_data
             },
             success: function(data) {

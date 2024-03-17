@@ -307,10 +307,10 @@ function save_user_income_data() {
 
 
 // Add action for saving form data
-add_action('wp_ajax_save_pre_income_data', 'save_pre_income_data');
-add_action('wp_ajax_nopriv_save_pre_income_data', 'save_pre_income_data');
+add_action('wp_ajax_savePreJobData', 'savePreJobData');
+add_action('wp_ajax_nopriv_savePreJobData', 'savePreJobData');
 
-function save_pre_income_data() {   
+function savePreJobData() {   
    
 
         print "<pre>";  
@@ -318,6 +318,7 @@ function save_pre_income_data() {
                 
                 parse_str($_POST['form_data'], $form_data);
                 $arranged_data = array();
+
                 if (!empty($form_data)) {
                     foreach ($form_data as $field_name => $field_value) {
                         $sanitized_value = sanitize_text_field($field_value);
@@ -325,7 +326,11 @@ function save_pre_income_data() {
                     }
                 }   
 
-                //print_r($arranged_data);            
+
+
+                print_r($arranged_data);  
+                
+          
 
                 $resultArray = array();
                 
@@ -350,9 +355,7 @@ function save_pre_income_data() {
                
                     foreach ($meta_values as $meta_key => $meta_value) {
                        // print_r($meta_value);
-                         update_post_meta($index, "earning_$meta_key", $meta_value);
-
-                       
+                         update_post_meta($index, "paystub_$meta_key", $meta_value);                       
                         
                     }
                 }

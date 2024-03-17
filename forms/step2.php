@@ -21,7 +21,7 @@
     </div>
     <div class="col-md-1 col">
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="pre_job1_4_weeks" id="pre_job1_4_weeks">
+            <input class="form-check-input" type="checkbox" name="pre_job1_4_weeks" id="pre_job1_4_weeks"  >
             <label class="form-check-label" for="pre_job1_4_weeks">
                 Prior 4-weeks
             </label>
@@ -29,7 +29,7 @@
     </div>
     <div class="col-md-2 col">
         <div class="form-check ps-md-5">
-            <input class="form-check-input" type="checkbox" name="pre_job1_52_weeks" id="pre_job1_52_weeks" checked>
+            <input class="form-check-input" type="checkbox" name="pre_job1_52_weeks" id="pre_job1_52_weeks"  checked>
             <label class="form-check-label" for="pre_job1_52_weeks">
                 Prior 52-weeks
             </label>

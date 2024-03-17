@@ -144,3 +144,18 @@ function enqueue_custom_scripts() {
 }
 add_action('wp_enqueue_scripts', 'enqueue_custom_scripts');
 
+
+// // Define the updated data
+// $updated_data = array(
+//     'from_date' => 'Nov-01-2023',
+//     'to_date' => 'Nov-15-2023',
+//     '52_weeks' => 'on',
+//     'earning' => '500',
+//     'pre_comment' => ''
+// );
+
+// // Update post meta with the new data
+// foreach ($updated_data as $key => $value) {
+//     update_post_meta('258', 'paystub_1' . $key, $value);
+// }
+

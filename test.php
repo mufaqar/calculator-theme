@@ -9,6 +9,18 @@ get_header();
 
 
 <?php
+
+
+
+
+
+
+
+
+
+
+
+
 // The Query
 $the_query = new WP_Query(array(
     'post_type' => 'jobs', // Change 'post' to whatever post type you want to retrieve
@@ -34,30 +46,86 @@ if ($the_query->have_posts()) {
        $earning_meta = array();
        $meta_keys = get_post_meta(get_the_ID());
        foreach ($meta_keys as $key => $value) {
-           if (strpos($key, 'earning') === 0) {
+           if (strpos($key, 'paystub') === 0) {
                $earning_meta[$key] = unserialize($value[0]);
            }
        }
 
        print "<pre>";
+       //print_r ( $earning_meta );
 
-       print_r($earning_meta);
+  
+       $dateOfLoss = 'Jan-15-2024';
+       $fourWeeksPrior = calculateDateFourWeeksPrior($dateOfLoss);  
+       $fiftyTwoWeeksPrior = calculateDateFiftyTwoWeeksPrior($dateOfLoss);  
 
-       // Output all 'earning' meta values
-       echo '<p>Earning Meta:</p>';
-       if (!empty($earning_meta)) {
-           echo '<ul>';
-           foreach ($earning_meta as $key => $value) {
-               echo '<li>' . $key . ': ';
-               echo 'From Date: ' . $value['from_date'] . ', ';
-               echo 'To Date: ' . $value['to_date'] . ', ';
-               echo 'Pre Comment: ' . $value['pre_comment'];
-               echo '</li>';
-           }
-           echo '</ul>';
-       } else {
-           echo '<p>No earning meta found.</p>';
-       }
+      
+       echo '<table border="1" width="900">';
+       echo '<tr><th>Date Range</th><th>4 Weeks</th><th>52 Weeks</th></tr>';
+       echo '<tr><th></th><th>'.$fourWeeksPrior.'</th><th>'.$fiftyTwoWeeksPrior.'</th></tr>';
+
+       echo '<tr><th>DOL</th><th>'.$dateOfLoss.'</th><th>'.$dateOfLoss.'</th></tr>';
+
+
+    
+       
+       
+       // Initialize sums
+       $sum_4_weeks = 0;
+       $sum_52_weeks = 0;
+       
+       foreach ($earning_meta as $key => $value) {
+        echo '<tr>';
+        
+        // Calculate durations
+        $from_date = $value['from_date'];
+        $to_date = $value['to_date'];
+        $duration = calculateDaysBetweenDates($from_date, $to_date);
+        $duration_exist = calculateOrigianlDaysBetweenDates($dateOfLoss, $to_date);
+        
+        echo '<td>' . $from_date . ' to ' . $to_date . ' (' . $duration . "-" . $duration_exist .' days)</td>';
+        
+        if (isset($value['4_weeks']) && $value['4_weeks'] === 'on') {
+            // Calculate earning for 4 weeks based on duration
+            $earning_4_weeks = round($value['earning'] / $duration * 4);
+            echo '<td>' . $earning_4_weeks . '</td>';
+            // Accumulate sum for 4 weeks
+            $sum_4_weeks += $earning_4_weeks;
+        } else {
+            echo '<td> 0 </td>';
+        }
+        
+        if (isset($value['52_weeks']) && $value['52_weeks'] === 'on') {
+            // Calculate earning for 52 weeks
+         
+            // Accumulate sum for 52 weeks
+            if (isDateInRange($from_date, $to_date, $dateOfLoss)) {
+               
+             
+         
+              
+                echo '<td>{' .  ($value['earning']  * $duration_exist )/ $duration . '}</td>';
+            } else {
+                $sum_52_weeks += $value['earning'];
+                echo '<td>' . $sum_52_weeks . '</td>';
+            }
+        } else {
+            echo '<td>0</td>';
+        }
+        
+        echo '</tr>';
+    }
+    
+       
+       // Display sums in a separate row
+       echo '<tr><td><b>Total</b></td><td>' . round($sum_4_weeks) . '</td><td>' . round($sum_52_weeks) . '</td></tr>';
+       
+       echo '</table>';
+       
+     
+
+
+    //  print_r($earning_meta);
     }
     /* Restore original Post Data */
     wp_reset_postdata();

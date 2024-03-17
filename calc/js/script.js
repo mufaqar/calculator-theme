@@ -26,7 +26,7 @@ jQuery(document).ready(function ($) {
     var preaccidentForm = `
          <div class="row gx-md-3 gy-4 mb-4">
                      <div class="col-md-2">
-                        <label for="pre_job${fieldCounter}_title">Job ${fieldCounter} </label>
+                        <label for="pre_job${fieldCounter}_title">Job ${fieldCounter} 123</label>
                         <input type="text" name="pre_job${fieldCounter}_title" class="form-control fs-6 fw-normal" id="pre_job${fieldCounter}_title" placeholder="Job ${fieldCounter}" >
                      </div>
                      <div class="col-md-2">
@@ -53,6 +53,7 @@ jQuery(document).ready(function ($) {
                               </label>
                         </div>
                      </div>
+                    
                      <div class="col-md-2">
                         <label for="pre_job${fieldCounter}_earning">Gross Earnings</label>
                         <input type="number" name="pre_job${fieldCounter}_earning" class="form-control fs-6 fw-normal" id="pre_job${fieldCounter}_earning" placeholder="Gross Earnings" >
@@ -129,6 +130,22 @@ jQuery(document).ready(function ($) {
             <input type="text" value="${currentDate}" name="job_entry_${predatafieldCounter}_${newfitCounter}_to_date"
                   class="form-control fs-6 fw-normal" id="job_entry_${predatafieldCounter}_${newfitCounter}_to_date" placeholder="To Date">
          </div>
+         <div class="col-md-1 col">
+         <div class="form-check">
+               <input class="form-check-input" type="checkbox" name="job_entry_${predatafieldCounter}_${newfitCounter}_4_weeks" id="job_entry_${predatafieldCounter}_${newfitCounter}_4_weeks">
+               <label class="form-check-label" for="job_entry_${predatafieldCounter}_${newfitCounter}_4_weeks">
+                  Prior 4-weeks
+               </label>
+         </div>
+      </div>
+      <div class="col-md-2 col">
+         <div class="form-check ps-md-5">
+               <input class="form-check-input" type="checkbox" name="job_entry_${predatafieldCounter}_${newfitCounter}_52_weeks" id="job_entry_${predatafieldCounter}_${newfitCounter}_52_weeks" checked>
+               <label class="form-check-label" for="job_entry_${predatafieldCounter}_${newfitCounter}_52_weeks">
+                  Prior 52-weeks
+               </label>
+         </div>
+      </div>
          <div class="col-md-2">
             <label for="job_entry_${predatafieldCounter}_${newfitCounter}_earning">Gross Earnings</label>
             <input type="number" name="job_entry_${predatafieldCounter}_${newfitCounter}_earning" class="form-control fs-6 fw-normal" id="job_entry_${predatafieldCounter}_${newfitCounter}_earning"

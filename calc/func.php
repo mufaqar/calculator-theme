@@ -91,3 +91,82 @@ function save_custom_array($post_id, $custom_array) {
     update_post_meta($post_id, 'custom_array_' . $unique_key, $serialized_array);
 	echo "done";
 }
+
+
+function calculateDaysBetweenDates($startDateString, $endDateString) {
+    // Create DateTime objects from the input date strings
+    $startDate = DateTime::createFromFormat('M-d-Y', $startDateString);
+    $endDate = DateTime::createFromFormat('M-d-Y', $endDateString);
+
+    // Calculate the difference between the dates
+    $interval = $startDate->diff($endDate);
+
+    // Get the difference in days
+    $daysDifference = $interval->days +1;
+
+    // Return the difference in days
+    return $daysDifference;
+}
+
+function calculateOrigianlDaysBetweenDates($startDateString, $endDateString) {
+    // Create DateTime objects from the input date strings
+    $startDate = DateTime::createFromFormat('M-d-Y', $startDateString);
+    $endDate = DateTime::createFromFormat('M-d-Y', $endDateString);
+
+    // Calculate the difference between the dates
+    $interval = $startDate->diff($endDate);
+
+    // Get the difference in days
+    $daysDifference = $interval->days ;
+
+    // Return the difference in days
+    return $daysDifference;
+}
+
+
+
+function calculateDateFourWeeksPrior($dateString) {
+    // Create a DateTime object from the input date string
+    $dateTime = DateTime::createFromFormat('M-d-Y', $dateString);
+
+    // Subtract 4 weeks
+    $dateTime->modify('-4 weeks');
+
+    // Get the resulting date
+    $resultDate = $dateTime->format('M-d-Y');
+
+    // Return the resulting date
+    return $resultDate;
+}
+
+
+function calculateDateFiftyTwoWeeksPrior($dateString) {
+    // Create a DateTime object from the input date string
+    $dateTime = DateTime::createFromFormat('M-d-Y', $dateString);
+
+    // Subtract 52 weeks (1 year)
+    $dateTime->modify('-52 weeks');
+
+    // Get the resulting date
+    $resultDate = $dateTime->format('M-d-Y');
+
+    // Return the resulting date
+    return $resultDate;
+}
+
+
+function isDateInRange($start_date, $end_date, $check_date) {
+    $start_datetime = DateTime::createFromFormat('M-d-Y', $start_date);
+    $end_datetime = DateTime::createFromFormat('M-d-Y', $end_date);
+    $check_datetime = DateTime::createFromFormat('M-d-Y', $check_date);
+
+    return ($check_datetime >= $start_datetime && $check_datetime <= $end_datetime);
+}
+
+function getDaysDifference($start_date, $check_date) {
+    $start_datetime = DateTime::createFromFormat('M-d-Y', $start_date);
+    $check_datetime = DateTime::createFromFormat('M-d-Y', $check_date);
+
+    $interval = $start_datetime->diff($check_datetime);
+    return $interval->days + 1; // Add 1 to include the start date
+}
