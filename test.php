@@ -83,7 +83,18 @@ if ($the_query->have_posts()) {
         $duration = calculateDaysBetweenDates($from_date, $to_date);
         $duration_exist = calculateOrigianlDaysBetweenDates($dateOfLoss, $to_date);
         
-        echo '<td>' . $from_date . ' to ' . $to_date . ' (' . $duration . "-" . $duration_exist .' days)</td>';
+       
+
+        if (isDateInRange($from_date, $to_date, $dateOfLoss)) {
+
+            echo '<td>' . $from_date . ' to ' . $to_date . ' (' . $duration . " days- Propoted Days" . $duration_exist .' )</td>';
+           
+
+        }
+        else {
+            echo '<td>' . $from_date . ' to ' . $to_date . ' (' . $duration  .' days)</td>';
+
+        }
         
         if (isset($value['4_weeks']) && $value['4_weeks'] === 'on') {
             // Calculate earning for 4 weeks based on duration
