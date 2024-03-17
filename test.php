@@ -9,18 +9,6 @@ get_header();
 
 
 <?php
-
-
-
-
-
-
-
-
-
-
-
-
 // The Query
 $the_query = new WP_Query(array(
     'post_type' => 'jobs', // Change 'post' to whatever post type you want to retrieve
@@ -63,37 +51,25 @@ if ($the_query->have_posts()) {
        echo '<table border="1" width="900">';
        echo '<tr><th>Date Range</th><th>4 Weeks</th><th>52 Weeks</th></tr>';
        echo '<tr><th></th><th>'.$fourWeeksPrior.'</th><th>'.$fiftyTwoWeeksPrior.'</th></tr>';
-
        echo '<tr><th>DOL</th><th>'.$dateOfLoss.'</th><th>'.$dateOfLoss.'</th></tr>';
-
-
-    
-       
        
        // Initialize sums
        $sum_4_weeks = 0;
        $sum_52_weeks = 0;
        
        foreach ($earning_meta as $key => $value) {
-        echo '<tr>';
-        
+        echo '<tr>';       
         // Calculate durations
         $from_date = $value['from_date'];
         $to_date = $value['to_date'];
         $duration = calculateDaysBetweenDates($from_date, $to_date);
         $duration_exist = calculateOrigianlDaysBetweenDates($dateOfLoss, $to_date);
-        
-       
-
         if (isDateInRange($from_date, $to_date, $dateOfLoss)) {
-
-            echo '<td>' . $from_date . ' to ' . $to_date . ' (' . $duration . " days- Propoted Days" . $duration_exist .' )</td>';
-           
+            echo '<td>' . $from_date . ' to ' . $to_date . ' (' . $duration . " days- Propoted Days" . $duration_exist .' )</td>';         
 
         }
         else {
             echo '<td>' . $from_date . ' to ' . $to_date . ' (' . $duration  .' days)</td>';
-
         }
         
         if (isset($value['4_weeks']) && $value['4_weeks'] === 'on') {
@@ -110,12 +86,9 @@ if ($the_query->have_posts()) {
             // Calculate earning for 52 weeks
          
             // Accumulate sum for 52 weeks
-            if (isDateInRange($from_date, $to_date, $dateOfLoss)) {
-               
-             
-         
+            if (isDateInRange($from_date, $to_date, $dateOfLoss)) {         
               
-                echo '<td>{' .  ($value['earning']  * $duration_exist )/ $duration . '}</td>';
+                echo '<td>' .  ($value['earning']  * $duration_exist )/ $duration . '</td>';
             } else {
                 $sum_52_weeks += $value['earning'];
                 echo '<td>' . $sum_52_weeks . '</td>';
