@@ -6,6 +6,7 @@ get_header();
 
 echo "dateOfLoss = Jan-15-2024";
 
+
 // The Query
 $the_query = new WP_Query(array(
     'post_type' => 'jobs', // Change 'post' to whatever post type you want to retrieve
@@ -13,7 +14,7 @@ $the_query = new WP_Query(array(
     'tax_query'      => array(
         array(
             'taxonomy' => 'job_type', // Custom taxonomy
-            'field'    => 'slug',     // Use 'slug' or 'term_id' depending on how you are storing the value
+            'field'    => 'slug',     // Use 'slug' or 'term_id' 
             'terms'    => 'pre-income', // Slug of the term you want to retrieve posts for
         ),
     )
