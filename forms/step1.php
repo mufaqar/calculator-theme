@@ -25,7 +25,7 @@
     </div>
     <div class="col-md-3 col-12">
         <label for="age"> Age Today</label>
-        <input type="number" name="age" class="form-control fs-6 fw-normal" id="age" placeholder="Age">
+        <input type="text" name="age" class="form-control fs-6 fw-normal" id="age" placeholder="Age">
     </div>
     <div class="col-md-3 col-12">
         <label for="dol">Date of Loss (DOL)</label>
@@ -34,7 +34,7 @@
     </div>
     <div class="col-md-3 col-12">
         <label for="age_loss"> Age on DOL</label>
-        <input type="number" name="age_loss" class="form-control fs-6 fw-normal" id="age_loss" placeholder="40">
+        <input type="text" name="age_loss" class="form-control fs-6 fw-normal" id="age_loss" placeholder="40">
     </div>
     <div class="col-md-3 col-12">
         <label for="calc_date">Calculation Date</label>
@@ -43,7 +43,7 @@
     </div>
     <div class="col-md-3 col-12">
         <label for="age_calc"> Age on Calculation Date</label>
-        <input type="number" name="age_calc" class="form-control fs-6 fw-normal" id="age_calc"
+        <input type="text" name="age_calc" class="form-control fs-6 fw-normal" id="age_calc"
             placeholder="  Age on Calculation Date">
     </div>
     <div class="col-md-3 col-12">
