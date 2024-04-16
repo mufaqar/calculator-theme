@@ -207,8 +207,15 @@ jQuery(document).ready(function($) {
 
 
 
-    $('.next2').click(function() {
+    $('.next2').click(function(event) {
+        event.preventDefault();
 
+
+         // Perform validation
+    if (isValid()) {
+        // If validation passes, execute the desired action
+        // For example, navigating to the next page or submitting the form
+        alert("Working");
         var formData = {
             first_name: $('#first_name').val(),
             last_name: $('#last_name').val(),
@@ -246,6 +253,14 @@ jQuery(document).ready(function($) {
                 console.error('Error during AJAX call:', error);
             }
         });
+    } else {
+        // If validation fails, show an error message or take other actions
+        alert('Please fill out the required fields.');
+    }
+    
+        
+
+       
     });
     $('.next3').click(function() {
         var formData = $("#mock_calc").serialize();
@@ -326,6 +341,21 @@ jQuery(document).ready(function($) {
             }
         });
     });
+
+    function isValid() {
+    // Implement your validation logic here
+    // Return true if validation passes, otherwise return false
+
+    var inputValue = $('#first_name').val(); // Replace 'inputField' with the ID or class of your input field
+
+    if (inputValue.trim() === '') {
+        return false; // Validation fails if the input field is empty
+    }
+
+    // You can add more validation rules as needed
+
+    return true; // Return true if all validation rules pass
+}
 
 
 
