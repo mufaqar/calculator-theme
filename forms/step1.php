@@ -4,24 +4,24 @@
 
 <div class="row gx-md-3 gy-4 mb-4">
     <div class="col-md-3 col-12">
-        <label for="email"> Email</label>
-        <input type="text" name="email" class="form-control fs-6 fw-normal" id="email"
+        <label for="email"> Email *</label>
+        <input type="text" name="email" class="form-control fs-6 fw-normal required-field" id="email"
             placeholder="Enter Email Address">
 
     </div>
     <div class="col-md-3 col-12">
-        <label for="first_name"> First Name</label>
-        <input type="text" name="first_name" class="form-control fs-6 fw-normal" id="first_name"
+        <label for="first_name"> First Name *</label>
+        <input type="text" name="first_name" class="form-control fs-6 fw-normal required-field" id="first_name"
             placeholder="First Name">
     </div>
     <div class="col-md-3 col-12">
-        <label for="last_name"> Last Name</label>
-        <input type="text" name="last_name" class="form-control fs-6 fw-normal" id="last_name" placeholder="Last Name">
+        <label for="last_name"> Last Name *</label>
+        <input type="text" name="last_name" class="form-control fs-6 fw-normal required-field" id="last_name" placeholder="Last Name">
     </div>
     <div class="col-md-3 col-12">
-        <label for="birthdate"> Birthdate</label>
+        <label for="birthdate"> Birthdate *</label>
         <input type="text" value="<?php echo date('M-d-Y'); ?>" name="dob"
-            class="form-control fs-6 fw-normal datepicker" id="dob" placeholder="Birth Date">
+            class="form-control fs-6 fw-normal required-field datepicker" id="dob" placeholder="Birth Date">
     </div>
     <div class="col-md-3 col-12">
         <label for="age"> Age Today</label>
