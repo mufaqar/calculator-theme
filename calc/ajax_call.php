@@ -147,6 +147,33 @@ function save_form_user_data() {
 }
 
 
+
+// Add action for saving form data
+add_action('wp_ajax_addJob', 'addJob');
+add_action('wp_ajax_nopriv_addJob', 'addJob');
+
+function addJob() {   
+
+
+    
+
+   
+
+       echo "Calculation";
+    
+                
+              
+               
+       
+           die();
+           
+    
+        
+}
+
+
+
+
 // Add action for saving form data
 add_action('wp_ajax_save_user_income_data', 'save_user_income_data');
 add_action('wp_ajax_nopriv_save_user_income_data', 'save_user_income_data');

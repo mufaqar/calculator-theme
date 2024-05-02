@@ -16,7 +16,9 @@ get_header();
         <div class="row">
             <div class="step active" id="step1">
                 <form class="" id="mock_user" method="POST">
-                    <?php get_template_part('forms/step1');  ?>
+                    <?php get_template_part('forms/step2');  ?>
+
+                    <hr/>
                     <div class="">
                         <button class="btn fs-6 fw-bold mt-2 w-fit next2" type="button" data-step="step2">
                             Next
@@ -205,6 +207,8 @@ jQuery(document).ready(function($) {
         $('#age_calc').val(ageDifference);
     });
 
+    
+
 
 
     $('.next2').click(function(event) {
@@ -254,10 +258,90 @@ jQuery(document).ready(function($) {
             alert('Please fill out the required fields.');
         }
 
-
-
-
     });
+
+
+    $('#addPreJob').click(function () {
+        
+
+         var formData = {
+                first_name: $('#pre_job1_title').val()
+            };
+    $.ajax({
+        url: "<?php echo admin_url('admin-ajax.php'); ?>",
+        type: 'POST',
+        data: {
+                    action: "addJob",
+                    form_data: formData
+                },
+        success: function(response) {
+            // Handle the AJAX success response here
+            console.log(response);
+        },
+        error: function(xhr, status, error) {
+            // Handle the AJAX error here
+        }
+    });
+    fieldCounter++;
+    var newHTML = "<p>Job Title</p>";
+    var preaccidentForm = `
+         <div class="row gx-md-3 gy-4">
+                     
+                     <div class="col-md-3">
+                        <label for="pre_from_date">From Date </label>
+                        <input type="text" name="pre_job${fieldCounter}_from_date" class="form-control fs-6 fw-normal datepicker" id="pre_job${fieldCounter}_from_date" placeholder="From Date">
+                     </div>
+                     <div class="col-md-3">
+                        <label for="pre_job${fieldCounter}_to_date">To Date</label>
+                        <input type="text" name="pre_job${fieldCounter}_to_date" class="form-control fs-6 fw-normal datepicker" id="pre_job${fieldCounter}_to_date" placeholder="To Date">
+                     </div>
+                  
+                     <div class="col-md-3">
+                        <label for="job_entry_${predatafieldCounter}_${newfitCounter}_earning">Gross Earnings</label>
+                        <input type="text" name="job_entry_${predatafieldCounter}_${newfitCounter}_earning" class="form-control fs-6 fw-normal" id="job_entry_${predatafieldCounter}_${newfitCounter}_earning"
+                              placeholder="Gross Earnings">
+                     </div>
+                     <div class="col-md-3">
+                        <label for="job_entry_${predatafieldCounter}_${newfitCounter}_pre_comment">Special Condition</label>
+                        <input type="text" name="job_entry_${predatafieldCounter}_${newfitCounter}_pre_comment" class="form-control fs-6 fw-normal" id="job_entry_${predatafieldCounter}_${newfitCounter}_pre_comment"
+                              placeholder="Special Condition">
+                     </div> 
+                    
+               </div>`;
+    $('#pre_accident_form').append(preaccidentForm);
+    $(".add_job").html(newHTML);
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     $('.next3').click(function() {
         var formData = $("#mock_calc").serialize();
         $.ajax({
