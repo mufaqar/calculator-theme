@@ -99,8 +99,6 @@ function save_form_user_data() {
         'gender' => $gender,
     );
 
-  
-
         // Check if the user already exists
         $user = get_user_by('email', $email);
 
@@ -152,24 +150,23 @@ function save_form_user_data() {
 add_action('wp_ajax_addJob', 'addJob');
 add_action('wp_ajax_nopriv_addJob', 'addJob');
 
-function addJob() {   
-
-
-    
-
-   
-
-       echo "Calculation";
-    
-                
-              
-               
-       
-           die();
-           
-    
-        
+function addJob() {  
+    $formData = $_POST['form_data'];
+    $job_title = $formData['job_title']; 
+    echo $job_title;
+    die();
 }
+
+// Add action for saving form data
+add_action('wp_ajax_UpdateJob', 'UpdateJob');
+add_action('wp_ajax_nopriv_UpdateJob', 'UpdateJob');
+
+function UpdateJob() {  
+
+    die();
+    
+}
+
 
 
 

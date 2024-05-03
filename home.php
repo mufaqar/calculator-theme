@@ -265,7 +265,7 @@ jQuery(document).ready(function($) {
         
 
          var formData = {
-                first_name: $('#pre_job1_title').val()
+                job_title: $('#pre_job1_title').val()
             };
     $.ajax({
         url: "<?php echo admin_url('admin-ajax.php'); ?>",
@@ -277,16 +277,11 @@ jQuery(document).ready(function($) {
         success: function(response) {
             // Handle the AJAX success response here
             console.log(response);
-        },
-        error: function(xhr, status, error) {
-            // Handle the AJAX error here
-        }
-    });
-    fieldCounter++;
-    var newHTML = "<p>Job Title</p>";
+
+            fieldCounter++;
+    var newHTML = response;
     var preaccidentForm = `
-         <div class="row gx-md-3 gy-4">
-                     
+         <div class="row gx-md-3 gy-4">                     
                      <div class="col-md-3">
                         <label for="pre_from_date">From Date </label>
                         <input type="text" name="pre_job${fieldCounter}_from_date" class="form-control fs-6 fw-normal datepicker" id="pre_job${fieldCounter}_from_date" placeholder="From Date">
@@ -312,6 +307,12 @@ jQuery(document).ready(function($) {
     $(".add_job").html(newHTML);
 
 
+        },
+        error: function(xhr, status, error) {
+            // Handle the AJAX error here
+        }
+    });
+    
 });
 
 
