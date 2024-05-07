@@ -278,6 +278,7 @@ jQuery(document).ready(function($) {
                 var newHTML = response;
                 $(".add_job").html(newHTML);
                 addRow();
+                $('.paystub_btn').show();
 
             },
             error: function(xhr, status, error) {
@@ -319,12 +320,13 @@ jQuery(document).ready(function($) {
             '<div class="col-md-3"><label for="pre_from_date">Gross Earnings </label><input type="text" name="g_earning[]" placeholder="Gross Earnings" class="form-control fs-6 fw-normal "></div>' +
             '<div class="col-md-2"><label for="pre_from_date">Special Condition </label><input type="text" name="sp[]" placeholder="Special Condition" class="form-control fs-6 fw-normal "></div>' +
             '<img class="remove-row col-md-1 rm_btn" src="<?php bloginfo('template_directory'); ?>/images/cross.png" width="48" height="48" />' +
-            '</div>';
+           '</div>';
         $('#pre_accident_form').append(newRow);
     }
 
     $('#addPreJob2').click(function() {
         addRow();
+        
         var formData = getFormValues();
         console.log(formData); 
 

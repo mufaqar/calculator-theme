@@ -167,4 +167,4 @@ input[type="checkbox"]:checked+label:after {
 
 .rm_btn { width: 48px; object-fit: contain; margin-top: 50px !important;}
 
-.pre_job_data { display: none;}
+.paystub_btn { display: none;}

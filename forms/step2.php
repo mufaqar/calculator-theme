@@ -15,10 +15,10 @@
         </button>
     </div>
 </div>
-<div class="row gx-md-3 gy-4 mb-4 pre_job_data">
+<div class="row gx-md-3 gy-4 mb-4 ">
     <div id="pre_accident_form" class="col-md-9"></div>
     <div class="col-md-3 align-self-end">
-        <button class="add_btn text-white border-0 fs-6 fw-bold mt-2 w-fit" type="button" id="addPreJob2">
+        <button class="add_btn paystub_btn text-white border-0 fs-6 fw-bold mt-2 w-fit" type="button" id="addPreJob2">
             Add Paystub
         </button>
     </div>
