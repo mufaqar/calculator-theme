@@ -16,9 +16,9 @@ get_header();
         <div class="row">
             <div class="step active" id="step1">
                 <form class="" id="mock_user" method="POST">
-                    <?php get_template_part('forms/step2');  ?>
+                    <?php get_template_part('forms/step1');  ?>
 
-                    <hr/>
+                    <hr />
                     <div class="">
                         <button class="btn fs-6 fw-bold mt-2 w-fit next2" type="button" data-step="step2">
                             Next
@@ -36,7 +36,7 @@ get_header();
                             Previous
                         </button>
                         <button class="btn fs-6 fw-bold mt-2 w-fit next3" type="button" data-step="step3">
-                            Pre Jobs
+                            Post Jobs
                         </button>
                     </div>
                 </form>
@@ -207,15 +207,15 @@ jQuery(document).ready(function($) {
         $('#age_calc').val(ageDifference);
     });
 
-    
+
 
 
 
     $('.next2').click(function(event) {
         event.preventDefault();
         // Perform validation
-        if (isValid()) {            
-           
+        if (isValid()) {
+
             var formData = {
                 first_name: $('#first_name').val(),
                 last_name: $('#last_name').val(),
@@ -261,59 +261,74 @@ jQuery(document).ready(function($) {
     });
 
 
-    $('#addPreJob').click(function () {
-        
+    $('#addPreJob').click(function() {
 
-         var formData = {
-                job_title: $('#pre_job1_title').val()
-            };
-    $.ajax({
-        url: "<?php echo admin_url('admin-ajax.php'); ?>",
-        type: 'POST',
-        data: {
-                    action: "addJob",
-                    form_data: formData
-                },
-        success: function(response) {
-            // Handle the AJAX success response here
-            console.log(response);
+        var formData = {
+            job_title: $('#pre_job1_title').val()
+        };
+        $.ajax({
+            url: "<?php echo admin_url('admin-ajax.php'); ?>",
+            type: 'POST',
+            data: {
+                action: "addJob",
+                form_data: formData
+            },
+            success: function(response) {              
+                console.log(response);          
+                var newHTML = response;
+                $(".add_job").html(newHTML);
+                addRow();
 
-            fieldCounter++;
-    var newHTML = response;
-    var preaccidentForm = `
-         <div class="row gx-md-3 gy-4">                     
-                     <div class="col-md-3">
-                        <label for="pre_from_date">From Date </label>
-                        <input type="text" name="pre_job${fieldCounter}_from_date" class="form-control fs-6 fw-normal datepicker" id="pre_job${fieldCounter}_from_date" placeholder="From Date">
-                     </div>
-                     <div class="col-md-3">
-                        <label for="pre_job${fieldCounter}_to_date">To Date</label>
-                        <input type="text" name="pre_job${fieldCounter}_to_date" class="form-control fs-6 fw-normal datepicker" id="pre_job${fieldCounter}_to_date" placeholder="To Date">
-                     </div>
-                  
-                     <div class="col-md-3">
-                        <label for="job_entry_${predatafieldCounter}_${newfitCounter}_earning">Gross Earnings</label>
-                        <input type="text" name="job_entry_${predatafieldCounter}_${newfitCounter}_earning" class="form-control fs-6 fw-normal" id="job_entry_${predatafieldCounter}_${newfitCounter}_earning"
-                              placeholder="Gross Earnings">
-                     </div>
-                     <div class="col-md-3">
-                        <label for="job_entry_${predatafieldCounter}_${newfitCounter}_pre_comment">Special Condition</label>
-                        <input type="text" name="job_entry_${predatafieldCounter}_${newfitCounter}_pre_comment" class="form-control fs-6 fw-normal" id="job_entry_${predatafieldCounter}_${newfitCounter}_pre_comment"
-                              placeholder="Special Condition">
-                     </div> 
-                    
-               </div>`;
-    $('#pre_accident_form').append(preaccidentForm);
-    $(".add_job").html(newHTML);
+            },
+            error: function(xhr, status, error) {
+                // Handle the AJAX error here
+            }
+        });
 
-
-        },
-        error: function(xhr, status, error) {
-            // Handle the AJAX error here
-        }
     });
-    
-});
+
+
+    function getFormValues() {
+        var formData = [];
+        $('.stub').each(function(index) {
+            var field1Value = $(this).find('input[name="f_date[]"]').val();
+            var field2Value = $(this).find('input[name="t_date[]"]').val();
+            var field3Value = $(this).find('input[name="g_earning[]"]').val();
+            var field4Value = $(this).find('input[name="sp[]"]').val();
+            formData.push({
+                from_date: field1Value,
+                to_date: field2Value,
+                earning: field3Value,
+                comt: field4Value
+            });
+        });
+        return formData;
+    }
+
+    // Remove row on button click
+    $('#pre_accident_form').on('click', '.remove-row', function() {
+        $(this).parent('.stub').remove();
+        var formData = getFormValues();
+        console.log(formData); // Log form data after removing row
+    });
+
+    function addRow() {
+        var newRow = '<div class="stub row gx-md-3 gy-4 align-items-center">' +
+            '<div class="col-md-3"><label for="pre_from_date">From Date </label><input type="text" name="f_date[]" placeholder="Field 1" class="form-control fs-6 fw-normal datepicker"></div>' +
+            '<div class="col-md-3"><label for="pre_from_date">To Date </label><input type="text" name="t_date[]" placeholder="Field 2" class="form-control fs-6 fw-normal datepicker"></div>' +
+            '<div class="col-md-3"><label for="pre_from_date">Gross Earnings </label><input type="text" name="g_earning[]" placeholder="Gross Earnings" class="form-control fs-6 fw-normal "></div>' +
+            '<div class="col-md-2"><label for="pre_from_date">Special Condition </label><input type="text" name="sp[]" placeholder="Special Condition" class="form-control fs-6 fw-normal "></div>' +
+            '<img class="remove-row col-md-1 rm_btn" src="<?php bloginfo('template_directory'); ?>/images/cross.png" width="48" height="48" />' +
+            '</div>';
+        $('#pre_accident_form').append(newRow);
+    }
+
+    $('#addPreJob2').click(function() {
+        addRow();
+        var formData = getFormValues();
+        console.log(formData); 
+
+    });
 
 
 
@@ -424,12 +439,12 @@ jQuery(document).ready(function($) {
     });
 
     function isValid() {
-        var isValid = true;       
+        var isValid = true;
         $('.required-field').each(function() {
             var inputValue = $(this).val().trim();
             if (inputValue === '') {
                 isValid = false;
-                return false; 
+                return false;
             }
         });
         return isValid;

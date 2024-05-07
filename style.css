@@ -163,3 +163,6 @@ input[type="checkbox"]:checked+label:after {
         margin-bottom: 40px !important;
     }
 }
+
+
+.rm_btn { width: 48px; object-fit: contain; margin-top: 50px !important;}

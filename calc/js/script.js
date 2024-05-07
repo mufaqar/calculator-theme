@@ -55,35 +55,7 @@ jQuery(document).ready(function ($) {
 
 
 //   });
-  $('#addPreJob2').click(function () {
-   fieldCounter++;
-   var preaccidentForm = `
-        <div class="row gx-md-3 gy-4 ">                    
-                    <div class="col-md-3">
-                       <label for="pre_from_date">From Date </label>
-                       <input type="text" name="pre_job${fieldCounter}_from_date" class="form-control fs-6 fw-normal datepicker" id="pre_job${fieldCounter}_from_date" placeholder="From Date">
-                    </div>
-                    <div class="col-md-3">
-                       <label for="pre_job${fieldCounter}_to_date">To Date</label>
-                       <input type="text" name="pre_job${fieldCounter}_to_date" class="form-control fs-6 fw-normal datepicker" id="pre_job${fieldCounter}_to_date" placeholder="To Date">
-                    </div>
-                 
-                    <div class="col-md-3">
-                       <label for="job_entry_${predatafieldCounter}_${newfitCounter}_earning">Gross Earnings</label>
-                       <input type="text" name="job_entry_${predatafieldCounter}_${newfitCounter}_earning" class="form-control fs-6 fw-normal" id="job_entry_${predatafieldCounter}_${newfitCounter}_earning"
-                             placeholder="Gross Earnings">
-                    </div>
-                    <div class="col-md-3">
-                       <label for="job_entry_${predatafieldCounter}_${newfitCounter}_pre_comment">Special Condition</label>
-                       <input type="text" name="job_entry_${predatafieldCounter}_${newfitCounter}_pre_comment" class="form-control fs-6 fw-normal" id="job_entry_${predatafieldCounter}_${newfitCounter}_pre_comment"
-                             placeholder="Special Condition">
-                    </div> 
-                   
-                   
-                    
-              </div>`;
-   $('#pre_accident_form').append(preaccidentForm);
- });
+  
 
   $('#addPostJob').click(function () {
     postfieldCounter++;
