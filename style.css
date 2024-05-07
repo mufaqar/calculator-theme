@@ -3,7 +3,7 @@ Theme Name: IRR Calculator
 Theme URI: http://mufaqar.com
 Author: M Mufaqar Islam
 Author URI: http://mufaqar.com
-Version: 1.0.2
+Version: 1.0.3
 Description: WordPress theme 
 Tags: #
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -166,3 +166,5 @@ input[type="checkbox"]:checked+label:after {
 
 
 .rm_btn { width: 48px; object-fit: contain; margin-top: 50px !important;}
+
+.pre_job_data { display: none;}
