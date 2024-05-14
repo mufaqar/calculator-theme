@@ -287,57 +287,56 @@ jQuery(document).ready(function($) {
     });
     $('#addPostJob').click(function() {
 
-var formData = {
-    job_title: $('#post_job1_title').val()
-};
-$.ajax({
-    url: "<?php echo admin_url('admin-ajax.php'); ?>",
-    type: 'POST',
-    data: {
-        action: "addJob",
-        form_data: formData
-    },
-    success: function(response) {
-        console.log(response);
-        var newHTML = response;
-        $(".add_postjob").html(newHTML);
-        addRowPost();
-        $('.paystub_btn').show();
+            var formData = {
+                job_title: $('#post_job1_title').val()
+            };
+            $.ajax({
+                url: "<?php echo admin_url('admin-ajax.php'); ?>",
+                type: 'POST',
+                data: {
+                    action: "addJob",
+                    form_data: formData
+                },
+                success: function(response) {
+                    console.log(response);
+                    var newHTML = response;
+                    $(".add_postjob").html(newHTML);
+                    addRowPost();
+                    $('.paystub_btn').show();
 
-    },
-    error: function(xhr, status, error) {
-        // Handle the AJAX error here
-    }
-});
+                },
+                error: function(xhr, status, error) {
+                    // Handle the AJAX error here
+                }
+            });
 
-});
+    });
 
-$('#addBenJob').click(function() {
+    $('#addBenJob').click(function() {
+        var formData = {
+            job_title: $('#ben_job1_title').val()
+        };
+        $.ajax({
+            url: "<?php echo admin_url('admin-ajax.php'); ?>",
+            type: 'POST',
+            data: {
+                action: "addJob",
+                form_data: formData
+            },
+            success: function(response) {
+                console.log(response);
+                var newHTML = response;
+                $(".add_benjob").html(newHTML);
+                addRowBen();
+                $('.paystub_btn').show();
 
-var formData = {
-    job_title: $('#ben_job1_title').val()
-};
-$.ajax({
-    url: "<?php echo admin_url('admin-ajax.php'); ?>",
-    type: 'POST',
-    data: {
-        action: "addJob",
-        form_data: formData
-    },
-    success: function(response) {
-        console.log(response);
-        var newHTML = response;
-        $(".add_benjob").html(newHTML);
-        addRowBen();
-        $('.paystub_btn').show();
+            },
+            error: function(xhr, status, error) {
+                // Handle the AJAX error here
+            }
+        });
 
-    },
-    error: function(xhr, status, error) {
-        // Handle the AJAX error here
-    }
-});
-
-});
+    });
 
 
     function getFormValues() {
