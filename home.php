@@ -16,7 +16,7 @@ get_header();
         <div class="row">
             <div class="step active" id="step1">
                 <form class="" id="mock_user" method="POST">
-                    <?php get_template_part('forms/step4');  ?>
+                    <?php get_template_part('forms/step1');  ?>
                     <hr />
                     <div class="">
                         <button class="btn fs-6 fw-bold mt-2 w-fit next2" type="button" data-step="step2">
@@ -49,7 +49,7 @@ get_header();
                             Previous
                         </button>
                         <button class="btn fs-6 fw-bold mt-2 w-fit savePreJobData" type="submit">
-                            savePreJobData
+                            Jobs Benfits
                         </button>
                     </div>
 
@@ -66,7 +66,7 @@ get_header();
                             Previous
                         </button>
                         <button class="btn fs-6 fw-bold mt-2 w-fit ben_job" type="submit">
-                            Post Accident Benfits
+                            Calculation
                         </button>
 
                     </div>
@@ -75,24 +75,6 @@ get_header();
             <!-- Bennifit Insert Data  -->
             <div class="step" id="step5">
                 <form class="" id="benifit_data" method="POST">
-                    <?php get_template_part('forms/step5');  ?>
-
-                    <div class="">
-                        <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step3">
-                            Previous
-                        </button>
-                        <button class="btn fs-6 fw-bold mt-2 w-fit calculation" type="submit">
-                            Calculations
-                        </button>
-
-                    </div>
-                </form>
-            </div>
-
-            <!-- Calculation Insert Data  -->
-
-            <div class="step" id="step6">
-                <form class="" id="post_jobs_data" method="POST">
                     <?php get_template_part('forms/step6');  ?>
 
                     <div class="">
@@ -104,6 +86,8 @@ get_header();
                     </div>
                 </form>
             </div>
+
+
 
 
         </div>
@@ -287,28 +271,28 @@ jQuery(document).ready(function($) {
     });
     $('#addPostJob').click(function() {
 
-            var formData = {
-                job_title: $('#post_job1_title').val()
-            };
-            $.ajax({
-                url: "<?php echo admin_url('admin-ajax.php'); ?>",
-                type: 'POST',
-                data: {
-                    action: "addJob",
-                    form_data: formData
-                },
-                success: function(response) {
-                    console.log(response);
-                    var newHTML = response;
-                    $(".add_postjob").html(newHTML);
-                    addRowPost();
-                    $('.paystub_btn').show();
+        var formData = {
+            job_title: $('#post_job1_title').val()
+        };
+        $.ajax({
+            url: "<?php echo admin_url('admin-ajax.php'); ?>",
+            type: 'POST',
+            data: {
+                action: "addJob",
+                form_data: formData
+            },
+            success: function(response) {
+                console.log(response);
+                var newHTML = response;
+                $(".add_postjob").html(newHTML);
+                addRowPost();
+                $('.paystub_btn').show();
 
-                },
-                error: function(xhr, status, error) {
-                    // Handle the AJAX error here
-                }
-            });
+            },
+            error: function(xhr, status, error) {
+                // Handle the AJAX error here
+            }
+        });
 
     });
 
