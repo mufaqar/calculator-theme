@@ -312,6 +312,33 @@ $.ajax({
 
 });
 
+$('#addBenJob').click(function() {
+
+var formData = {
+    job_title: $('#ben_job1_title').val()
+};
+$.ajax({
+    url: "<?php echo admin_url('admin-ajax.php'); ?>",
+    type: 'POST',
+    data: {
+        action: "addJob",
+        form_data: formData
+    },
+    success: function(response) {
+        console.log(response);
+        var newHTML = response;
+        $(".add_benjob").html(newHTML);
+        addRowBen();
+        $('.paystub_btn').show();
+
+    },
+    error: function(xhr, status, error) {
+        // Handle the AJAX error here
+    }
+});
+
+});
+
 
     function getFormValues() {
         var formData = [];
@@ -371,10 +398,10 @@ $.ajax({
 
     function addRowBen() {
         var newRow = '<div class="stub row gx-md-3 gy-4 align-items-center">' +
-            '<div class="col-md-3"><label for="post_from_date">From Date </label><input type="text" name="f_date[]" placeholder="Field 1" class="form-control fs-6 fw-normal datepicker"></div>' +
-            '<div class="col-md-3"><label for="post_from_date">To Date </label><input type="text" name="t_date[]" placeholder="Field 2" class="form-control fs-6 fw-normal datepicker"></div>' +
-            '<div class="col-md-3"><label for="post_from_date">Gross Earnings </label><input type="text" name="g_earning[]" placeholder="Gross Earnings" class="form-control fs-6 fw-normal "></div>' +
-            '<div class="col-md-2"><label for="post_from_date">Special Condition </label><input type="text" name="sp[]" placeholder="Special Condition" class="form-control fs-6 fw-normal "></div>' +
+            '<div class="col-md-3"><label for="ben_from_date">From Date </label><input type="text" name="f_date[]" placeholder="Field 1" class="form-control fs-6 fw-normal datepicker"></div>' +
+            '<div class="col-md-3"><label for="ben_from_date">To Date </label><input type="text" name="t_date[]" placeholder="Field 2" class="form-control fs-6 fw-normal datepicker"></div>' +
+            '<div class="col-md-3"><label for="ben_from_date">Gross Earnings </label><input type="text" name="g_earning[]" placeholder="Gross Earnings" class="form-control fs-6 fw-normal "></div>' +
+            '<div class="col-md-2"><label for="ben_from_date">Special Condition </label><input type="text" name="sp[]" placeholder="Special Condition" class="form-control fs-6 fw-normal "></div>' +
             '<img class="remove-row col-md-1 rm_btn" src="<?php bloginfo('template_directory'); ?>/images/cross.png" width="48" height="48" />' +
             '</div>';
         $('#ben_accident_form').append(newRow);
@@ -389,6 +416,12 @@ $.ajax({
 
     $('#addPostJob2').click(function() {
         addRowPost();
+        var formData = getFormValues();
+        console.log(formData);
+
+    });
+    $('#addBenJob2').click(function() {
+        addRowBen();
         var formData = getFormValues();
         console.log(formData);
 
