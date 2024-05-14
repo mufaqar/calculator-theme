@@ -3,7 +3,7 @@
 </h3>
 
 
-<div class="row gx-md-3 gy-4 mb-4 add_job ">
+<div class="row gx-md-3 gy-4 mb-4 add_prejob ">
     <div class="col-md-4">
         <label for="pre_job1_title">Job 1</label>
         <input type="text" name="pre_job1_title" class="form-control fs-6 fw-normal" id="pre_job1_title"
