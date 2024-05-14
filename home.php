@@ -16,7 +16,7 @@ get_header();
         <div class="row">
             <div class="step active" id="step1">
                 <form class="" id="mock_user" method="POST">
-                    <?php get_template_part('forms/step1');  ?>
+                    <?php get_template_part('forms/step4');  ?>
                     <hr />
                     <div class="">
                         <button class="btn fs-6 fw-bold mt-2 w-fit next2" type="button" data-step="step2">
@@ -341,6 +341,11 @@ $.ajax({
         var formData = getFormValues();
         console.log(formData); // Log form data after removing row
     });
+    $('#ben_accident_form').on('click', '.remove-row', function() {
+        $(this).parent('.stub').remove();
+        var formData = getFormValues();
+        console.log(formData); // Log form data after removing row
+    });
 
     function addRow() {
         var newRow = '<div class="stub row gx-md-3 gy-4 align-items-center">' +
@@ -362,6 +367,17 @@ $.ajax({
             '<img class="remove-row col-md-1 rm_btn" src="<?php bloginfo('template_directory'); ?>/images/cross.png" width="48" height="48" />' +
             '</div>';
         $('#post_accident_form').append(newRow);
+    }
+
+    function addRowBen() {
+        var newRow = '<div class="stub row gx-md-3 gy-4 align-items-center">' +
+            '<div class="col-md-3"><label for="post_from_date">From Date </label><input type="text" name="f_date[]" placeholder="Field 1" class="form-control fs-6 fw-normal datepicker"></div>' +
+            '<div class="col-md-3"><label for="post_from_date">To Date </label><input type="text" name="t_date[]" placeholder="Field 2" class="form-control fs-6 fw-normal datepicker"></div>' +
+            '<div class="col-md-3"><label for="post_from_date">Gross Earnings </label><input type="text" name="g_earning[]" placeholder="Gross Earnings" class="form-control fs-6 fw-normal "></div>' +
+            '<div class="col-md-2"><label for="post_from_date">Special Condition </label><input type="text" name="sp[]" placeholder="Special Condition" class="form-control fs-6 fw-normal "></div>' +
+            '<img class="remove-row col-md-1 rm_btn" src="<?php bloginfo('template_directory'); ?>/images/cross.png" width="48" height="48" />' +
+            '</div>';
+        $('#ben_accident_form').append(newRow);
     }
 
     $('#addPreJob2').click(function() {

@@ -1,41 +1,23 @@
-<div class="row gx-md-3 gy-4 mb-4">
-    <?php
-
-
-               $author_id = 1;  // Replace with the desired author ID
-               $taxonomy = 'job_type';  // Replace with the name of your taxonomy
-               $term_slug = 'post-income';  // Replace with the slug of the term
-
-                $args = array(
-                    'post_type' => 'jobs',  // Replace with your custom post type
-                    'posts_per_page' => -1,  // Retrieve all posts (use -1 for all, adjust as needed)
-                    'author' => $author_id,
-                    'tax_query' => array(
-                        array(
-                            'taxonomy' => $taxonomy,
-                            'field'    => 'slug',
-                            'terms'    => $term_slug,
-                        ),
-                    ),
-                );
-
-                $query = new WP_Query($args);
-
-                if ($query->have_posts()) {
-                    while ($query->have_posts()) {
-                        $query->the_post();   
-                        $pre_job_from_date = get_post_meta(get_the_ID(), 'pre_job_from_date', true);
-                        $pre_job_to_date = get_post_meta(get_the_ID(), 'pre_job_to_date', true);                        
-                        echo '<h3 class="fs-4 mb-4 lh-sm">POST-ACCIDENT INCOME ' . get_the_title() ." [  From: " . $pre_job_from_date  ."  To: " . $pre_job_to_date .  ' ]</h3>';
-                        echo get_template_part('forms/pre_jobs'); 
-                        echo '<hr>';
-                
-                        
-                    }
-                    wp_reset_postdata();  // Restore global post data
-                } else {
-                    echo 'No posts found.';
-                }
-
-    ?>
+<h3 class="fs-4 mb-4 lh-sm">
+    POST-BENIFIT
+</h3>
+<div class="row gx-md-3 gy-4 mb-4 add_benjob ">
+    <div class="col-md-4">
+        <label for="ben_job1_title">Post Job 1</label>
+        <input type="text" name="ben_job1_title" class="form-control fs-6 fw-normal" id="ben_job1_title"
+            placeholder="Benfit 1">
+    </div>
+    <div class="col-md-2 align-self-end">
+        <button class="add_btn text-white border-0 fs-6 fw-bold mt-2 w-fit" type="button" id="addBenJob">
+            Add Benifit
+        </button>
+    </div>
+</div>
+<div class="row gx-md-3 gy-4 mb-4 ">
+    <div id="ben_accident_form" class="col-md-9"></div>
+    <div class="col-md-3 align-self-end">
+        <button class="add_btn paystub_btn text-white border-0 fs-6 fw-bold mt-2 w-fit" type="button" id="addBenJob2">
+            Add Benifit
+        </button>
+    </div>
 </div>
