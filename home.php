@@ -16,7 +16,7 @@ get_header();
         <div class="row">
             <div class="step active" id="step1">
                 <form class="" id="mock_user" method="POST">
-                    <?php get_template_part('forms/step1');  ?>
+                    <?php get_template_part('forms/step2');  ?>
                     <hr />
                     <div class="">
                         <button class="btn fs-6 fw-bold mt-2 w-fit next2" type="button" data-step="step2">
