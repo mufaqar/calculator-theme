@@ -5,6 +5,8 @@ Template Name: Home calc
 
 get_header();
 
+exit("E");
+
 ?>
 <section>
     <div class="container mx-auto">
@@ -391,8 +393,23 @@ jQuery(document).ready(function($) {
     }
 
     $('#addPreJob2').click(function() {
-        addRow();
+    
         var formData = getFormValues();
+
+        const lastformData = formData[formData.length - 1];
+
+        if(lastformData.from_date === '' || lastformData.to_date === '' || lastformData.earning === '' )
+        {
+            alert("Fields Are Required");
+        }
+        else {
+            addRow();
+
+        }
+        
+      
+       
+        
         console.log(formData);
 
     });
