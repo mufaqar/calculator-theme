@@ -1,17 +1,9 @@
-<?php
-/*
-Template Name: Test2
-*/
-get_header();
-
-?>
-
-
+<h3 class="fs-4 mb-4 lh-sm">PRE-ACCIDENT INCOME</h3>
 <div class="row gx-md-3 gy-4 mb-4 add_prejob">
     <div class="col-md-4">
         <label for="pre_job1_title">Add Job </label>
         <input type="text" name="pre_job1_title" class="form-control fs-6 fw-normal" id="pre_job1_title"
-            placeholder="Job 1">
+            placeholder="Enter Job Title">
     </div>
     <div class="col-md-2 align-self-end">
         <button class="add_btn text-white border-0 fs-6 fw-bold mt-2 w-fit" type="button" id="addPreJob">
@@ -19,27 +11,24 @@ get_header();
         </button>
     </div>
 </div>
-<div id="jobsContainer"></div>
+<div id="preJobsContainer"></div>
+
+
 
 <script>
+let preJobs = [];
+let preJobIdCounter = 1;
+let prePaystubIdCounter = 1;
 
+document.getElementById('addPreJob').addEventListener('click', addPreJob);
 
-
-let jobs = [];
-let jobIdCounter = 1;
-let paystubIdCounter = 1;
-
-document.getElementById('addPreJob').addEventListener('click', addJob);
-
-function addJob() {
+function addPreJob() {
     const jobTitleInput = document.getElementById('pre_job1_title');
     const jobTitle = jobTitleInput.value.trim();
 
     if (jobTitle) {
-        // Capture current data
-        captureData();
-        
-        // AJAX request to create a new job in WordPress
+        capturePreData();
+
         jQuery.ajax({
             url: "<?php echo admin_url('admin-ajax.php'); ?>",
             method: 'POST',
@@ -54,16 +43,16 @@ function addJob() {
                         postId: res.job_id,
                         title: jobTitle,
                         jobData: [{
-                            paystubId: paystubIdCounter++,
+                            paystubId: prePaystubIdCounter++,
                             fromDate: '',
                             toDate: '',
                             grossEarnings: '',
                             specialCondition: ''
                         }]
                     };
-                    jobs.push(job);
+                    preJobs.push(job);
                     jobTitleInput.value = '';
-                    renderJobs();
+                    renderPreJobs();
                 } else {
                     alert('Failed to create job.');
                 }
@@ -74,14 +63,13 @@ function addJob() {
     }
 }
 
-function addPaystub(postId) {
-    // Capture current data
-    captureData();
+function addPrePaystub(postId) {
+    capturePreData();
 
-    const job = jobs.find(j => j.postId === postId);
+    const job = preJobs.find(j => j.postId === postId);
     if (job) {
         const newPaystub = {
-            paystubId: paystubIdCounter++,
+            paystubId: prePaystubIdCounter++,
             fromDate: '',
             toDate: '',
             grossEarnings: '',
@@ -89,12 +77,11 @@ function addPaystub(postId) {
         };
         job.jobData.push(newPaystub);
 
-        // AJAX request to update the job with the new paystub
         jQuery.ajax({
             url: "<?php echo admin_url('admin-ajax.php'); ?>",
             method: 'POST',
             data: {
-                action: 'update_job_with_paystub',              
+                action: 'update_job_with_paystub',
                 job_id: postId,
                 from_date: newPaystub.fromDate,
                 to_date: newPaystub.toDate,
@@ -104,7 +91,7 @@ function addPaystub(postId) {
             success: function(response) {
                 const res = JSON.parse(response);
                 if (res.success) {
-                    renderJobs();
+                    renderPreJobs();
                 } else {
                     alert('Failed to add paystub.');
                 }
@@ -113,21 +100,19 @@ function addPaystub(postId) {
     }
 }
 
-function removePaystub(postId, paystubId) {
-    // Capture current data
-    captureData();
+function removePrePaystub(postId, paystubId) {
+    capturePreData();
 
-    const job = jobs.find(j => j.postId === postId);
+    const job = preJobs.find(j => j.postId === postId);
     if (job) {
         job.jobData = job.jobData.filter(p => p.paystubId !== paystubId);
-        renderJobs();
+        renderPreJobs();
 
-        // AJAX request to remove the paystub from the job in WordPress
         jQuery.ajax({
             url: "<?php echo admin_url('admin-ajax.php'); ?>",
             method: 'POST',
             data: {
-                action: 'removePaystub',            
+                action: 'removePaystub',
                 job_id: postId,
                 paystub_id: paystubId
             },
@@ -141,16 +126,11 @@ function removePaystub(postId, paystubId) {
     }
 }
 
+function removePreJob(postId) {
+    capturePreData();
+    preJobs = preJobs.filter(j => j.postId !== postId);
+    renderPreJobs();
 
-
-
-function removeJob(postId) {
-    // Capture current data
-    captureData();
-    jobs = jobs.filter(j => j.postId !== postId);
-    renderJobs();
-
-    // AJAX request to remove the job from WordPress
     jQuery.ajax({
         url: "<?php echo admin_url('admin-ajax.php'); ?>",
         method: 'POST',
@@ -167,13 +147,14 @@ function removeJob(postId) {
     });
 }
 
-function captureData() {
-    jobs.forEach(job => {
+function capturePreData() {
+    preJobs.forEach(job => {
         job.jobData.forEach(paystub => {
             const fromDateInput = document.querySelector(`#from_date_${paystub.paystubId}`);
             const toDateInput = document.querySelector(`#to_date_${paystub.paystubId}`);
             const grossEarningsInput = document.querySelector(`#gross_earnings_${paystub.paystubId}`);
-            const specialConditionInput = document.querySelector(`#special_condition_${paystub.paystubId}`);
+            const specialConditionInput = document.querySelector(
+                `#special_condition_${paystub.paystubId}`);
 
             if (fromDateInput) paystub.fromDate = fromDateInput.value;
             if (toDateInput) paystub.toDate = toDateInput.value;
@@ -183,25 +164,28 @@ function captureData() {
     });
 }
 
-function renderJobs() {
-    const jobsContainer = document.getElementById('jobsContainer');
+function renderPreJobs() {
+    const jobsContainer = document.getElementById('preJobsContainer');
     jobsContainer.innerHTML = '';
-    jobs.forEach(job => {
+    preJobs.forEach(job => {
         const jobDiv = document.createElement('div');
         jobDiv.className = 'job';
 
         const jobTitle = document.createElement('h3');
-        jobTitle.textContent = `Job: ${job.title} (ID: ${job.postId})`;
+        jobTitle.classList.add("job_title");
+        jobTitle.textContent = `Pre-Job: ${job.title} (ID: ${job.postId})`;
         jobDiv.appendChild(jobTitle);
 
         const addPaystubButton = document.createElement('button');
         addPaystubButton.textContent = 'Add Paystub';
-        addPaystubButton.addEventListener('click', () => addPaystub(job.postId));
+        addPaystubButton.classList.add("add_btn", "mr-2");
+        addPaystubButton.addEventListener('click', () => addPrePaystub(job.postId));
         jobDiv.appendChild(addPaystubButton);
 
         const removeJobButton = document.createElement('button');
         removeJobButton.textContent = 'Remove Job';
-        removeJobButton.addEventListener('click', () => removeJob(job.postId));
+        removeJobButton.classList.add("add_btn", "pl-2");
+        removeJobButton.addEventListener('click', () => removePreJob(job.postId));
         jobDiv.appendChild(removeJobButton);
 
         const paystubsList = document.createElement('div');
@@ -210,27 +194,28 @@ function renderJobs() {
             paystubDiv.className = 'stub row gx-md-3 gy-4 align-items-center mb-4';
 
             paystubDiv.innerHTML = `
-                <div class="col-md-3">
-                    <label for="from_date_${paystub.paystubId}">From Date</label>
-                    <input type="text" name="f_date[]" id="from_date_${paystub.paystubId}" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker" value="${paystub.fromDate}">
-                </div>
-                <div class="col-md-3">
-                    <label for="to_date_${paystub.paystubId}">To Date</label>
-                    <input type="text" name="t_date[]" id="to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker" value="${paystub.toDate}">
-                </div>
-                <div class="col-md-3">
-                    <label for="gross_earnings_${paystub.paystubId}">Gross Earnings</label>
-                    <input type="text" name="g_earning[]" id="gross_earnings_${paystub.paystubId}" placeholder="Gross Earnings" class="form-control fs-6 fw-normal" value="${paystub.grossEarnings}">
-                </div>
-                <div class="col-md-2">
-                    <label for="special_condition_${paystub.paystubId}">Special Condition</label>
-                    <input type="text" name="sp[]" id="special_condition_${paystub.paystubId}" placeholder="Special Condition" class="form-control fs-6 fw-normal" value="${paystub.specialCondition}">
-                </div>
-                <img class="remove-row col-md-1 rm_btn" src="<?php bloginfo('template_directory'); ?>/images/cross.png" width="48" height="48" />
-            `;
+                        <div class="col-md-3">
+                            <label for="from_date_${paystub.paystubId}">From Date</label>
+                            <input type="text" name="f_date[]" id="from_date_${paystub.paystubId}" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker" value="${paystub.fromDate}">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="to_date_${paystub.paystubId}">To Date</label>
+                            <input type="text" name="t_date[]" id="to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker" value="${paystub.toDate}">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="gross_earnings_${paystub.paystubId}">Gross Earnings</label>
+                            <input type="text" name="g_earning[]" id="gross_earnings_${paystub.paystubId}" placeholder="Gross Earnings" class="form-control fs-6 fw-normal" value="${paystub.grossEarnings}">
+                        </div>
+                        <div class="col-md-2">
+                            <label for="special_condition_${paystub.paystubId}">Special Condition</label>
+                            <input type="text" name="sp[]" id="special_condition_${paystub.paystubId}" placeholder="Special Condition" class="form-control fs-6 fw-normal" value="${paystub.specialCondition}">
+                        </div>
+                        <img class="remove-row col-md-1 rm_btn" src="<?php bloginfo('template_directory'); ?>/images/cross.png" width="48" height="48" />
+                    `;
 
             const removePaystubButton = paystubDiv.querySelector('.remove-row');
-            removePaystubButton.addEventListener('click', () => removePaystub(job.postId, paystub.paystubId));
+            removePaystubButton.addEventListener('click', () => removePrePaystub(job.postId, paystub
+                .paystubId));
 
             paystubsList.appendChild(paystubDiv);
         });
@@ -239,13 +224,8 @@ function renderJobs() {
         jobsContainer.appendChild(jobDiv);
     });
 
-    console.log(jobs);
+    console.log(preJobs);
 }
 
-renderJobs();
-
-
-
+renderPreJobs();
 </script>
-
-<?php wp_footer(); ?>

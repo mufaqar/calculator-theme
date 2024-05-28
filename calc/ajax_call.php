@@ -2,7 +2,10 @@
 
 
 
+
+
 function create_new_job() {
+    
     
     $job_title = sanitize_text_field($_POST['job_title']);
     $job_id = wp_insert_post(array(
@@ -22,6 +25,7 @@ add_action('wp_ajax_create_new_job', 'create_new_job');
 add_action('wp_ajax_nopriv_create_new_job', 'create_new_job');
 
 function update_job_with_paystub() {
+    
     
     $job_id = intval($_POST['job_id']);
     $paystub_data = array(
@@ -46,22 +50,50 @@ add_action('wp_ajax_update_job_with_paystub', 'update_job_with_paystub');
 add_action('wp_ajax_nopriv_update_job_with_paystub', 'update_job_with_paystub');
 
 
+function removePaystub() {   
+
+$job_id = intval($_POST['job_id']);
+$paystubs_data = json_decode($_POST['paystubs_data'], true);
+
+// Check if the job post exists
+if (get_post_type($job_id) === 'jobs') {
+    // Remove existing paystubs associated with the job
+    delete_post_meta($job_id, 'paystubs');
+
+  // Assuming paystubs are stored as an array in post meta
+  $existing_paystubs = get_post_meta($job_id, 'paystubs', true);
+  if (!$existing_paystubs) {
+      $existing_paystubs = array();
+  }
+  $existing_paystubs[] = $paystub_data;
+  update_post_meta($job_id, 'paystubs', $existing_paystubs);
+}
+
+// If the job does not exist
+echo json_encode(array('success' => false, 'message' => 'Job not found'));
+wp_die();
+
+}
+add_action('wp_ajax_removePaystub', 'removePaystub');
+add_action('wp_ajax_nopriv_removePaystub', 'removePaystub');
 
 
 
 
+function remove_job() {    
+    
+    $post_id = sanitize_text_field($_POST['job_id']);
+    $job_id = wp_delete_post($post_id); 
 
-
-
-
-
-
-
-
-
-
-
-
+    if (!is_wp_error($job_id)) {
+        echo json_encode(array('success' => true, 'job_id' => $job_id));
+    } else {
+        echo json_encode(array('success' => false));
+    }
+    wp_die();
+}
+add_action('wp_ajax_remove_job', 'remove_job');
+add_action('wp_ajax_nopriv_remove_job', 'remove_job');
 
 
 

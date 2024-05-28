@@ -170,3 +170,5 @@ input[type="checkbox"]:checked+label:after {
 .paystub_btn { display: none;}
 
 .hide { display: none !important;}
+
+.job_title { background: #000000; padding: 10px; color: #ffffff;}

@@ -16,7 +16,7 @@ get_header();
         <div class="row">
             <div class="step active" id="step1">
                 <form class="" id="mock_user" method="POST">
-                    <?php get_template_part('forms/step2');  ?>
+                    <?php get_template_part('forms/step1');  ?>
                 </form>
 
                 <hr />
@@ -29,38 +29,36 @@ get_header();
             </div>
 
             <div class="step" id="step2">
-                <form class="" id="mock_calc" method="POST">
-                    <?php get_template_part('forms/step2');  ?>
-                    <div class="">
-                        <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step1">
-                            Previous
-                        </button>
-                        <button class="btn fs-6 fw-bold mt-2 w-fit next3" type="button" data-step="step3">
-                            Post Jobs
-                        </button>
-                    </div>
-                </form>
+                <?php get_template_part('forms/prejobs');  ?>
+                <div class="">
+                    <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step1">
+                        Previous
+                    </button>
+                    <button class="btn fs-6 fw-bold mt-2 w-fit next3" type="button" data-step="step3">
+                        Post Jobs
+                    </button>
+                </div>
+
             </div>
 
             <div class="step" id="step3">
-                <form class="" id="post_jobs_data" method="POST">
-                    <?php get_template_part('forms/step3');  ?>
-                    <div class="">
-                        <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step3">
-                            Previous
-                        </button>
-                        <button class="btn fs-6 fw-bold mt-2 w-fit savePreJobData" type="submit">
-                            Jobs Benfits
-                        </button>
-                    </div>
+                <?php get_template_part('forms/postjobs');  ?>
+                <div class="">
+                    <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step3">
+                        Previous
+                    </button>
 
-                </form>
+                    <button class="btn fs-6 fw-bold mt-2 w-fit next4" type="button" data-step="step4">
+                        Jobs Benfits
+                    </button>
+                </div>
+
 
             </div>
 
             <div class="step" id="step4">
                 <form class="" id="post_jobs_data" method="POST">
-                    <?php get_template_part('forms/step4');  ?>
+                    <?php get_template_part('forms/jobben');  ?>
 
                     <div class="">
                         <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step3">
@@ -212,8 +210,6 @@ jQuery(document).ready(function($) {
                 gender: $('input[name="gender"]:checked').val()
             };
 
-
-
             $.ajax({
                 url: "<?php echo admin_url('admin-ajax.php'); ?>",
                 type: 'POST',
@@ -238,326 +234,21 @@ jQuery(document).ready(function($) {
 
     });
 
+    $('.next3').click(function(event) {
+
+        $('#step3').addClass('active');
+        $('#step2').removeClass('active');
 
 
-    $('#addNewPreJob').click(function() {
+    })
 
-        $(".add_prejob").show();
-        $(".pre_accident_area").hide();
-        pre_accident_form.innerHTML = '';
+    $('.next4').click(function(event) {
 
-        $('#pre_accident_form').html("Test");
-        alert("dddd");
+        $('#step4').addClass('active');
+        $('#step3').removeClass('active');
 
 
-    });
-
-
-    function HidePreJob() {
-        $('.add_prejob').hide();
-    }
-
-
-    $('#addPreJob').click(function() {
-
-
-
-        var formData = {
-            job_title: $('#pre_job1_title').val()
-        };
-        $.ajax({
-            url: "<?php echo admin_url('admin-ajax.php'); ?>",
-            type: 'POST',
-            data: {
-                action: "addJob",
-                form_data: formData
-            },
-            success: function(response) {
-                console.log(response.data);
-                var post_id = response.data.post_id;
-                var job_title = response.data.job_title;
-                $('#ppid').val(post_id);
-                $('.paystub_btn').show();
-                $('.prejob_new').show();
-                $('.addNewPreJob').show();
-                $(".pre_accident_area").show();
-                if (response.success) {
-                    $("#prejob_status").html(response.data.job_title);
-                    addRow();
-                    HidePreJob();
-
-                } else {
-                    alert('Failed to create post.');
-                }
-            }
-
-        });
-
-    });
-    $('#addPostJob').click(function() {
-
-        var formData = {
-            job_title: $('#post_job1_title').val()
-        };
-        $.ajax({
-            url: "<?php echo admin_url('admin-ajax.php'); ?>",
-            type: 'POST',
-            data: {
-                action: "addJob",
-                form_data: formData
-            },
-            success: function(response) {
-                console.log(response);
-                var newHTML = response;
-                $(".add_postjob").html(newHTML);
-                addRowPost();
-                alert("Yaha");
-                $('.paystub_btn').show();
-
-            },
-            error: function(xhr, status, error) {
-                // Handle the AJAX error here
-            }
-        });
-
-    });
-
-    $('#addBenJob').click(function() {
-        var formData = {
-            job_title: $('#ben_job1_title').val()
-        };
-        $.ajax({
-            url: "<?php echo admin_url('admin-ajax.php'); ?>",
-            type: 'POST',
-            data: {
-                action: "addJob",
-                form_data: formData
-            },
-            success: function(response) {
-                console.log(response);
-                var newHTML = response;
-                $(".add_benjob").html(newHTML);
-
-                addRowBen();
-                $('.paystub_btn').show();
-
-            },
-            error: function(xhr, status, error) {
-                // Handle the AJAX error here
-            }
-        });
-
-    });
-
-
-    function getFormValues() {
-        var formData = [];
-        $('.stub').each(function(index) {
-            var field1Value = $(this).find('input[name="f_date[]"]').val();
-            var field2Value = $(this).find('input[name="t_date[]"]').val();
-            var field3Value = $(this).find('input[name="g_earning[]"]').val();
-            var field4Value = $(this).find('input[name="sp[]"]').val();
-            formData.push({
-                from_date: field1Value,
-                to_date: field2Value,
-                earning: field3Value,
-                comt: field4Value
-            });
-        });
-        return formData;
-    }
-
-    // Remove row on button click
-    $('#pre_accident_form').on('click', '.remove-row', function() {
-        $(this).parent('.stub').remove();
-        var formData = getFormValues();
-        var pid = $('#ppid').val();
-        UpdateJobs(formData, pid);
-        console.log(formData); // Log form data after removing row
-    });
-    $('#post_accident_form').on('click', '.remove-row', function() {
-        $(this).parent('.stub').remove();
-        var formData = getFormValues();
-        console.log(formData); // Log form data after removing row
-    });
-    $('#ben_accident_form').on('click', '.remove-row', function() {
-        $(this).parent('.stub').remove();
-        var formData = getFormValues();
-        console.log(formData); // Log form data after removing row
-    });
-
-    function addRow() {
-        var newRow = '<div class="stub row gx-md-3 gy-4 align-items-center">' +
-            '<div class="col-md-3"><label for="pre_from_date">From Date </label><input type="text" name="f_date[]" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker"></div>' +
-            '<div class="col-md-3"><label for="pre_from_date">To Date </label><input type="text" name="t_date[]" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker"></div>' +
-            '<div class="col-md-3"><label for="pre_from_date">Gross Earnings </label><input type="text" name="g_earning[]" placeholder="Gross Earnings" class="form-control fs-6 fw-normal "></div>' +
-            '<div class="col-md-2"><label for="pre_from_date">Special Condition </label><input type="text" name="sp[]" placeholder="Special Condition" class="form-control fs-6 fw-normal "></div>' +
-            '<img class="remove-row col-md-1 rm_btn" src="<?php bloginfo('template_directory'); ?>/images/cross.png" width="48" height="48" />' +
-            '</div>';
-        $('#pre_accident_form').append(newRow);
-    }
-
-    function addRowPost() {
-        var newRow = '<div class="stub row gx-md-3 gy-4 align-items-center">' +
-            '<div class="col-md-3"><label for="post_from_date">From Date </label><input type="text" name="f_date[]" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker"></div>' +
-            '<div class="col-md-3"><label for="post_from_date">To Date </label><input type="text" name="t_date[]" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker"></div>' +
-            '<div class="col-md-3"><label for="post_from_date">Gross Earnings </label><input type="text" name="g_earning[]" placeholder="Gross Earnings" class="form-control fs-6 fw-normal "></div>' +
-            '<div class="col-md-2"><label for="post_from_date">Special Condition </label><input type="text" name="sp[]" placeholder="Special Condition" class="form-control fs-6 fw-normal "></div>' +
-            '<img class="remove-row col-md-1 rm_btn" src="<?php bloginfo('template_directory'); ?>/images/cross.png" width="48" height="48" />' +
-            '</div>';
-        $('#post_accident_form').append(newRow);
-    }
-
-    function addRowBen() {
-        var newRow = '<div class="stub row gx-md-3 gy-4 align-items-center">' +
-            '<div class="col-md-3"><label for="ben_from_date">From Date </label><input type="text" name="f_date[]" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker"></div>' +
-            '<div class="col-md-3"><label for="ben_from_date">To Date </label><input type="text" name="t_date[]" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker"></div>' +
-            '<div class="col-md-3"><label for="ben_from_date">Gross Earnings </label><input type="text" name="g_earning[]" placeholder="Gross Earnings" class="form-control fs-6 fw-normal "></div>' +
-            '<div class="col-md-2"><label for="ben_from_date">Special Condition </label><input type="text" name="sp[]" placeholder="Special Condition" class="form-control fs-6 fw-normal "></div>' +
-            '<img class="remove-row col-md-1 rm_btn" src="<?php bloginfo('template_directory'); ?>/images/cross.png" width="48" height="48" />' +
-            '</div>';
-        $('#ben_accident_form').append(newRow);
-    }
-
-    $('#addPreJob2').click(function() {
-
-        
-
-        var formData = getFormValues();
-        var pid = $('#ppid').val();
-
-        const lastformData = formData[formData.length - 1];
-
-        if (lastformData.from_date === '' || lastformData.to_date === '' || lastformData.earning ===
-            '') {
-            alert("Fields Are Required");
-
-        } else {
-            addRow();
-
-        }
-
-        UpdateJobs(formData, pid);
-
-        console.log(formData);
-
-    });
-
-    function UpdateJobs(formData, pid) {
-        $.ajax({
-            url: "<?php echo admin_url('admin-ajax.php'); ?>",
-            type: 'POST',
-            data: {
-                action: "UpdateJob",
-                form_data: formData,
-                pid: pid
-
-            },
-            success: function(data) {
-                // $('#step3').addClass('active');
-                // $('#step2').removeClass('active');
-            },
-            error: function(error) {
-                console.error('Error during AJAX call:', error);
-            }
-        });
-    }
-
-    $('#addPostJob2').click(function() {
-        addRowPost();
-        var formData = getFormValues();
-        console.log(formData);
-
-    });
-    $('#addBenJob2').click(function() {
-        addRowBen();
-        var formData = getFormValues();
-        console.log(formData);
-
-    });
-
-
-
-
-    $('.next3').click(function() {
-        var formData = $("#mock_calc").serialize();
-        $.ajax({
-            url: "<?php echo admin_url('admin-ajax.php'); ?>",
-            type: 'POST',
-            data: {
-                action: "save_user_income_data",
-                form_data: formData
-            },
-            success: function(data) {
-                $('#step3').addClass('active');
-                $('#step2').removeClass('active');
-            },
-            error: function(error) {
-                console.error('Error during AJAX call:', error);
-            }
-        });
-    });
-
-    $('.savePreJobData').click(function(e) {
-        var pre_jobs_data = $("#pre_jobs_data").serialize();
-        e.preventDefault();
-        $.ajax({
-            url: "<?php echo admin_url('admin-ajax.php'); ?>",
-            type: 'POST',
-            data: {
-                action: "savePreJobData",
-                form_data: pre_jobs_data
-            },
-            success: function(data) {
-                $('#step4').addClass('active');
-                $('#step3').removeClass('active');
-            },
-            error: function(error) {
-                console.error('Error during AJAX call:', error);
-            }
-        });
-    });
-
-    $('.ben_job').click(function(e) {
-        var pre_jobs_data = $("#post_jobs_data").serialize();
-        e.preventDefault();
-        $.ajax({
-            url: "<?php echo admin_url('admin-ajax.php'); ?>",
-            type: 'POST',
-            data: {
-                action: "savePreJobData",
-                form_data: pre_jobs_data
-            },
-            success: function(data) {
-                $('#step5').addClass('active');
-                $('#step4').removeClass('active');
-            },
-            error: function(error) {
-                console.error('Error during AJAX call:', error);
-            }
-        });
-    });
-
-    $('.calculation').click(function(e) {
-
-        var benifit_data = $("#benifit_data").serialize();
-        e.preventDefault();
-        $.ajax({
-            url: "<?php echo admin_url('admin-ajax.php'); ?>",
-            type: 'POST',
-            data: {
-                action: "calculation",
-                form_data: benifit_data
-            },
-            success: function(data) {
-                $('#step6').addClass('active');
-                $('#step5').removeClass('active');
-            },
-            error: function(error) {
-                console.error('Error during AJAX call:', error);
-            }
-        });
-    });
+    })
 
     function isValid() {
         var isValid = true;
@@ -571,34 +262,6 @@ jQuery(document).ready(function($) {
         return isValid;
     }
 
+
 });
-
-
-
-// jQuery(document).ready(function($) {
-//     $("#mock_calc").submit(function(e) {      
-//       e.preventDefault();     
-
-//         var formData = $("#mock_calc").serialize();
-//         $.ajax({
-//             type: "post",    
-//             url: "<?php echo admin_url('admin-ajax.php'); ?>",
-//             data: {
-//                 action: "save_form_user_data",
-//                 form_data: formData
-//             },
-//             success: function(data) {               
-//                 console.log(response);  
-//                 console.log("12355");               
-//                 $('#mock_calc').hide();
-//                 $('#data_data').show();
-
-//             },
-//             error: function(error) {
-//                 // Handle error response
-//                 console.log(error.responseText);
-//             }
-//         });
-//     });
-// });
 </script>
