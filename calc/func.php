@@ -170,3 +170,70 @@ function getDaysDifference($start_date, $check_date) {
     $interval = $start_datetime->diff($check_datetime);
     return $interval->days + 1; // Add 1 to include the start date
 }
+
+
+
+function get_prejob_meta($post_id) {
+    $all_meta = get_post_meta($post_id);
+    $prejob_meta = array();
+    foreach ($all_meta as $key => $value) {
+        if (strpos($key, 'prejob_') === 0) {
+			$prejob_meta[$key] = maybe_unserialize($value[0]);
+        }
+    }
+    return $prejob_meta;
+}
+
+
+function get_prejob_meta_html($post_id) {
+    // Get all post meta
+    $all_meta = get_post_meta($post_id);
+
+    // Initialize an array to hold prejob meta
+    $prejob_meta = array();
+
+    // Loop through all meta and filter keys that start with 'prejob_'
+    foreach ($all_meta as $key => $value) {
+        if (strpos($key, 'prejob_') === 0) {
+            // Unserialize the value and store it in the prejob_meta array
+            $prejob_meta[$key] = maybe_unserialize($value[0]); // Assuming single values for each meta key
+        }
+    }
+
+    // Initialize an empty string to hold the HTML
+    $html_output = '';
+	$html_output .= '';
+
+    // Loop through the prejob_meta array and generate HTML for each entry
+    foreach ($prejob_meta as $key => $data) {
+        $from_date = isset($data['from_date']) ? esc_attr($data['from_date']) : '';
+        $to_date = isset($data['to_date']) ? esc_attr($data['to_date']) : '';
+        $earning = isset($data['earning']) ? esc_attr($data['earning']) : '';
+        $comt = isset($data['comt']) ? esc_attr($data['comt']) : '';
+
+        $html_output .= '
+        <div class="stub row gx-md-3 gy-4 align-items-center">
+            <div class="col-md-3">
+                <label for="pre_from_date">From Date </label>
+                <input type="text" name="f_date[]" value="' . $from_date . '" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker">
+            </div>
+            <div class="col-md-3">
+                <label for="pre_from_date">To Date </label>
+                <input type="text" name="t_date[]" value="' . $to_date . '" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker">
+            </div>
+            <div class="col-md-3">
+                <label for="pre_from_date">Gross Earnings </label>
+                <input type="text" name="g_earning[]" value="' . $earning . '" placeholder="Gross Earnings" class="form-control fs-6 fw-normal">
+            </div>
+            <div class="col-md-2">
+                <label for="pre_from_date">Special Condition </label>
+                <input type="text" name="sp[]" value="' . $comt . '" placeholder="Special Condition" class="form-control fs-6 fw-normal">
+            </div>
+            <img class="remove-row col-md-1 rm_btn" src="' . get_template_directory_uri() . '/images/cross.png" width="48" height="48" />
+        </div>';
+    }
+
+    return $html_output;
+}
+
+

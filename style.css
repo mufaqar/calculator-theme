@@ -168,3 +168,5 @@ input[type="checkbox"]:checked+label:after {
 .rm_btn { width: 48px; object-fit: contain; margin-top: 50px !important;}
 
 .paystub_btn { display: none;}
+
+.hide { display: none !important;}

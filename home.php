@@ -5,8 +5,6 @@ Template Name: Home calc
 
 get_header();
 
-exit("E");
-
 ?>
 <section>
     <div class="container mx-auto">
@@ -19,15 +17,16 @@ exit("E");
             <div class="step active" id="step1">
                 <form class="" id="mock_user" method="POST">
                     <?php get_template_part('forms/step2');  ?>
-                    <hr />
-                    <div class="">
-                        <button class="btn fs-6 fw-bold mt-2 w-fit next2" type="button" data-step="step2">
-                            Next
-                        </button>
-                    </div>
                 </form>
-            </div>
 
+                <hr />
+                <div class="">
+                    <button class="btn fs-6 fw-bold mt-2 w-fit next2" type="button" data-step="step2">
+                        Next
+                    </button>
+                </div>
+
+            </div>
 
             <div class="step" id="step2">
                 <form class="" id="mock_calc" method="POST">
@@ -83,14 +82,9 @@ exit("E");
                         <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step3">
                             Previous
                         </button>
-
-
                     </div>
                 </form>
             </div>
-
-
-
 
         </div>
     </div>
@@ -245,7 +239,28 @@ jQuery(document).ready(function($) {
     });
 
 
+
+    $('#addNewPreJob').click(function() {
+
+        $(".add_prejob").show();
+        $(".pre_accident_area").hide();
+        pre_accident_form.innerHTML = '';
+
+        $('#pre_accident_form').html("Test");
+        alert("dddd");
+
+
+    });
+
+
+    function HidePreJob() {
+        $('.add_prejob').hide();
+    }
+
+
     $('#addPreJob').click(function() {
+
+
 
         var formData = {
             job_title: $('#pre_job1_title').val()
@@ -258,16 +273,24 @@ jQuery(document).ready(function($) {
                 form_data: formData
             },
             success: function(response) {
-                console.log(response);
-                var newHTML = response;
-                $(".add_prejob").html(newHTML);
-                addRow();
+                console.log(response.data);
+                var post_id = response.data.post_id;
+                var job_title = response.data.job_title;
+                $('#ppid').val(post_id);
                 $('.paystub_btn').show();
+                $('.prejob_new').show();
+                $('.addNewPreJob').show();
+                $(".pre_accident_area").show();
+                if (response.success) {
+                    $("#prejob_status").html(response.data.job_title);
+                    addRow();
+                    HidePreJob();
 
-            },
-            error: function(xhr, status, error) {
-                // Handle the AJAX error here
+                } else {
+                    alert('Failed to create post.');
+                }
             }
+
         });
 
     });
@@ -288,6 +311,7 @@ jQuery(document).ready(function($) {
                 var newHTML = response;
                 $(".add_postjob").html(newHTML);
                 addRowPost();
+                alert("Yaha");
                 $('.paystub_btn').show();
 
             },
@@ -313,6 +337,7 @@ jQuery(document).ready(function($) {
                 console.log(response);
                 var newHTML = response;
                 $(".add_benjob").html(newHTML);
+
                 addRowBen();
                 $('.paystub_btn').show();
 
@@ -346,6 +371,8 @@ jQuery(document).ready(function($) {
     $('#pre_accident_form').on('click', '.remove-row', function() {
         $(this).parent('.stub').remove();
         var formData = getFormValues();
+        var pid = $('#ppid').val();
+        UpdateJobs(formData, pid);
         console.log(formData); // Log form data after removing row
     });
     $('#post_accident_form').on('click', '.remove-row', function() {
@@ -361,8 +388,8 @@ jQuery(document).ready(function($) {
 
     function addRow() {
         var newRow = '<div class="stub row gx-md-3 gy-4 align-items-center">' +
-            '<div class="col-md-3"><label for="pre_from_date">From Date </label><input type="text" name="f_date[]" placeholder="Field 1" class="form-control fs-6 fw-normal datepicker"></div>' +
-            '<div class="col-md-3"><label for="pre_from_date">To Date </label><input type="text" name="t_date[]" placeholder="Field 2" class="form-control fs-6 fw-normal datepicker"></div>' +
+            '<div class="col-md-3"><label for="pre_from_date">From Date </label><input type="text" name="f_date[]" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker"></div>' +
+            '<div class="col-md-3"><label for="pre_from_date">To Date </label><input type="text" name="t_date[]" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker"></div>' +
             '<div class="col-md-3"><label for="pre_from_date">Gross Earnings </label><input type="text" name="g_earning[]" placeholder="Gross Earnings" class="form-control fs-6 fw-normal "></div>' +
             '<div class="col-md-2"><label for="pre_from_date">Special Condition </label><input type="text" name="sp[]" placeholder="Special Condition" class="form-control fs-6 fw-normal "></div>' +
             '<img class="remove-row col-md-1 rm_btn" src="<?php bloginfo('template_directory'); ?>/images/cross.png" width="48" height="48" />' +
@@ -372,8 +399,8 @@ jQuery(document).ready(function($) {
 
     function addRowPost() {
         var newRow = '<div class="stub row gx-md-3 gy-4 align-items-center">' +
-            '<div class="col-md-3"><label for="post_from_date">From Date </label><input type="text" name="f_date[]" placeholder="Field 1" class="form-control fs-6 fw-normal datepicker"></div>' +
-            '<div class="col-md-3"><label for="post_from_date">To Date </label><input type="text" name="t_date[]" placeholder="Field 2" class="form-control fs-6 fw-normal datepicker"></div>' +
+            '<div class="col-md-3"><label for="post_from_date">From Date </label><input type="text" name="f_date[]" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker"></div>' +
+            '<div class="col-md-3"><label for="post_from_date">To Date </label><input type="text" name="t_date[]" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker"></div>' +
             '<div class="col-md-3"><label for="post_from_date">Gross Earnings </label><input type="text" name="g_earning[]" placeholder="Gross Earnings" class="form-control fs-6 fw-normal "></div>' +
             '<div class="col-md-2"><label for="post_from_date">Special Condition </label><input type="text" name="sp[]" placeholder="Special Condition" class="form-control fs-6 fw-normal "></div>' +
             '<img class="remove-row col-md-1 rm_btn" src="<?php bloginfo('template_directory'); ?>/images/cross.png" width="48" height="48" />' +
@@ -383,8 +410,8 @@ jQuery(document).ready(function($) {
 
     function addRowBen() {
         var newRow = '<div class="stub row gx-md-3 gy-4 align-items-center">' +
-            '<div class="col-md-3"><label for="ben_from_date">From Date </label><input type="text" name="f_date[]" placeholder="Field 1" class="form-control fs-6 fw-normal datepicker"></div>' +
-            '<div class="col-md-3"><label for="ben_from_date">To Date </label><input type="text" name="t_date[]" placeholder="Field 2" class="form-control fs-6 fw-normal datepicker"></div>' +
+            '<div class="col-md-3"><label for="ben_from_date">From Date </label><input type="text" name="f_date[]" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker"></div>' +
+            '<div class="col-md-3"><label for="ben_from_date">To Date </label><input type="text" name="t_date[]" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker"></div>' +
             '<div class="col-md-3"><label for="ben_from_date">Gross Earnings </label><input type="text" name="g_earning[]" placeholder="Gross Earnings" class="form-control fs-6 fw-normal "></div>' +
             '<div class="col-md-2"><label for="ben_from_date">Special Condition </label><input type="text" name="sp[]" placeholder="Special Condition" class="form-control fs-6 fw-normal "></div>' +
             '<img class="remove-row col-md-1 rm_btn" src="<?php bloginfo('template_directory'); ?>/images/cross.png" width="48" height="48" />' +
@@ -393,26 +420,48 @@ jQuery(document).ready(function($) {
     }
 
     $('#addPreJob2').click(function() {
-    
+
+        
+
         var formData = getFormValues();
+        var pid = $('#ppid').val();
 
         const lastformData = formData[formData.length - 1];
 
-        if(lastformData.from_date === '' || lastformData.to_date === '' || lastformData.earning === '' )
-        {
+        if (lastformData.from_date === '' || lastformData.to_date === '' || lastformData.earning ===
+            '') {
             alert("Fields Are Required");
-        }
-        else {
+
+        } else {
             addRow();
 
         }
-        
-      
-       
-        
+
+        UpdateJobs(formData, pid);
+
         console.log(formData);
 
     });
+
+    function UpdateJobs(formData, pid) {
+        $.ajax({
+            url: "<?php echo admin_url('admin-ajax.php'); ?>",
+            type: 'POST',
+            data: {
+                action: "UpdateJob",
+                form_data: formData,
+                pid: pid
+
+            },
+            success: function(data) {
+                // $('#step3').addClass('active');
+                // $('#step2').removeClass('active');
+            },
+            error: function(error) {
+                console.error('Error during AJAX call:', error);
+            }
+        });
+    }
 
     $('#addPostJob2').click(function() {
         addRowPost();

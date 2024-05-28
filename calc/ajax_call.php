@@ -1,6 +1,71 @@
 <?php
 
 
+
+function create_new_job() {
+    
+    $job_title = sanitize_text_field($_POST['job_title']);
+    $job_id = wp_insert_post(array(
+        'post_title'   => $job_title,
+        'post_type'    => 'jobs',
+        'post_status'  => 'publish'
+    ));
+
+    if (!is_wp_error($job_id)) {
+        echo json_encode(array('success' => true, 'job_id' => $job_id));
+    } else {
+        echo json_encode(array('success' => false));
+    }
+    wp_die();
+}
+add_action('wp_ajax_create_new_job', 'create_new_job');
+add_action('wp_ajax_nopriv_create_new_job', 'create_new_job');
+
+function update_job_with_paystub() {
+    
+    $job_id = intval($_POST['job_id']);
+    $paystub_data = array(
+        'from_date'       => sanitize_text_field($_POST['from_date']),
+        'to_date'         => sanitize_text_field($_POST['to_date']),
+        'gross_earnings'  => sanitize_text_field($_POST['gross_earnings']),
+        'special_condition' => sanitize_text_field($_POST['special_condition'])
+    );
+
+    // Assuming paystubs are stored as an array in post meta
+    $existing_paystubs = get_post_meta($job_id, 'paystubs', true);
+    if (!$existing_paystubs) {
+        $existing_paystubs = array();
+    }
+    $existing_paystubs[] = $paystub_data;
+    update_post_meta($job_id, 'paystubs', $existing_paystubs);
+
+    echo json_encode(array('success' => true));
+    wp_die();
+}
+add_action('wp_ajax_update_job_with_paystub', 'update_job_with_paystub');
+add_action('wp_ajax_nopriv_update_job_with_paystub', 'update_job_with_paystub');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Add action for saving form data
 add_action('wp_ajax_check_user_data', 'check_user_data');
 add_action('wp_ajax_nopriv_check_user_data', 'check_user_data');
@@ -152,8 +217,26 @@ add_action('wp_ajax_nopriv_addJob', 'addJob');
 
 function addJob() {  
     $formData = $_POST['form_data'];
-    $job_title = $formData['job_title']; 
-    echo $job_title;
+    $job_title = $formData['job_title'];   
+
+      // Insert the post into the database
+      $post_id = wp_insert_post(array(
+        'post_title'   => $job_title,
+        'post_type' => 'jobs',
+        'post_status'  => 'publish',
+        'post_author'  => get_current_user_id()
+    ));
+
+    if ($post_id) {
+        $response = array(
+            'post_id'   => $post_id,
+            'job_title' => $job_title
+        );
+        wp_send_json_success($response);
+      
+    } else {
+        wp_send_json_error();
+    }
     die();
 }
 
@@ -162,6 +245,53 @@ add_action('wp_ajax_UpdateJob', 'UpdateJob');
 add_action('wp_ajax_nopriv_UpdateJob', 'UpdateJob');
 
 function UpdateJob() {  
+
+    $post_id = $_POST['pid'];
+
+  
+
+    $data = $_POST['form_data'];
+    print "<pre>";
+    print_r($data);
+    print "</pre>";
+
+     // Retrieve all post meta for the given post ID
+     $all_meta = get_post_meta($post_id);
+
+     // Loop through all meta and delete keys that start with 'prejob_'
+     foreach ($all_meta as $key => $value) {
+         if (strpos($key, 'prejob_') === 0) {
+             delete_post_meta($post_id, $key);
+         }
+     }
+
+    
+
+    // Loop through the array and add each entry to the post meta
+    foreach ($data as $key => $entry) {
+        // Ensure from_date and to_date are properly formatted (example: 'Y-m-d')
+        $from_date = isset($entry['from_date']) ? sanitize_text_field($entry['from_date']) : '';
+        $to_date = isset($entry['to_date']) ? sanitize_text_field($entry['to_date']) : '';
+        $earning = isset($entry['earning']) ? sanitize_text_field($entry['earning']) : '';
+        $comt = isset($entry['comt']) ? sanitize_text_field($entry['comt']) : '';
+
+
+        if (!empty($from_date) && !empty($to_date)) {
+        $meta_key = "prejob_{$key}";
+
+        // Prepare the value to store as an associative array
+        $meta_value = array(
+            'from_date' => $from_date,
+            'to_date' => $to_date,
+            'earning' => $earning,
+            'comt' => $comt
+        );
+
+        // Update the post meta
+        update_post_meta($post_id, $meta_key, $meta_value);
+        echo "upated Code";
+    }
+    }
 
     die();
     
