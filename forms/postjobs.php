@@ -66,10 +66,14 @@
         }
 
         function addPostPaystub(postId) {
+            
             capturePostData();
 
             const job = postJobs.find(j => j.postId === postId);
+            const lastObj = job.jobData[job.jobData.length - 1]
+
             if (job) {
+                
                 const newPaystub = {
                     paystubId: postPaystubIdCounter++,
                     fromDate: '',
@@ -77,6 +81,7 @@
                     grossEarnings: '',
                     specialCondition: ''
                 };
+
                 job.jobData.push(newPaystub);
 
                 jQuery.ajax({
@@ -85,10 +90,10 @@
                     data: {
                         action: 'update_job_with_paystub',
                         job_id: postId,
-                        from_date: newPaystub.fromDate,
-                        to_date: newPaystub.toDate,
-                        gross_earnings: newPaystub.grossEarnings,
-                        special_condition: newPaystub.specialCondition
+                        from_date: lastObj.fromDate,
+                        to_date: lastObj.toDate,
+                        gross_earnings: lastObj.grossEarnings,
+                        special_condition: lastObj.specialCondition
                     },
                     success: function (response) {
                         const res = JSON.parse(response);
@@ -227,4 +232,6 @@
             console.log(postJobs);
         }
         renderPostJobs();
+
+
 </script>
