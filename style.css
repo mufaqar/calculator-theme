@@ -170,5 +170,48 @@ input[type="checkbox"]:checked+label:after {
 .paystub_btn { display: none;}
 
 .hide { display: none !important;}
-
-.job_title { background: #000000; padding: 10px; color: #ffffff;}
+#preJobsContainer{
+    overflow: hidden !important;
+}
+.job_title { background: #1f1f1f; padding: 10px 1.5rem; color: #ffffff; margin-bottom: 0.5rem; margin-top: .6rem}
+.job .add_btn{
+    
+    border: none;
+    color: white !important;
+    padding: 6px 10px !important;
+    margin-right: 10px !important;
+    border-radius: 0 !important;
+    margin-bottom: 5px  !important;
+}
+.add-paystub{
+    background: #00a700 !important;
+}
+.remove-job{
+    background: #e10000 !important
+}
+.stub{
+    background: #faebd745;
+    padding: 12px 1.5rem;
+    margin-top: 5px !important;
+}
+.stub input{
+    background-color: #fff !important;
+}
+.stub>div{
+    margin-top: 0 !important;
+}
+.stub>div label{
+    white-space: nowrap;
+}
+.stub .remove-row{
+    margin-top: 0 !important;
+}
+.navigation-button{
+    display: flex;
+    justify-content: end;
+    margin-top: .6rem;
+    gap: 8px;
+}
+#addBenJob, #addPostJob, #addPreJob{
+    white-space: nowrap !important;
+}

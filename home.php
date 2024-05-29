@@ -20,7 +20,7 @@ get_header();
                 </form>
 
                 <hr />
-                <div class="">
+                <div class="navigation-button">
                     <button class="btn fs-6 fw-bold mt-2 w-fit next2" type="button" data-step="step2">
                         Next
                     </button>
@@ -30,7 +30,8 @@ get_header();
 
             <div class="step" id="step2">
                 <?php get_template_part('forms/prejobs');  ?>
-                <div class="">
+                <hr />
+                <div class="navigation-button">
                     <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step1">
                         Previous
                     </button>
@@ -43,7 +44,8 @@ get_header();
 
             <div class="step" id="step3">
                 <?php get_template_part('forms/postjobs');  ?>
-                <div class="">
+                <hr />
+                <div class="navigation-button">
                     <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step3">
                         Previous
                     </button>

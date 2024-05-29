@@ -178,20 +178,20 @@ function renderPreJobs() {
 
         const addPaystubButton = document.createElement('button');
         addPaystubButton.textContent = 'Add Paystub';
-        addPaystubButton.classList.add("add_btn", "mr-2");
+        addPaystubButton.classList.add("add_btn", "mr-2", "add-paystub");
         addPaystubButton.addEventListener('click', () => addPrePaystub(job.postId));
         jobDiv.appendChild(addPaystubButton);
 
         const removeJobButton = document.createElement('button');
         removeJobButton.textContent = 'Remove Job';
-        removeJobButton.classList.add("add_btn", "pl-2");
+        removeJobButton.classList.add("add_btn", "pl-2", "remove-job");
         removeJobButton.addEventListener('click', () => removePreJob(job.postId));
         jobDiv.appendChild(removeJobButton);
 
         const paystubsList = document.createElement('div');
         job.jobData.forEach(paystub => {
             const paystubDiv = document.createElement('div');
-            paystubDiv.className = 'stub row gx-md-3 gy-4 align-items-center mb-4';
+            paystubDiv.className = 'stub row gx-md-3 gy-4 align-items-center';
 
             paystubDiv.innerHTML = `
                         <div class="col-md-3">
