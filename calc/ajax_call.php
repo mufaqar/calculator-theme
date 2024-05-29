@@ -56,6 +56,9 @@ function removePaystub() {
 $job_id = intval($_POST['job_id']);
 $paystubs_data = json_decode($_POST['paystubs_data'], true);
 
+
+
+
 // Check if the job post exists
 if (get_post_type($job_id) === 'jobs') {
     // Remove existing paystubs associated with the job

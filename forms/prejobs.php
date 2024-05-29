@@ -68,6 +68,10 @@ function addPrePaystub(postId) {
     capturePreData();
 
     const job = preJobs.find(j => j.postId === postId);
+    
+
+
+
     if (job) {
         const newPaystub = {
             paystubId: prePaystubIdCounter++,

@@ -38,7 +38,8 @@
                 method: 'POST',
                 data: {
                     action: 'create_new_job',
-                    job_title: jobTitle
+                    job_title: jobTitle,
+                    type: "post-benefits"
                 },
                 success: function(response) {
                     const res = JSON.parse(response);

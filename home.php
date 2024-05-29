@@ -15,12 +15,13 @@ get_header();
     <div class="container mx-auto col p-md-5 py-5 Step_form">
         <div class="row">
             <div class="step active" id="step1">
-                <form class="" id="mock_user" method="POST">
-                    <?php get_template_part('forms/step1');  ?>
-                </form>
+            <?php get_template_part('forms/postjobs');  ?>
+                <!-- <form class="" id="mock_user" method="POST">
+                   
+                </form> -->
 
                 <hr />
-                <div class="navigation-button">
+                <div class="">
                     <button class="btn fs-6 fw-bold mt-2 w-fit next2" type="button" data-step="step2">
                         Next
                     </button>
@@ -29,9 +30,8 @@ get_header();
             </div>
 
             <div class="step" id="step2">
-                <?php get_template_part('forms/prejobs');  ?>
-                <hr />
-                <div class="navigation-button">
+                <?php //get_template_part('forms/prejobs');  ?>
+                <div class="">
                     <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step1">
                         Previous
                     </button>
@@ -43,9 +43,8 @@ get_header();
             </div>
 
             <div class="step" id="step3">
-                <?php get_template_part('forms/postjobs');  ?>
-                <hr />
-                <div class="navigation-button">
+                <?php //get_template_part('forms/postjobs');  ?>
+                <div class="">
                     <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step3">
                         Previous
                     </button>
