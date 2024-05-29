@@ -34,7 +34,8 @@ function addPreJob() {
             method: 'POST',
             data: {
                 action: 'create_new_job',
-                job_title: jobTitle
+                job_title: jobTitle,
+                type: "pre-income"
             },
             success: function(response) {
                 const res = JSON.parse(response);

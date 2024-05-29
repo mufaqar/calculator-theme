@@ -5,9 +5,8 @@
 
 
 function create_new_job() {
-    
-    
     $job_title = sanitize_text_field($_POST['job_title']);
+    $type =  array($_POST['type']);
     $job_id = wp_insert_post(array(
         'post_title'   => $job_title,
         'post_type'    => 'jobs',
@@ -15,7 +14,9 @@ function create_new_job() {
     ));
 
     if (!is_wp_error($job_id)) {
-        echo json_encode(array('success' => true, 'job_id' => $job_id));
+         wp_set_object_terms($job_id, $type, 'job_type'); 
+         echo json_encode(array('success' => true, 'job_id' => $job_id));
+         
     } else {
         echo json_encode(array('success' => false));
     }
