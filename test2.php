@@ -207,7 +207,7 @@ function renderJobs() {
         const paystubsList = document.createElement('div');
         job.jobData.forEach(paystub => {
             const paystubDiv = document.createElement('div');
-            paystubDiv.className = 'stub row gx-md-3 gy-4 align-items-center mb-4';
+            paystubDiv.className = 'stub row gx-md-3 gy-4 align-items-center';
 
             paystubDiv.innerHTML = `
                 <div class="col-md-3">
