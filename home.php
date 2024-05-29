@@ -57,31 +57,29 @@ get_header();
             </div>
 
             <div class="step" id="step4">
-                <form class="" id="post_jobs_data" method="POST">
+               
                     <?php get_template_part('forms/jobben');  ?>
 
                     <div class="">
-                        <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step3">
+                        <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step4">
                             Previous
                         </button>
-                        <button class="btn fs-6 fw-bold mt-2 w-fit ben_job" type="submit">
-                            Calculation
-                        </button>
+                        <button class="btn fs-6 fw-bold mt-2 w-fit next5" type="button" data-step="step5">
+                        Calculation
+                    </button>
 
                     </div>
-                </form>
+               
             </div>
             <!-- Bennifit Insert Data  -->
             <div class="step" id="step5">
-                <form class="" id="benifit_data" method="POST">
+             
                     <?php get_template_part('forms/step6');  ?>
 
-                    <div class="">
-                        <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step3">
+                    <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step4">
                             Previous
                         </button>
-                    </div>
-                </form>
+                       
             </div>
 
         </div>
@@ -249,6 +247,14 @@ jQuery(document).ready(function($) {
 
 
     })
+
+    $('.next5').click(function(event) {
+
+$('#step5').addClass('active');
+$('#step4').removeClass('active');
+
+
+})
 
     function isValid() {
         var isValid = true;
