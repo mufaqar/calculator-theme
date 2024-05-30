@@ -14,13 +14,11 @@
 <div id="preJobsContainer"></div>
 
 
-<div id="DbJobsContainer"> Existing Jobs</div>
+
 
 
 <script>
-  
- 
-  let dbJobs = [];
+let dbJobs = [];
 let preJobs = [];
 let prePaystubIdCounter = 0;
 
@@ -31,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function fetchExistingJobs() {
-    alert("");
+    
     jQuery.ajax({
         url: "<?php echo admin_url('admin-ajax.php'); ?>",
         method: 'POST',
@@ -41,8 +39,7 @@ function fetchExistingJobs() {
         success: function(response) {
             try {
                 const res = JSON.parse(response);
-                console.log("res.jobs", res.jobs);
-
+               // console.log("res.jobs", res.jobs);
                 if (res.jobs) {
                     dbJobs = res.jobs.map(job => {
                         job.jobData = job?.paystubs.map(paystub => {
@@ -66,6 +63,8 @@ function fetchExistingJobs() {
                         };
                     });
 
+                 
+
                     renderDbJobs();
                 } else {
                     alert('Failed to fetch existing jobs.');
@@ -83,7 +82,7 @@ function fetchExistingJobs() {
 }
 
 function renderDbJobs() {
-    const dbJobsContainer = document.getElementById('DbJobsContainer');
+    const dbJobsContainer = document.getElementById('preJobsContainer');
     if (!dbJobsContainer) {
         console.error('DbJobsContainer element not found.');
         return;
@@ -125,7 +124,8 @@ function renderDbJobs() {
             `;
 
             const removePaystubButton = paystubDiv.querySelector('.remove-row');
-            removePaystubButton.addEventListener('click', () => removePrePaystub(job.postId, paystub.paystubId));
+            removePaystubButton.addEventListener('click', () => removePrePaystub(job.postId, paystub
+                .paystubId));
 
             paystubsList.appendChild(paystubDiv);
         });
@@ -183,6 +183,74 @@ function addPreJob() {
         alert('Please enter a job title.');
     }
 }
+
+
+function renderDbJobs() {
+    const dbJobsContainer = document.getElementById('preJobsContainer');
+    if (!dbJobsContainer) {
+        console.error('DbJobsContainer element not found.');
+        return;
+    }
+
+    dbJobsContainer.innerHTML = '';
+    preJobs.forEach(job => {
+        const jobDiv = document.createElement('div');
+        jobDiv.className = 'job';
+
+        const jobTitle = document.createElement('h3');
+        jobTitle.classList.add("job_title");
+        jobTitle.textContent = `Pre-Job: ${job.title} (ID: ${job.postId})`;
+        jobDiv.appendChild(jobTitle);
+
+        const addPaystubButton = document.createElement('button');
+        addPaystubButton.textContent = 'Add Paystub';
+        addPaystubButton.classList.add("add_btn", "mr-2", "add-paystub");
+        addPaystubButton.addEventListener('click', () => addPrePaystub(job.postId));
+        jobDiv.appendChild(addPaystubButton);
+
+        const removeJobButton = document.createElement('button');
+        removeJobButton.textContent = 'Remove Job';
+        removeJobButton.classList.add("add_btn", "pl-2", "remove-job");
+        removeJobButton.addEventListener('click', () => removePreJob(job.postId));
+        jobDiv.appendChild(removeJobButton);
+
+        const paystubsList = document.createElement('div');
+        job.jobData.forEach(paystub => {
+            const paystubDiv = document.createElement('div');
+            paystubDiv.className = 'stub row gx-md-3 gy-4 align-items-center';
+
+            paystubDiv.innerHTML = `
+                <div class="col-md-3">
+                    <label for="from_date_${paystub.paystubId}">From Date</label>
+                    <input type="text" name="f_date[]" id="from_date_${paystub.paystubId}" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker" value="${paystub.fromDate}">
+                </div>
+                <div class="col-md-3">
+                    <label for="to_date_${paystub.paystubId}">To Date</label>
+                    <input type="text" name="t_date[]" id="to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker" value="${paystub.toDate}">
+                </div>
+                <div class="col-md-3">
+                    <label for="gross_earnings_${paystub.paystubId}">Gross Earnings</label>
+                    <input type="text" name="g_earning[]" id="gross_earnings_${paystub.paystubId}" placeholder="Gross Earnings" class="form-control fs-6 fw-normal" value="${paystub.grossEarnings}">
+                </div>
+                <div class="col-md-2">
+                    <label for="special_condition_${paystub.paystubId}">Special Condition</label>
+                    <input type="text" name="sp[]" id="special_condition_${paystub.paystubId}" placeholder="Special Condition" class="form-control fs-6 fw-normal" value="${paystub.specialCondition}">
+                </div>
+                <img class="remove-row col-md-1 rm_btn" src="<?php bloginfo('template_directory'); ?>/images/cross.png" width="48" height="48" />
+            `;
+
+            const removePaystubButton = paystubDiv.querySelector('.remove-row');
+            removePaystubButton.addEventListener('click', () => removePrePaystub(job.postId, paystub.paystubId));
+
+            paystubsList.appendChild(paystubDiv);
+        });
+
+        jobDiv.appendChild(paystubsList);
+        dbJobsContainer.appendChild(jobDiv);
+    });
+}
+
+renderDbJobs();
 
 function addPrePaystub(postId) {
     capturePreData();
