@@ -2,6 +2,61 @@
 
 
 
+// Hook into WordPress' AJAX actions for authenticated and non-authenticated users
+add_action('wp_ajax_get_existing_jobs', 'get_existing_jobs');
+add_action('wp_ajax_nopriv_get_existing_jobs', 'get_existing_jobs');
+
+function get_existing_jobs() {
+    // Define the query arguments to fetch all published 'jobs' posts
+    $args = array(
+        'post_type' => 'jobs',
+        'post_status' => 'publish',
+        'posts_per_page' => -1, // Retrieve all posts
+    );
+
+    // Execute the query
+    $jobs_query = new WP_Query($args);
+
+    if ($jobs_query->have_posts()) {
+        $jobs = array();
+        while ($jobs_query->have_posts()) {
+            $jobs_query->the_post();
+
+            $job_id = get_the_ID();
+            $job_title = get_the_title();
+            $existing_paystubs = get_post_meta($job_id, 'paystubs', true);
+            
+            if (!$existing_paystubs) {
+                $existing_paystubs = array();
+            }
+
+            // Add job data to the array
+            $job_data = array(
+                'job_id' => $job_id,
+                'job_title' => $job_title,
+                'paystubs' => $existing_paystubs,
+                // Add more fields as needed
+            );
+
+            $jobs[] = $job_data;
+        }
+        
+        // Restore original post data
+        wp_reset_postdata();
+
+        // Return the jobs data as JSON
+        echo json_encode(array('success' => true, 'jobs' => $jobs));
+    } else {
+        // Return an error message if no jobs found
+        echo json_encode(array('success' => false, 'message' => 'No jobs found.'));
+    }
+
+    // Terminate the script to ensure no further output
+    wp_die();
+}
+
+
+
 
 
 function create_new_job() {

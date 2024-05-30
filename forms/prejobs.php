@@ -14,11 +14,131 @@
 <div id="preJobsContainer"></div>
 
 
+<div id="DbJobsContainer"> Existing Jobs</div>
+
 
 <script>
+  
+ 
+  let dbJobs = [];
 let preJobs = [];
-let preJobIdCounter = 1;
-let prePaystubIdCounter = 1;
+let prePaystubIdCounter = 0;
+
+fetchExistingJobs();
+
+document.addEventListener('DOMContentLoaded', function() {
+    fetchExistingJobs();
+});
+
+function fetchExistingJobs() {
+    alert("");
+    jQuery.ajax({
+        url: "<?php echo admin_url('admin-ajax.php'); ?>",
+        method: 'POST',
+        data: {
+            action: 'get_existing_jobs'
+        },
+        success: function(response) {
+            try {
+                const res = JSON.parse(response);
+                console.log("res.jobs", res.jobs);
+
+                if (res.jobs) {
+                    dbJobs = res.jobs.map(job => {
+                        job.jobData = job?.paystubs.map(paystub => {
+                            return {
+                                paystubId: prePaystubIdCounter++, // Ensure unique paystubId
+                                fromDate: paystub?.from_date,
+                                toDate: paystub?.to_date,
+                                grossEarnings: paystub?.gross_earnings,
+                                specialCondition: paystub?.special_condition
+                            };
+                        });
+                        return job;
+                    });
+
+                    // Transfer dbJobs to preJobs
+                    preJobs = dbJobs.map(job => {
+                        return {
+                            title: job.job_title,
+                            postId: job.job_id,
+                            jobData: job.jobData
+                        };
+                    });
+
+                    renderDbJobs();
+                } else {
+                    alert('Failed to fetch existing jobs.');
+                }
+            } catch (error) {
+                console.error('Error parsing response:', error);
+                alert('Error fetching jobs.');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX error:', status, error);
+            alert('Error fetching jobs.');
+        }
+    });
+}
+
+function renderDbJobs() {
+    const dbJobsContainer = document.getElementById('DbJobsContainer');
+    if (!dbJobsContainer) {
+        console.error('DbJobsContainer element not found.');
+        return;
+    }
+
+    dbJobsContainer.innerHTML = '';
+    preJobs.forEach(job => {
+        const jobDiv = document.createElement('div');
+        jobDiv.className = 'job';
+
+        const jobTitle = document.createElement('h3');
+        jobTitle.classList.add("job_title");
+        jobTitle.textContent = `Pre-Job: ${job.title} (ID: ${job.postId})`;
+        jobDiv.appendChild(jobTitle);
+
+        const paystubsList = document.createElement('div');
+        job.jobData.forEach(paystub => {
+            const paystubDiv = document.createElement('div');
+            paystubDiv.className = 'stub row gx-md-3 gy-4 align-items-center';
+
+            paystubDiv.innerHTML = `
+                <div class="col-md-3">
+                    <label for="from_date_${paystub.paystubId}">From Date</label>
+                    <input type="text" name="f_date[]" id="from_date_${paystub.paystubId}" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker" value="${paystub.fromDate}">
+                </div>
+                <div class="col-md-3">
+                    <label for="to_date_${paystub.paystubId}">To Date</label>
+                    <input type="text" name="t_date[]" id="to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker" value="${paystub.toDate}">
+                </div>
+                <div class="col-md-3">
+                    <label for="gross_earnings_${paystub.paystubId}">Gross Earnings</label>
+                    <input type="text" name="g_earning[]" id="gross_earnings_${paystub.paystubId}" placeholder="Gross Earnings" class="form-control fs-6 fw-normal" value="${paystub.grossEarnings}">
+                </div>
+                <div class="col-md-2">
+                    <label for="special_condition_${paystub.paystubId}">Special Condition</label>
+                    <input type="text" name="sp[]" id="special_condition_${paystub.paystubId}" placeholder="Special Condition" class="form-control fs-6 fw-normal" value="${paystub.specialCondition}">
+                </div>
+                <img class="remove-row col-md-1 rm_btn" src="<?php bloginfo('template_directory'); ?>/images/cross.png" width="48" height="48" />
+            `;
+
+            const removePaystubButton = paystubDiv.querySelector('.remove-row');
+            removePaystubButton.addEventListener('click', () => removePrePaystub(job.postId, paystub.paystubId));
+
+            paystubsList.appendChild(paystubDiv);
+        });
+
+        jobDiv.appendChild(paystubsList);
+        dbJobsContainer.appendChild(jobDiv);
+    });
+}
+
+
+
+
+
 
 document.getElementById('addPreJob').addEventListener('click', addPreJob);
 
@@ -66,13 +186,8 @@ function addPreJob() {
 
 function addPrePaystub(postId) {
     capturePreData();
-
     const job = preJobs.find(j => j.postId === postId);
     const lastObj = job.jobData[job.jobData.length - 1]
-
-
-
-
     if (job) {
         const newPaystub = {
             paystubId: prePaystubIdCounter++,
@@ -105,6 +220,9 @@ function addPrePaystub(postId) {
         });
     }
 }
+
+
+
 
 function removePrePaystub(postId, paystubId) {
     capturePreData();
