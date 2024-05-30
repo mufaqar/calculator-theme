@@ -106,9 +106,12 @@ add_action('wp_ajax_update_job_with_paystub', 'update_job_with_paystub');
 add_action('wp_ajax_nopriv_update_job_with_paystub', 'update_job_with_paystub');
 
 
-function removePaystub() {   
+function removePaystub() {
     $job_id = intval($_POST['job_id']);
-    $paystub_id = intval($_POST['paystub_id']); // Assuming paystub_id is passed in the POST data
+    $paystub_id = intval($_POST['paystub_id']); 
+
+  
+    echo $paystub_id;
 
     // Check if the job post exists
     if (get_post_type($job_id) === 'jobs') {
@@ -118,8 +121,11 @@ function removePaystub() {
         if ($existing_paystubs) {
             // Filter out the paystub to be removed
             $existing_paystubs = array_filter($existing_paystubs, function($paystub) use ($paystub_id) {
-                return $paystub['paystub_id'] != $paystub_id;
+                return $paystub['paystubId'] != $paystub_id;
             });
+
+            // Re-index the array to maintain consistent indices
+            $existing_paystubs = array_values($existing_paystubs);
 
             // Update post meta with the modified paystubs array
             update_post_meta($job_id, 'paystubs', $existing_paystubs);
@@ -139,6 +145,7 @@ function removePaystub() {
 
 add_action('wp_ajax_removePaystub', 'removePaystub');
 add_action('wp_ajax_nopriv_removePaystub', 'removePaystub');
+
 
 
 function remove_job() {    
