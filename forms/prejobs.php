@@ -25,17 +25,17 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function fetchExistingJobs() {
-    
     jQuery.ajax({
         url: "<?php echo admin_url('admin-ajax.php'); ?>",
         method: 'POST',
         data: {
-            action: 'get_existing_jobs'
+            action: 'get_existing_jobs',
+
         },
         success: function(response) {
             try {
                 const res = JSON.parse(response);
-               // console.log("res.jobs", res.jobs);
+                // console.log("res.jobs", res.jobs);
                 if (res.jobs) {
                     dbJobs = res.jobs.map(job => {
                         job.jobData = job?.paystubs.map(paystub => {
@@ -59,7 +59,7 @@ function fetchExistingJobs() {
                         };
                     });
 
-                 
+
 
                     renderDbJobs();
                 } else {
@@ -130,10 +130,6 @@ function renderDbJobs() {
         dbJobsContainer.appendChild(jobDiv);
     });
 }
-
-
-
-
 
 
 document.getElementById('addPreJob').addEventListener('click', addPreJob);
@@ -236,7 +232,8 @@ function renderDbJobs() {
             `;
 
             const removePaystubButton = paystubDiv.querySelector('.remove-row');
-            removePaystubButton.addEventListener('click', () => removePrePaystub(job.postId, paystub.paystubId));
+            removePaystubButton.addEventListener('click', () => removePrePaystub(job.postId, paystub
+                .paystubId));
 
             paystubsList.appendChild(paystubDiv);
         });
