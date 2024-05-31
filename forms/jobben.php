@@ -29,7 +29,8 @@ function fetchExistingBenJobs() {
         url: "<?php echo admin_url('admin-ajax.php'); ?>",
         method: 'POST',
         data: {
-            action: 'get_existing_jobs'
+            action: 'get_existing_jobs',
+            type: "post-benefits"
         },
         success: function(response) {
             try {
@@ -153,7 +154,7 @@ function addBenJob() {
             data: {
                 action: 'create_new_job',
                 job_title: jobTitle,
-                type: "ben-income"
+                type: "post-benefits"
             },
             success: function(response) {
                 const res = JSON.parse(response);

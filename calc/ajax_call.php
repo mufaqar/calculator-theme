@@ -7,11 +7,15 @@ add_action('wp_ajax_get_existing_jobs', 'get_existing_jobs');
 add_action('wp_ajax_nopriv_get_existing_jobs', 'get_existing_jobs');
 
 function get_existing_jobs() {
-    // Define the query arguments to fetch all published 'jobs' posts
+   
+
+    $type =  $_POST['type'];
+
     $args = array(
         'post_type' => 'jobs',
         'post_status' => 'publish',
-        'posts_per_page' => -1, // Retrieve all posts
+        'posts_per_page' => -1, 
+        'job_type' => $type
     );
 
     // Execute the query
@@ -34,8 +38,7 @@ function get_existing_jobs() {
             $job_data = array(
                 'job_id' => $job_id,
                 'job_title' => $job_title,
-                'paystubs' => $existing_paystubs,
-                // Add more fields as needed
+                'paystubs' => $existing_paystubs
             );
 
             $jobs[] = $job_data;

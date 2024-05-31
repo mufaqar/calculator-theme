@@ -30,6 +30,7 @@ function fetchExistingJobs() {
         method: 'POST',
         data: {
             action: 'get_existing_jobs',
+            type: 'pre-income',
 
         },
         success: function(response) {
@@ -140,7 +141,6 @@ function addPreJob() {
 
     if (jobTitle) {
         capturePreData();
-
         jQuery.ajax({
             url: "<?php echo admin_url('admin-ajax.php'); ?>",
             method: 'POST',

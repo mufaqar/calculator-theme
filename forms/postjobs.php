@@ -29,7 +29,8 @@ function fetchExistingPostJobs() {
         url: "<?php echo admin_url('admin-ajax.php'); ?>",
         method: 'POST',
         data: {
-            action: 'get_existing_jobs'
+            action: 'get_existing_jobs',
+            type: "post-income"
         },
         success: function(response) {
             try {
