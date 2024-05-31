@@ -6,11 +6,9 @@
 add_action('wp_ajax_get_existing_jobs', 'get_existing_jobs');
 add_action('wp_ajax_nopriv_get_existing_jobs', 'get_existing_jobs');
 
-function get_existing_jobs() {
-   
+function get_existing_jobs() {   
 
     $type =  $_POST['type'];
-
     $args = array(
         'post_type' => 'jobs',
         'post_status' => 'publish',
@@ -18,18 +16,14 @@ function get_existing_jobs() {
         'job_type' => $type
     );
 
-    // Execute the query
     $jobs_query = new WP_Query($args);
-
     if ($jobs_query->have_posts()) {
         $jobs = array();
         while ($jobs_query->have_posts()) {
             $jobs_query->the_post();
-
             $job_id = get_the_ID();
             $job_title = get_the_title();
-            $existing_paystubs = get_post_meta($job_id, 'paystubs', true);
-            
+            $existing_paystubs = get_post_meta($job_id, 'paystubs', true);            
             if (!$existing_paystubs) {
                 $existing_paystubs = array();
             }
