@@ -116,7 +116,7 @@ function renderDbPostJobs() {
                     <label for="to_date_${paystub.paystubId}">To Date</label>
                     <input type="text" name="t_date[]" id="to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.toDate}">
                 </div>
-                <div class="col-md3">
+                <div class="col-md-3">
                     <label for="gross_earnings_${paystub.paystubId}">Gross Earnings</label>
                     <input type="text" name="g_earning[]" id="gross_earnings_${paystub.paystubId}" placeholder="Gross Earnings" class="form-control fs-6 fw-normal" value="${paystub.grossEarnings}">
                 </div>
@@ -304,7 +304,7 @@ function renderPostJobs() {
                     <label for="to_date_${paystub.paystubId}">To Date</label>
                     <input type="text" name="t_date[]" id="to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.toDate}">
                 </div>
-                <div class="col-md3">
+                <div class="col-md-3">
                     <label for="gross_earnings_${paystub.paystubId}">Gross Earnings</label>
                     <input type="text" name="g_earning[]" id="gross_earnings_${paystub.paystubId}" placeholder="Gross Earnings" class="form-control fs-6 fw-normal" value="${paystub.grossEarnings}">
                 </div>
