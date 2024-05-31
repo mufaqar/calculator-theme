@@ -85,6 +85,7 @@ function update_job_with_paystub() {
     
     $job_id = intval($_POST['job_id']);
     $paystub_data = array(
+        'paystubId'       => sanitize_text_field($_POST['paystubId']),
         'from_date'       => sanitize_text_field($_POST['from_date']),
         'to_date'         => sanitize_text_field($_POST['to_date']),
         'gross_earnings'  => sanitize_text_field($_POST['gross_earnings']),
@@ -107,44 +108,49 @@ add_action('wp_ajax_nopriv_update_job_with_paystub', 'update_job_with_paystub');
 
 
 function removePaystub() {
+    
     $job_id = intval($_POST['job_id']);
-    $paystub_id = intval($_POST['paystub_id']); 
+    $paystubs = $_POST['job']; 
+    $paystub_data = [];
 
-  
-    echo $paystub_id;
-
-    // Check if the job post exists
-    if (get_post_type($job_id) === 'jobs') {
-        // Retrieve existing paystubs associated with the job
-        $existing_paystubs = get_post_meta($job_id, 'paystubs', true);
-
-        if ($existing_paystubs) {
-            // Filter out the paystub to be removed
-            $existing_paystubs = array_filter($existing_paystubs, function($paystub) use ($paystub_id) {
-                return $paystub['paystubId'] != $paystub_id;
-            });
-
-            // Re-index the array to maintain consistent indices
-            $existing_paystubs = array_values($existing_paystubs);
-
-            // Update post meta with the modified paystubs array
-            update_post_meta($job_id, 'paystubs', $existing_paystubs);
-
-            echo json_encode(array('success' => true));
-            wp_die();
-        } else {
-            echo json_encode(array('success' => false, 'message' => 'No paystubs found.'));
-            wp_die();
-        }
+    // Process each paystub
+    foreach ($paystubs as $key => $paystub) {
+        $paystub_data[] = array(
+            'paystubId'         => $paystub['paystubId'],
+            'from_date'         => $paystub['fromDate'],
+            'to_date'           => $paystub['toDate'],
+            'gross_earnings'    => $paystub['grossEarnings'],
+            'special_condition' => $paystub['specialCondition']
+        );
     }
+    
+    // Print the processed paystub data for debugging
+    // print "<pre>";
+    // print_r($paystub_data);
 
-    // If the job does not exist
-    echo json_encode(array('success' => false, 'message' => 'Job not found.'));
+    // Check if the job type is 'jobs'
+   
+        // Remove existing paystub meta data
+        delete_post_meta($job_id, 'paystubs');
+
+        // Update the paystubs meta data with new data
+        if (update_post_meta($job_id, 'paystubs', $paystub_data)) {
+            wp_send_json_success(['message' => 'Paystubs updated successfully']);
+        } else {
+            wp_send_json_error(['message' => 'Failed to update paystubs']);
+        }
+        
+        // Respond with success message
+        echo json_encode(array('success' => true, 'message' => 'Data removed'));
+   
+
+    // Terminate the script
     wp_die();
 }
 
 add_action('wp_ajax_removePaystub', 'removePaystub');
 add_action('wp_ajax_nopriv_removePaystub', 'removePaystub');
+
 
 
 

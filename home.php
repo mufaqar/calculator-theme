@@ -30,7 +30,7 @@ get_header();
             </div>
 
             <div class="step" id="step2">
-                <?php //get_template_part('forms/prejobs');  ?>
+                <?php get_template_part('forms/postjobs');  ?>
                 <div class="">
                     <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step1">
                         Previous

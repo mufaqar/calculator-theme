@@ -13,10 +13,6 @@
 </div>
 <div id="preJobsContainer"></div>
 
-
-
-
-
 <script>
 let dbJobs = [];
 let preJobs = [];
@@ -106,11 +102,11 @@ function renderDbJobs() {
             paystubDiv.innerHTML = `
                 <div class="col-md-3">
                     <label for="from_date_${paystub.paystubId}">From Date</label>
-                    <input type="text" name="f_date[]" id="from_date_${paystub.paystubId}" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker" value="${paystub.fromDate}">
+                    <input type="text" name="f_date[]" id="from_date_${paystub.paystubId}" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.fromDate}">
                 </div>
                 <div class="col-md-3">
                     <label for="to_date_${paystub.paystubId}">To Date</label>
-                    <input type="text" name="t_date[]" id="to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker" value="${paystub.toDate}">
+                    <input type="text" name="t_date[]" id="to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.toDate}">
                 </div>
                 <div class="col-md-3">
                     <label for="gross_earnings_${paystub.paystubId}">Gross Earnings</label>
@@ -222,11 +218,11 @@ function renderDbJobs() {
             paystubDiv.innerHTML = `
                 <div class="col-md-3">
                     <label for="from_date_${paystub.paystubId}">From Date</label>
-                    <input type="text" name="f_date[]" id="from_date_${paystub.paystubId}" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker" value="${paystub.fromDate}">
+                    <input type="text" name="f_date[]" id="from_date_${paystub.paystubId}" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.fromDate}">
                 </div>
                 <div class="col-md-3">
                     <label for="to_date_${paystub.paystubId}">To Date</label>
-                    <input type="text" name="t_date[]" id="to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker" value="${paystub.toDate}">
+                    <input type="text" name="t_date[]" id="to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.toDate}">
                 </div>
                 <div class="col-md-3">
                     <label for="gross_earnings_${paystub.paystubId}">Gross Earnings</label>
@@ -271,6 +267,7 @@ function addPrePaystub(postId) {
             method: 'POST',
             data: {
                 action: 'update_job_with_paystub',
+                paystubId: prePaystubIdCounter++,
                 job_id: postId,
                 from_date: lastObj.fromDate,
                 to_date: lastObj.toDate,
@@ -291,38 +288,29 @@ function addPrePaystub(postId) {
 
 
 
+
 function removePrePaystub(postId, paystubId) {
     capturePreData();
 
     const job = preJobs.find(j => j.postId === postId);
     if (job) {
-        // Filter out the paystub to be removed
         job.jobData = job.jobData.filter(p => p.paystubId !== paystubId);
-        
-        // Render jobs after updating the jobData
         renderPreJobs();
+        console.log(job);
 
-        // Make an AJAX call to update the backend
         jQuery.ajax({
             url: "<?php echo admin_url('admin-ajax.php'); ?>",
             method: 'POST',
             data: {
                 action: 'removePaystub',
                 job_id: postId,
-                paystub_id: paystubId
+                job: job.jobData
             },
             success: function(response) {
                 const res = JSON.parse(response);
                 if (!res.success) {
                     alert('Failed to remove paystub.');
-                } else {
-                    // Successfully removed paystub from backend
-                    renderPreJobs();
                 }
-            },
-            error: function(xhr, status, error) {
-                console.error('AJAX error:', status, error);
-                alert('Error removing paystub.');
             }
         });
     }
@@ -396,27 +384,28 @@ function renderPreJobs() {
             paystubDiv.className = 'stub row gx-md-3 gy-4 align-items-center';
 
             paystubDiv.innerHTML = `
-                <div class="col-md-3">
-                    <label for="from_date_${paystub.paystubId}">From Date</label>
-                    <input type="text" name="f_date[]" id="from_date_${paystub.paystubId}" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker" value="${paystub.fromDate}">
-                </div>
-                <div class="col-md-3">
-                    <label for="to_date_${paystub.paystubId}">To Date</label>
-                    <input type="text" name="t_date[]" id="to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker" value="${paystub.toDate}">
-                </div>
-                <div class="col-md-3">
-                    <label for="gross_earnings_${paystub.paystubId}">Gross Earnings</label>
-                    <input type="text" name="g_earning[]" id="gross_earnings_${paystub.paystubId}" placeholder="Gross Earnings" class="form-control fs-6 fw-normal" value="${paystub.grossEarnings}">
-                </div>
-                <div class="col-md-2">
-                    <label for="special_condition_${paystub.paystubId}">Special Condition</label>
-                    <input type="text" name="sp[]" id="special_condition_${paystub.paystubId}" placeholder="Special Condition" class="form-control fs-6 fw-normal" value="${paystub.specialCondition}">
-                </div>
-                <img class="remove-row col-md-1 rm_btn" src="<?php bloginfo('template_directory'); ?>/images/cross.png" width="48" height="48" />
-            `;
+                        <div class="col-md-3">
+                            <label for="from_date_${paystub.paystubId}">From Date</label>
+                            <input type="text" name="f_date[]" id="from_date_${paystub.paystubId}" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.fromDate}">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="to_date_${paystub.paystubId}">To Date</label>
+                            <input type="text" name="t_date[]" id="to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.toDate}">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="gross_earnings_${paystub.paystubId}">Gross Earnings</label>
+                            <input type="text" name="g_earning[]" id="gross_earnings_${paystub.paystubId}" placeholder="Gross Earnings" class="form-control fs-6 fw-normal" value="${paystub.grossEarnings}">
+                        </div>
+                        <div class="col-md-2">
+                            <label for="special_condition_${paystub.paystubId}">Special Condition</label>
+                            <input type="text" name="sp[]" id="special_condition_${paystub.paystubId}" placeholder="Special Condition" class="form-control fs-6 fw-normal" value="${paystub.specialCondition}">
+                        </div>
+                        <img class="remove-row col-md-1 rm_btn" src="<?php bloginfo('template_directory'); ?>/images/cross.png" width="48" height="48" />
+                    `;
 
             const removePaystubButton = paystubDiv.querySelector('.remove-row');
-            removePaystubButton.addEventListener('click', () => removePrePaystub(job.postId, paystub.paystubId));
+            removePaystubButton.addEventListener('click', () => removePrePaystub(job.postId, paystub
+                .paystubId));
 
             paystubsList.appendChild(paystubDiv);
         });
@@ -424,6 +413,8 @@ function renderPreJobs() {
         jobDiv.appendChild(paystubsList);
         jobsContainer.appendChild(jobDiv);
     });
+
+    console.log(preJobs);
 }
 
 renderPreJobs();
