@@ -15,6 +15,7 @@ get_header();
     <div class="container mx-auto col p-md-5 py-5 Step_form">
         <div class="row">
             <div class="step active" id="step1">
+            
            
                  <form class="" id="mock_user" method="POST">
                 <?php get_template_part('forms/step1');  ?>
@@ -60,7 +61,7 @@ get_header();
 
             <div class="step" id="step4">
                
-                    <?php get_template_part('forms/jobben');  ?>
+                    <?php  get_template_part('forms/jobben');  ?>
 
                     <div class="">
                         <button class="btn fs-6 fw-bold mt-2 w-fit prev" type="button" data-step="step4">

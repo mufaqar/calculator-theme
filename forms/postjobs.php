@@ -18,8 +18,6 @@ let dbPostJobs = [];
 let postJobs = [];
 let postPaystubIdCounter = 0;
 
-fetchExistingPostJobs();
-
 document.addEventListener('DOMContentLoaded', function() {
     fetchExistingPostJobs();
 });
@@ -110,20 +108,20 @@ function renderDbPostJobs() {
 
             paystubDiv.innerHTML = `
                 <div class="col-md-3">
-                    <label for="from_date_${paystub.paystubId}">From Date</label>
-                    <input type="text" name="f_date[]" id="from_date_${paystub.paystubId}" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.fromDate}">
+                    <label for="post_from_date_${paystub.paystubId}">From Date</label>
+                    <input type="text" name="post_from_date[]" id="post_from_date_${paystub.paystubId}" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.fromDate}">
                 </div>
                 <div class="col-md-3">
-                    <label for="to_date_${paystub.paystubId}">To Date</label>
-                    <input type="text" name="t_date[]" id="to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.toDate}">
+                    <label for="post_to_date_${paystub.paystubId}">To Date</label>
+                    <input type="text" name="post_to_date[]" id="post_to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.toDate}">
                 </div>
                 <div class="col-md-3">
-                    <label for="gross_earnings_${paystub.paystubId}">Gross Earnings</label>
-                    <input type="text" name="g_earning[]" id="gross_earnings_${paystub.paystubId}" placeholder="Gross Earnings" class="form-control fs-6 fw-normal" value="${paystub.grossEarnings}">
+                    <label for="post_gross_earnings_${paystub.paystubId}">Gross Earnings</label>
+                    <input type="text" name="post_gross_earnings[]" id="post_gross_earnings_${paystub.paystubId}" placeholder="Gross Earnings" class="form-control fs-6 fw-normal" value="${paystub.grossEarnings}">
                 </div>
                 <div class="col-md-2">
-                    <label for="special_condition_${paystub.paystubId}">Special Condition</label>
-                    <input type="text" name="sp[]" id="special_condition_${paystub.paystubId}" placeholder="Special Condition" class="form-control fs-6 fw-normal" value="${paystub.specialCondition}">
+                    <label for="post_special_condition_${paystub.paystubId}">Special Condition</label>
+                    <input type="text" name="post_special_condition[]" id="post_special_condition_${paystub.paystubId}" placeholder="Special Condition" class="form-control fs-6 fw-normal" value="${paystub.specialCondition}">
                 </div>
                 <img class="remove-row col-md-1 rm_btn" src="<?php bloginfo('template_directory'); ?>/images/cross.png" width="48" height="48" />
             `;
@@ -137,6 +135,9 @@ function renderDbPostJobs() {
         jobDiv.appendChild(paystubsList);
         dbPostJobsContainer.appendChild(jobDiv);
     });
+
+    // Reinitialize datepickers for new inputs
+    reinitializeDatepickers();
 }
 
 document.getElementById('addPostJob').addEventListener('click', addPostJob);
@@ -186,6 +187,9 @@ function addPostJob() {
 function addPostPaystub(postId) {
     capturePostData();
     const job = postJobs.find(j => j.postId === postId);
+    console.log("🚀 ~ addPostPaystub ~ job:", job)
+    
+    const lastObj = job.jobData[job.jobData.length - 1]
     if (job) {
         const newPaystub = {
             paystubId: postPaystubIdCounter++,
@@ -194,30 +198,52 @@ function addPostPaystub(postId) {
             grossEarnings: '',
             specialCondition: ''
         };
-        job.jobData.push(newPaystub);
-        renderPostJobs();
-    }
-}
-
-function removePostPaystub(postId, paystubId) {
-    capturePostData();
-
-    const job = postJobs.find(j => j.postId === postId);
-    if (job) {
-        job.jobData = job.jobData.filter(p => p.paystubId !== paystubId);
-        renderPostJobs();
+        job.jobData.push(newPaystub);     
 
         jQuery.ajax({
             url: "<?php echo admin_url('admin-ajax.php'); ?>",
             method: 'POST',
             data: {
-                action: 'remove_post_paystub',
+                action: 'update_job_with_paystub',
                 job_id: postId,
-                paystub_id: paystubId
+                from_date: lastObj.fromDate,
+                to_date: lastObj.toDate,
+                gross_earnings: lastObj.grossEarnings,
+                special_condition: lastObj.specialCondition
             },
             success: function(response) {
                 const res = JSON.parse(response);
-                if (!res.success) {
+                if (res.success) {
+                    renderPostJobs();
+                } else {
+                    alert('Failed to add paystub.');
+                }
+            }
+        });
+    }
+}
+
+function removePostPaystub(postId, paystubId) {
+    capturePostData();
+    const job = postJobs.find(j => j.postId === postId);
+    if (job) {
+        job.jobData = job.jobData.filter(p => p.paystubId !== paystubId);
+        renderPostJobs();
+        console.log(job);
+
+        jQuery.ajax({
+            url: "<?php echo admin_url('admin-ajax.php'); ?>",
+            method: 'POST',
+            data: {
+                action: 'removePaystub',
+                job_id: postId,
+                job: job.jobData
+            },
+            success: function(response) {
+                const res = JSON.parse(response);
+                if (res.success) {
+                    renderPostJobs();
+                } else {
                     alert('Failed to remove paystub.');
                 }
             }
@@ -226,7 +252,6 @@ function removePostPaystub(postId, paystubId) {
 }
 
 function removePostJob(postId) {
-    capturePostData();
     postJobs = postJobs.filter(j => j.postId !== postId);
     renderPostJobs();
 
@@ -234,38 +259,25 @@ function removePostJob(postId) {
         url: "<?php echo admin_url('admin-ajax.php'); ?>",
         method: 'POST',
         data: {
-            action: 'remove_post_job',
-            job_id: postId
+            action: 'remove_job',
+            job_id: postId,
+            type: "post-income"
         },
         success: function(response) {
             const res = JSON.parse(response);
-            if (!res.success) {
+            if (res.success) {
+                renderPostJobs();
+            } else {
                 alert('Failed to remove job.');
             }
         }
     });
 }
 
-function capturePostData() {
-    postJobs.forEach(job => {
-        job.jobData.forEach(paystub => {
-            const fromDateInput = document.querySelector(`#from_date_${paystub.paystubId}`);
-            const toDateInput = document.querySelector(`#to_date_${paystub.paystubId}`);
-            const grossEarningsInput = document.querySelector(`#gross_earnings_${paystub.paystubId}`);
-            const specialConditionInput = document.querySelector(`#special_condition_${paystub.paystubId}`);
-
-            paystub.fromDate = fromDateInput ? fromDateInput.value : '';
-            paystub.toDate = toDateInput ? toDateInput.value : '';
-            paystub.grossEarnings = grossEarningsInput ? grossEarningsInput.value : '';
-            paystub.specialCondition = specialConditionInput ? specialConditionInput.value : '';
-        });
-    });
-}
-
 function renderPostJobs() {
     const postJobsContainer = document.getElementById('postJobsContainer');
     if (!postJobsContainer) {
-        console.error('postJobsContainer element not found.');
+        console.error('PostJobsContainer element not found.');
         return;
     }
 
@@ -298,20 +310,20 @@ function renderPostJobs() {
 
             paystubDiv.innerHTML = `
                 <div class="col-md-3">
-                    <label for="from_date_${paystub.paystubId}">From Date</label>
-                    <input type="text" name="f_date[]" id="from_date_${paystub.paystubId}" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.fromDate}">
+                    <label for="post_from_date_${paystub.paystubId}">From Date</label>
+                    <input type="text" name="post_from_date[]" id="post_from_date_${paystub.paystubId}" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.fromDate}">
                 </div>
                 <div class="col-md-3">
-                    <label for="to_date_${paystub.paystubId}">To Date</label>
-                    <input type="text" name="t_date[]" id="to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.toDate}">
+                    <label for="post_to_date_${paystub.paystubId}">To Date</label>
+                    <input type="text" name="post_to_date[]" id="post_to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.toDate}">
                 </div>
                 <div class="col-md-3">
-                    <label for="gross_earnings_${paystub.paystubId}">Gross Earnings</label>
-                    <input type="text" name="g_earning[]" id="gross_earnings_${paystub.paystubId}" placeholder="Gross Earnings" class="form-control fs-6 fw-normal" value="${paystub.grossEarnings}">
+                    <label for="post_gross_earnings_${paystub.paystubId}">Gross Earnings</label>
+                    <input type="text" name="post_gross_earnings[]" id="post_gross_earnings_${paystub.paystubId}" placeholder="Gross Earnings" class="form-control fs-6 fw-normal" value="${paystub.grossEarnings}">
                 </div>
                 <div class="col-md-2">
-                    <label for="special_condition_${paystub.paystubId}">Special Condition</label>
-                    <input type="text" name="sp[]" id="special_condition_${paystub.paystubId}" placeholder="Special Condition" class="form-control fs-6 fw-normal" value="${paystub.specialCondition}">
+                    <label for="post_special_condition_${paystub.paystubId}">Special Condition</label>
+                    <input type="text" name="post_special_condition[]" id="post_special_condition_${paystub.paystubId}" placeholder="Special Condition" class="form-control fs-6 fw-normal" value="${paystub.specialCondition}">
                 </div>
                 <img class="remove-row col-md-1 rm_btn" src="<?php bloginfo('template_directory'); ?>/images/cross.png" width="48" height="48" />
             `;
@@ -330,12 +342,29 @@ function renderPostJobs() {
     reinitializeDatepickers();
 }
 
-function reinitializeDatepickers() {
-    jQuery('.datepicker').datepicker({
-        dateFormat: 'yy-mm-dd',
-        changeMonth: true,
-        changeYear: true,
-        yearRange: '1900:2100'
+function capturePostData() {
+    postJobs.forEach(job => {
+        const jobDiv = document.querySelector(`#postJobsContainer > .job:nth-child(${postJobs.indexOf(job) + 1})`);
+        if (jobDiv) {
+            job.jobData.forEach(paystub => {
+                const fromDate = jobDiv.querySelector(`#post_from_date_${paystub.paystubId}`).value;
+                const toDate = jobDiv.querySelector(`#post_to_date_${paystub.paystubId}`).value;
+                const grossEarnings = jobDiv.querySelector(`#post_gross_earnings_${paystub.paystubId}`).value;
+                const specialCondition = jobDiv.querySelector(`#post_special_condition_${paystub.paystubId}`).value;
+
+                paystub.fromDate = fromDate;
+                paystub.toDate = toDate;
+                paystub.grossEarnings = grossEarnings;
+                paystub.specialCondition = specialCondition;
+            });
+        }
     });
 }
+
+function reinitializeDatepickers() {
+    jQuery('.datepicker').datepicker({
+        dateFormat: 'mm/dd/yy'
+    });
+}
+
 </script>

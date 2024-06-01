@@ -2,13 +2,10 @@
 <div class="row gx-md-3 gy-4 mb-4 add_benjob">
     <div class="col-md-4">
         <label for="ben_job1_title">Add Job </label>
-        <input type="text" name="ben_job1_title" class="form-control fs-6 fw-normal" id="ben_job1_title"
-            placeholder="Enter Job Title">
+        <input type="text" name="ben_job1_title" class="form-control fs-6 fw-normal" id="ben_job1_title" placeholder="Enter Job Title">
     </div>
     <div class="col-md-2 align-self-end">
-        <button class="add_btn text-white border-0 fs-6 fw-bold mt-2 w-fit" type="button" id="addBenJob">
-            Add BenJob
-        </button>
+        <button class="add_btn text-white border-0 fs-6 fw-bold mt-2 w-fit" type="button" id="addBenJob">Add BenJob</button>
     </div>
 </div>
 <div id="benJobsContainer"></div>
@@ -110,20 +107,20 @@ function renderDbBenJobs() {
 
             paystubDiv.innerHTML = `
                 <div class="col-md-3">
-                    <label for="from_date_${paystub.paystubId}">From Date</label>
-                    <input type="text" name="f_date[]" id="from_date_${paystub.paystubId}" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.fromDate}">
+                    <label for="ben_from_date_${paystub.paystubId}">From Date</label>
+                    <input type="text" name="ben_f_date[]" id="ben_from_date_${paystub.paystubId}" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.fromDate}">
                 </div>
                 <div class="col-md-3">
-                    <label for="to_date_${paystub.paystubId}">To Date</label>
-                    <input type="text" name="t_date[]" id="to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.toDate}">
+                    <label for="ben_to_date_${paystub.paystubId}">To Date</label>
+                    <input type="text" name="ben_t_date[]" id="ben_to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.toDate}">
                 </div>
                 <div class="col-md-3">
-                    <label for="gross_earnings_${paystub.paystubId}">Gross Earnings</label>
-                    <input type="text" name="g_earning[]" id="gross_earnings_${paystub.paystubId}" placeholder="Gross Earnings" class="form-control fs-6 fw-normal" value="${paystub.grossEarnings}">
+                    <label for="ben_gross_earnings_${paystub.paystubId}">Gross Earnings</label>
+                    <input type="text" name="ben_g_earning[]" id="ben_gross_earnings_${paystub.paystubId}" placeholder="Gross Earnings" class="form-control fs-6 fw-normal" value="${paystub.grossEarnings}">
                 </div>
                 <div class="col-md-2">
-                    <label for="special_condition_${paystub.paystubId}">Special Condition</label>
-                    <input type="text" name="sp[]" id="special_condition_${paystub.paystubId}" placeholder="Special Condition" class="form-control fs-6 fw-normal" value="${paystub.specialCondition}">
+                    <label for="ben_special_condition_${paystub.paystubId}">Special Condition</label>
+                    <input type="text" name="ben_sp[]" id="ben_special_condition_${paystub.paystubId}" placeholder="Special Condition" class="form-control fs-6 fw-normal" value="${paystub.specialCondition}">
                 </div>
                 <img class="remove-row col-md-1 rm_btn" src="<?php bloginfo('template_directory'); ?>/images/cross.png" width="48" height="48" />
             `;
@@ -186,6 +183,8 @@ function addBenJob() {
 function addBenPaystub(benId) {
     captureBenData();
     const job = benJobs.find(j => j.benId === benId);
+    const lastObj = job.jobData[job.jobData.length - 1];
+    
     if (job) {
         const newPaystub = {
             paystubId: benPaystubIdCounter++,
@@ -195,7 +194,27 @@ function addBenPaystub(benId) {
             specialCondition: ''
         };
         job.jobData.push(newPaystub);
-        renderBenJobs();
+        jQuery.ajax({
+            url: "<?php echo admin_url('admin-ajax.php'); ?>",
+            method: 'POST',
+            data: {
+                action: 'update_job_with_paystub',
+                paystubId: benPaystubIdCounter++,
+                job_id: benId,
+                from_date: lastObj.fromDate,
+                to_date: lastObj.toDate,
+                gross_earnings: lastObj.grossEarnings,
+                special_condition: lastObj.specialCondition
+            },
+            success: function(response) {
+                const res = JSON.parse(response);
+                if (res.success) {
+                    renderBenJobs();
+                } else {
+                    alert('Failed to add paystub.');
+                }
+            }
+        });
     }
 }
 
@@ -206,14 +225,15 @@ function removeBenPaystub(benId, paystubId) {
     if (job) {
         job.jobData = job.jobData.filter(p => p.paystubId !== paystubId);
         renderBenJobs();
+        console.log(job);
 
         jQuery.ajax({
             url: "<?php echo admin_url('admin-ajax.php'); ?>",
             method: 'POST',
             data: {
-                action: 'remove_paystub',
+                action: 'removePaystub',
                 job_id: benId,
-                paystub_id: paystubId
+                job: job.jobData
             },
             success: function(response) {
                 const res = JSON.parse(response);
@@ -249,10 +269,10 @@ function removeBenJob(benId) {
 function captureBenData() {
     benJobs.forEach(job => {
         job.jobData.forEach(paystub => {
-            const fromDateInput = document.querySelector(`#from_date_${paystub.paystubId}`);
-            const toDateInput = document.querySelector(`#to_date_${paystub.paystubId}`);
-            const grossEarningsInput = document.querySelector(`#gross_earnings_${paystub.paystubId}`);
-            const specialConditionInput = document.querySelector(`#special_condition_${paystub.paystubId}`);
+            const fromDateInput = document.querySelector(`#ben_from_date_${paystub.paystubId}`);
+            const toDateInput = document.querySelector(`#ben_to_date_${paystub.paystubId}`);
+            const grossEarningsInput = document.querySelector(`#ben_gross_earnings_${paystub.paystubId}`);
+            const specialConditionInput = document.querySelector(`#ben_special_condition_${paystub.paystubId}`);
 
             paystub.fromDate = fromDateInput ? fromDateInput.value : '';
             paystub.toDate = toDateInput ? toDateInput.value : '';
@@ -298,20 +318,20 @@ function renderBenJobs() {
 
             paystubDiv.innerHTML = `
                 <div class="col-md-3">
-                    <label for="from_date_${paystub.paystubId}">From Date</label>
-                    <input type="text" name="f_date[]" id="from_date_${paystub.paystubId}" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.fromDate}">
+                    <label for="ben_from_date_${paystub.paystubId}">From Date</label>
+                    <input type="text" name="ben_f_date[]" id="ben_from_date_${paystub.paystubId}" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.fromDate}">
                 </div>
                 <div class="col-md-3">
-                    <label for="to_date_${paystub.paystubId}">To Date</label>
-                    <input type="text" name="t_date[]" id="to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.toDate}">
+                    <label for="ben_to_date_${paystub.paystubId}">To Date</label>
+                    <input type="text" name="ben_t_date[]" id="ben_to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.toDate}">
                 </div>
                 <div class="col-md-3">
-                    <label for="gross_earnings_${paystub.paystubId}">Gross Earnings</label>
-                    <input type="text" name="g_earning[]" id="gross_earnings_${paystub.paystubId}" placeholder="Gross Earnings" class="form-control fs-6 fw-normal" value="${paystub.grossEarnings}">
+                    <label for="ben_gross_earnings_${paystub.paystubId}">Gross Earnings</label>
+                    <input type="text" name="ben_g_earning[]" id="ben_gross_earnings_${paystub.paystubId}" placeholder="Gross Earnings" class="form-control fs-6 fw-normal" value="${paystub.grossEarnings}">
                 </div>
                 <div class="col-md-2">
-                    <label for="special_condition_${paystub.paystubId}">Special Condition</label>
-                    <input type="text" name="sp[]" id="special_condition_${paystub.paystubId}" placeholder="Special Condition" class="form-control fs-6 fw-normal" value="${paystub.specialCondition}">
+                    <label for="ben_special_condition_${paystub.paystubId}">Special Condition</label>
+                    <input type="text" name="ben_sp[]" id="ben_special_condition_${paystub.paystubId}" placeholder="Special Condition" class="form-control fs-6 fw-normal" value="${paystub.specialCondition}">
                 </div>
                 <img class="remove-row col-md-1 rm_btn" src="<?php bloginfo('template_directory'); ?>/images/cross.png" width="48" height="48" />
             `;
@@ -326,16 +346,8 @@ function renderBenJobs() {
         benJobsContainer.appendChild(jobDiv);
     });
 
-    // Reinitialize datepickers for new inputs
-    reinitializeDatepickers();
+  
 }
 
-function reinitializeDatepickers() {
-    jQuery('.datepicker').datepicker({
-        dateFormat: 'yy-mm-dd',
-        changeMonth: true,
-        changeYear: true,
-        yearRange: '1900:2100'
-    });
-}
+
 </script>
