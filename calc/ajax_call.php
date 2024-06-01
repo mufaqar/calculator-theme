@@ -165,10 +165,6 @@ function remove_job() {
 }
 add_action('wp_ajax_remove_job', 'remove_job');
 add_action('wp_ajax_nopriv_remove_job', 'remove_job');
-
-
-
-
 // Add action for saving form data
 add_action('wp_ajax_check_user_data', 'check_user_data');
 add_action('wp_ajax_nopriv_check_user_data', 'check_user_data');
@@ -635,18 +631,63 @@ add_action('wp_ajax_nopriv_calculation', 'calculation');
 function calculation() {   
 
 
-    
-
-   
-
        echo "Calculation";
     
-                
-              
-               
-       
+      
            die();
            
     
         
 }
+
+
+
+
+function Calc($to, $from, $dol, $earing) {
+
+    $from_date = new DateTime($to);
+    $to_date = new DateTime($from);
+    $dol = new DateTime($dol);
+    $earning = $earing;
+    
+    
+    $P4W_F = (clone $dol)->modify('-28 days');
+    $P4W = $P4W_F->format('M-d-Y');
+    
+    echo $P4W . "<br/>";
+    
+    // Calculate the proportional earning
+    $diff_from_to = $from_date->diff($to_date)->days + 1; 
+    $diff_sp = $from_date->diff($dol)->days + 1; 
+    $days = $P4W_F->diff($to_date)->days + 1;
+    
+    
+    $first = new DateTime(''. $P4W .'');
+    
+    
+    if($days >= 28 && $diff_sp >= 28){
+       $days = 0;
+    }
+    
+    
+    
+    if ($to_date >= $first && $to_date <= $dol) {
+        echo "Yes" ;
+    } else {
+        echo "No" ."<br>";
+        if( $diff_sp <= 28 ) {
+            $days = $diff_sp;
+        }
+    }
+    
+    
+    
+    echo $days ."<br>";
+    
+    
+    
+    $calculated_earning = ($earning / $diff_from_to) * $days;
+    
+    echo $calculated_earning , "<hr/>";
+    
+    }

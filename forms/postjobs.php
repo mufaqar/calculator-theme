@@ -109,11 +109,11 @@ function renderDbPostJobs() {
             paystubDiv.innerHTML = `
                 <div class="col-md-3">
                     <label for="post_from_date_${paystub.paystubId}">From Date</label>
-                    <input type="text" name="post_from_date[]" id="post_from_date_${paystub.paystubId}" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.fromDate}">
+                    <input type="text" name="post_from_date[]" id="post_from_date_${paystub.paystubId}" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker"  value="${paystub.fromDate}">
                 </div>
                 <div class="col-md-3">
                     <label for="post_to_date_${paystub.paystubId}">To Date</label>
-                    <input type="text" name="post_to_date[]" id="post_to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.toDate}">
+                    <input type="text" name="post_to_date[]" id="post_to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker"  value="${paystub.toDate}">
                 </div>
                 <div class="col-md-3">
                     <label for="post_gross_earnings_${paystub.paystubId}">Gross Earnings</label>
@@ -311,11 +311,11 @@ function renderPostJobs() {
             paystubDiv.innerHTML = `
                 <div class="col-md-3">
                     <label for="post_from_date_${paystub.paystubId}">From Date</label>
-                    <input type="text" name="post_from_date[]" id="post_from_date_${paystub.paystubId}" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.fromDate}">
+                    <input type="text" name="post_from_date[]" id="post_from_date_${paystub.paystubId}" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker"  value="${paystub.fromDate}">
                 </div>
                 <div class="col-md-3">
                     <label for="post_to_date_${paystub.paystubId}">To Date</label>
-                    <input type="text" name="post_to_date[]" id="post_to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.toDate}">
+                    <input type="text" name="post_to_date[]" id="post_to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker"  value="${paystub.toDate}">
                 </div>
                 <div class="col-md-3">
                     <label for="post_gross_earnings_${paystub.paystubId}">Gross Earnings</label>

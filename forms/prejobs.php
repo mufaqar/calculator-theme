@@ -103,11 +103,11 @@ function renderDbJobs() {
             paystubDiv.innerHTML = `
                 <div class="col-md-3">
                     <label for="from_date_${paystub.paystubId}">From Date</label>
-                    <input type="text" name="f_date[]" id="from_date_${paystub.paystubId}" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.fromDate}">
+                    <input type="text" name="f_date[]" id="from_date_${paystub.paystubId}" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker"  value="${paystub.fromDate}">
                 </div>
                 <div class="col-md-3">
                     <label for="to_date_${paystub.paystubId}">To Date</label>
-                    <input type="text" name="t_date[]" id="to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.toDate}">
+                    <input type="text" name="t_date[]" id="to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker"  value="${paystub.toDate}">
                 </div>
                 <div class="col-md-3">
                     <label for="gross_earnings_${paystub.paystubId}">Gross Earnings</label>
@@ -214,11 +214,11 @@ function renderDbJobs() {
             paystubDiv.innerHTML = `
                 <div class="col-md-3">
                     <label for="from_date_${paystub.paystubId}">From Date</label>
-                    <input type="text" name="f_date[]" id="from_date_${paystub.paystubId}" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.fromDate}">
+                    <input type="text" name="f_date[]" id="from_date_${paystub.paystubId}" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker"  value="${paystub.fromDate}">
                 </div>
                 <div class="col-md-3">
                     <label for="to_date_${paystub.paystubId}">To Date</label>
-                    <input type="text" name="t_date[]" id="to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.toDate}">
+                    <input type="text" name="t_date[]" id="to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker"  value="${paystub.toDate}">
                 </div>
                 <div class="col-md-3">
                     <label for="gross_earnings_${paystub.paystubId}">Gross Earnings</label>
@@ -383,11 +383,11 @@ function renderPreJobs() {
             paystubDiv.innerHTML = `
                         <div class="col-md-3">
                             <label for="from_date_${paystub.paystubId}">From Date</label>
-                            <input type="text" name="f_date[]" id="from_date_${paystub.paystubId}" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.fromDate}">
+                            <input type="text" name="f_date[]" id="from_date_${paystub.paystubId}" placeholder="Choose From Date" class="form-control fs-6 fw-normal datepicker"  value="${paystub.fromDate}">
                         </div>
                         <div class="col-md-3">
                             <label for="to_date_${paystub.paystubId}">To Date</label>
-                            <input type="text" name="t_date[]" id="to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker" readonly value="${paystub.toDate}">
+                            <input type="text" name="t_date[]" id="to_date_${paystub.paystubId}" placeholder="Choose To Date" class="form-control fs-6 fw-normal datepicker"  value="${paystub.toDate}">
                         </div>
                         <div class="col-md-3">
                             <label for="gross_earnings_${paystub.paystubId}">Gross Earnings</label>
