@@ -18,7 +18,7 @@ function calculate_earnings() {
             $jobs_query->the_post();
             $post_id = get_the_ID();
             $dol = 'Jan-15-2024';
-            echo "DOL : " . $dol . "<br/>";
+           // echo "DOL : " . $dol . "<br/>";
 
             $paystubs_meta = get_post_meta($post_id, 'paystubs', true);
             if (is_array($paystubs_meta)) {
@@ -37,12 +37,12 @@ function calculate_earnings() {
                 $week4Earning_arr[] = array_sum($week_4arr);
                 $week52Earning_arr[] = array_sum($week_52arr);
 
-                // Print the accumulated results
-                echo "4Week Earnings: " . implode(", ", $week_4arr) . "<br/>";
-                echo "52Week Earnings: " . implode(", ", $week_52arr) . "<br/>";
-                echo array_sum($week_4arr) . "<br/>";
-                echo array_sum($week_52arr) . "<br/>";
-                echo "<hr/>";
+               
+                // echo "4Week Earnings: " . implode(", ", $week_4arr) . "<br/>";
+                // echo "52Week Earnings: " . implode(", ", $week_52arr) . "<br/>";
+                // echo array_sum($week_4arr) . "<br/>";
+                // echo array_sum($week_52arr) . "<br/>";
+                // echo "<hr/>";
             }
         }
     }
@@ -52,11 +52,11 @@ function calculate_earnings() {
     $WeeklyIRB_4 = ($FW4 / 4 * 0.7);
     $WeeklyIRB_52 = ($FW52 / 52 * 0.7);
 
-    echo $WeeklyIRB_4 . "<br/>";
-    echo $WeeklyIRB_52;
+   // echo $WeeklyIRB_4 . "<br/>";
+   // echo $WeeklyIRB_52;
 
     return array(
-        'WeeklyIRB_4' => $WeeklyIRB_4,
-        'WeeklyIRB_52' => $WeeklyIRB_52
+        'WeeklyIncome_4' => $WeeklyIRB_4,
+        'WeeklyIncome_52' => $WeeklyIRB_52
     );
 }

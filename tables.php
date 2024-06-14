@@ -10,7 +10,11 @@ get_header();
 
 
 $earnings = calculate_earnings();
+print "<pre>";
 print_r($earnings);
+print "</pre>";
+
+$WeeklyIncome_4 = $earnings['WeeklyIncome_4'];
 
 $startDate = '2024-02-22';
 $endDate = '2024-03-20';
@@ -56,7 +60,7 @@ $weeklyRanges = getWeeklyDateRanges($startDate, $endDate);
         <tr>
             <td>Less: 100% of OIRA (SABS s. 7(1)) </td>
             <?php foreach ($weeklyRanges as $index => $range): ?>
-            <td>$696.25 </td>
+            <td><?php echo $WeeklyIncome_4;?> </td>
             <?php endforeach; ?>
         </tr>
         <tr>

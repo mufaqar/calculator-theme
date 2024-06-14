@@ -106,6 +106,7 @@ function add_first_and_last($items) {
 
 include('calc/func.php');
 include('calc/ajax_call.php');
+include('calc/extra.php');
  
 add_filter('wp_nav_menu_objects', 'add_first_and_last');
 
