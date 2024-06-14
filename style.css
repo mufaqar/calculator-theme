@@ -215,3 +215,22 @@ input[type="checkbox"]:checked+label:after {
 #addBenJob, #addPostJob, #addPreJob{
     white-space: nowrap !important;
 }
+
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  th, td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+  th:first-child, td:first-child {
+    width: 450; /* Adjust the width as needed */
+  }

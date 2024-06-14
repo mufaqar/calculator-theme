@@ -629,13 +629,9 @@ add_action('wp_ajax_calculation', 'calculation');
 add_action('wp_ajax_nopriv_calculation', 'calculation');
 
 function calculation() {   
-
-
        echo "Calculation";
-    
-      
-           die();
-           
+       die();
+       
     
         
 }
@@ -643,51 +639,79 @@ function calculation() {
 
 
 
-function Calc($to, $from, $dol, $earing) {
+function Calc( $from,$to, $dol, $earing) {
 
-    $from_date = new DateTime($to);
-    $to_date = new DateTime($from);
+    $from_date = new DateTime($from);
+    $to_date = new DateTime($to);
     $dol = new DateTime($dol);
     $earning = $earing;
+
+    // echo "FD : ".$from_date->format('M-d-Y')."<br/>";
+    // echo "TD : ".$to_date->format('M-d-Y')."<br/>";
+
     
     
     $P4W_F = (clone $dol)->modify('-28 days');
     $P4W = $P4W_F->format('M-d-Y');
     
-    echo $P4W . "<br/>";
-    
     // Calculate the proportional earning
     $diff_from_to = $from_date->diff($to_date)->days + 1; 
     $diff_sp = $from_date->diff($dol)->days + 1; 
-    $days = $P4W_F->diff($to_date)->days + 1;
+    $days = $P4W_F->diff($to_date)->days + 1;   
     
+    $first = new DateTime(''. $P4W .'');  
+
     
-    $first = new DateTime(''. $P4W .'');
     
     
     if($days >= 28 && $diff_sp >= 28){
        $days = 0;
     }
     
-    
-    
     if ($to_date >= $first && $to_date <= $dol) {
-        echo "Yes" ;
+
+       
+     
     } else {
-        echo "No" ."<br>";
+
+        
+    
         if( $diff_sp <= 28 ) {
             $days = $diff_sp;
         }
     }
     
+   
+    $calculated_earning_4weeks = round(($earning / $diff_from_to) * $days);
+   // $calculated_earning_4weeks = $earning;
+    $calculated_earning_52weeks = ($earning );
+
+  
+    if ($dol >= $from_date && $dol <= $to_date) {
+
+    $dol_d_todate =  $dol->diff($to_date)->days ; 
+
+    $calculated_earning_52weeks = ($earning /$diff_from_to * $dol_d_todate );
+
+    }
+    else {
+
+        $calculated_earning_52weeks = ($earning );
+
+
+    }
+
     
-    
-    echo $days ."<br>";
-    
-    
-    
-    $calculated_earning = ($earning / $diff_from_to) * $days;
-    
-    echo $calculated_earning , "<hr/>";
+    // echo "4Week :".$calculated_earning_4weeks , "<br/>";
+    // echo "52Week :".$calculated_earning_52weeks , "<hr/>";
+
+    $results = array(
+        "4Week" => $calculated_earning_4weeks,
+        "52Week" => $calculated_earning_52weeks
+    );
+
+ 
+
+    return $results;
     
     }

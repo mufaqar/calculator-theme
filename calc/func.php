@@ -237,3 +237,36 @@ function get_prejob_meta_html($post_id) {
 }
 
 
+
+
+
+function getWeeklyDateRanges($startDate, $endDate) {
+    $start = new DateTime($startDate);
+    $end = new DateTime($endDate);
+    $end->modify('+1 day'); // To include the end date in the iteration
+
+    $weeklyRanges = [];
+    while ($start < $end) {
+        $weekStart = clone $start;
+        $weekEnd = clone $start;
+        $weekEnd->modify('+6 days');
+        
+        if ($weekEnd > $end) {
+            $weekEnd = $end;
+            $weekEnd->modify('-1 day'); 
+        }
+        
+        $days = $weekEnd->diff($weekStart)->days + 1;
+        
+        $weeklyRanges[] = [
+            'start' => $weekStart->format('d-M-Y'),
+            'end' => $weekEnd->format('d-M-Y'),
+            'days' => $days
+        ];
+        
+        $start->modify('+7 days');
+    }
+
+    return $weeklyRanges;
+}
+
