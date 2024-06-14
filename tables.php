@@ -9,10 +9,15 @@ get_header();
 <?php
 
 
+$earnings = calculate_earnings();
+print_r($earnings);
+
 $startDate = '2024-02-22';
 $endDate = '2024-03-20';
 
 $weeklyRanges = getWeeklyDateRanges($startDate, $endDate);
+
+
 
 
 ?>
