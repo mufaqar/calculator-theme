@@ -232,5 +232,5 @@ table {
     background-color: #f2f2f2;
   }
   th:first-child, td:first-child {
-    width: 450; /* Adjust the width as needed */
+    width: 450; 
   }
