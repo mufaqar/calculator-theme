@@ -187,8 +187,7 @@ function addPostJob() {
 function addPostPaystub(postId) {
     capturePostData();
     const job = postJobs.find(j => j.postId === postId);
-    console.log("🚀 ~ addPostPaystub ~ job:", job)
-    
+    console.log("🚀 ~ addPostPaystub ~ job:", job)    
     const lastObj = job.jobData[job.jobData.length - 1]
     if (job) {
         const newPaystub = {
