@@ -75,7 +75,7 @@ $accidental_date = "18-Jan-22"; // Date of accident
 $weeks = generateWeeks($from_date, $to_date, $pre_accident_income, $accidental_date);
 
 // Display the table
-echo "<table border='1' cellpadding='10'>";
+echo "<table border='1' cellpadding='3'>";
 echo "<tr>
         <th>Week</th>
         <th>Date From</th>

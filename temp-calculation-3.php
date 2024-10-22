@@ -1,6 +1,6 @@
 <?php
 /**
-* Template Name: Calculation
+* Template Name: Calc
 *
 * @package WordPress
 * @subpackage Twenty_Fourteen
@@ -22,6 +22,22 @@ $jobs = [
     ['name' => 'Casual - Peter Sommerfeld', 'from' => 'Jul-01-2022', 'to' => 'Jul-01-2022', 'gross_earning' => '400'],
     ['name' => 'Eileen Roofing', 'from' => 'Jul-04-2022', 'to' => 'Jul-31-2022', 'gross_earning' => '4059.99']
 ];
+
+
+echo "<h2>Pre Job entered by User</h2>";
+echo "<table border='1' cellpadding='10'>";
+echo "<tr><th>Name</th><th>From</th><th>To</th><th>Gross Earning</th></tr>";
+
+foreach ($jobs as $job) {
+    echo "<tr>";
+    echo "<td>{$job['name']}</td>";
+    echo "<td>{$job['from']}</td>";
+    echo "<td>{$job['to']}</td>";
+    echo "<td>{$job['gross_earning']}</td>";
+    echo "</tr>";
+}
+
+echo "</table>";
 
 
 $date_of_lose = "Jun-23-2020";
@@ -173,8 +189,24 @@ for ($i = 0; $i < count($jobDurations); $i++) {
 }
 
 // Output the new array with gaps filled
-echo "<pre>";
-// print_r($formattedJobs);
+// echo "Formatted Jobs";
+// //print_r($formattedJobs);
+
+// echo "<table border='1' cellpadding='10'>";
+// echo "<tr><th>Name</th><th>From</th><th>To</th><th>Gross Earning</th><th>Days</th><th>Weeks</th></tr>";
+
+// foreach ($formattedJobs as $job) {
+//     echo "<tr>";
+//     echo "<td>{$job['job_title']}</td>";
+//     echo "<td>{$job['from']}</td>";
+//     echo "<td>{$job['to']}</td>";
+//     echo "<td>{$job['gross_earnings']}</td>";
+//     echo "<td>{$job['total_days']}</td>";
+//     echo "<td>{$job['no_of_weeks']}</td>";
+//     echo "</tr>";
+// }
+
+// echo "</table>";
 
 $startDate = strtotime($start_date_after_date_of_lose);
 $endDate = strtotime($date);
@@ -228,9 +260,26 @@ array_unshift($matchingObjects, $valuesArray);
 
 
 // Print matching objects
-echo "<pre>";
+echo "<h2>A2 Emp Calcuation</h2>";
 // print_r($matchingObjects);
 // echo "</pre>";
+
+echo "<table border='1' cellpadding='10'>";
+echo "<tr><th>From</th><th>To</th><th>Pre Acc Income</th><th>Weeks</th><th>gross_weekly_income</th><th>70%</th></tr>";
+
+foreach ($matchingObjects as $job) {
+    echo "<tr>";
+
+    echo "<td>{$job['from']}</td>";
+    echo "<td>{$job['to']}</td>";
+    echo "<td>{$job['total_pre_accident_income']}</td>";
+    echo "<td>{$job['total_weeks']}</td>";
+    echo "<td>{$job['gross_weekly_income']}</td>";
+    echo "<td>{$job['70_per_weekly_income']}</td>";
+    echo "</tr>";
+}
+
+echo "</table>";
 
 
 
@@ -268,4 +317,43 @@ foreach ($matchingObjects as $job) {
 }
 
 
-print_r($Past_Income_Replacement_Benefits_Payable);
+//print_r($Past_Income_Replacement_Benefits_Payable);
+
+// Displaying the result as an HTML table
+
+echo "<h2>A3 - Past IRBs Payable Calucations </h2>";
+echo "<table border='1' cellpadding='2'>";
+echo "<tr>
+        <th>From</th>
+        <th>To</th>
+        <th>Number of Days</th>
+        <th>70% of Gross Weekly Income</th>
+        <th>100% of OIRA</th>
+        <th>Total before Applying Policy Max</th>
+        <th>Policy Max</th>
+        <th>Weekly IRBs before Applying Post-Accident Income</th>
+        <th>70% of Post-Accident Income</th>
+        <th>Weekly IRB Payable</th>
+        <th>Number of Weeks in the Period</th>
+        <th>Past IRBs Payable</th>
+      </tr>";
+
+
+foreach ($Past_Income_Replacement_Benefits_Payable as $benefit) {
+    echo "<tr>";
+    echo "<td>{$benefit['from']}</td>";
+    echo "<td>{$benefit['to']}</td>";
+    echo "<td>{$benefit['Number_of_days']}</td>";
+    echo "<td>{$benefit['70%_of_Gross_weekly_income']}</td>";
+    echo "<td>{$benefit['100%_of_OIRA']}</td>";
+    echo "<td>{$benefit['Total_before_applying_policy_max']}</td>";
+    echo "<td>{$benefit['Policy_Max']}</td>";
+    echo "<td>{$benefit['Weekly_IRBs_before_applying_post_accident_income']}</td>";
+    echo "<td>{$benefit['70%_of_post_accident_income']}</td>";
+    echo "<td>{$benefit['Weekly_IRB_payable']}</td>";
+    echo "<td>{$benefit['Number_of_weeks_in_the_period']}</td>";
+    echo "<td>{$benefit['Past_IRBs_payable']}</td>";
+    echo "</tr>";
+}
+
+echo "</table>";
