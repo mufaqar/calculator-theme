@@ -7,7 +7,6 @@
 * @since Twenty Fourteen 1.0
 */
 
-
 // Input data (replace this with your array of data)
 
 $jobs = [
@@ -24,7 +23,7 @@ $jobs = [
 ];
 
 
-echo "<h2>Pre Job entered by User</h2>";
+echo "<h2>Jobs entered by User</h2>";
 echo "<table border='1' cellpadding='10'>";
 echo "<tr><th>Name</th><th>From</th><th>To</th><th>Gross Earning</th></tr>";
 
@@ -260,7 +259,7 @@ array_unshift($matchingObjects, $valuesArray);
 
 
 // Print matching objects
-echo "<h2>A2 Emp Calcuation</h2>";
+echo "<h2>A2 Emp Calculation :</h2>";
 // print_r($matchingObjects);
 // echo "</pre>";
 
@@ -326,10 +325,10 @@ echo "<table border='1' cellpadding='2'>";
 echo "<tr>
         <th>From</th>
         <th>To</th>
-        <th>Number of Days</th>
+        <th>Days</th>
         <th>70% of Gross Weekly Income</th>
-        <th>100% of OIRA</th>
-        <th>Total before Applying Policy Max</th>
+        <th> OIRA</th>
+        <th>Total  Policy Max</th>
         <th>Policy Max</th>
         <th>Weekly IRBs before Applying Post-Accident Income</th>
         <th>70% of Post-Accident Income</th>
