@@ -122,8 +122,7 @@ foreach ($jobDurations as $index => $job) {
             $jobDurations[$index]['pre_accident_income'] = $remaningDays * $per_day_earning;
             $jobDurations[$index]['total_days'] = $remaningDays;
         }
-        
-        
+
     } else {
         // Now Modify $jobDurations Array with anothe Array and calculate PRE and POST income 
         // After Date of lose !!!! and add EMPTY dates thats he will not work :)
@@ -146,11 +145,10 @@ foreach ($jobDurations as $index => $job) {
                         $jobDurations[$i]['pre_accident_income'] = $jobDurations[$i]['gross_earnings'];
                         break; // Exit the loop once the condition is met
                     }
-                }
+                } 
                 break;
             }
         }
-
     }
 }
 
@@ -287,15 +285,13 @@ foreach ($matchingObjects as $job) {
         "Weekly_IRB_payable" => $Weekly_IRB_payable,
         "Number_of_weeks_in_the_period" => $job['total_weeks'],
         "Past_IRBs_payable" => $Weekly_IRB_payable * $totalWeeks,
-
     ];
 
     $Past_Income_Replacement_Benefits_Payable[] = $obj;
 }
 
 
-//print_r($Past_Income_Replacement_Benefits_Payable);
-
+// print_r($Past_Income_Replacement_Benefits_Payable);
 // Displaying the result as an HTML table
 
 echo "<h2>A3 - Past IRBs Payable Calucations </h2>";
