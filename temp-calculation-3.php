@@ -187,25 +187,6 @@ for ($i = 0; $i < count($jobDurations); $i++) {
     }
 }
 
-// Output the new array with gaps filled
-// echo "Formatted Jobs";
-// //print_r($formattedJobs);
-
-// echo "<table border='1' cellpadding='10'>";
-// echo "<tr><th>Name</th><th>From</th><th>To</th><th>Gross Earning</th><th>Days</th><th>Weeks</th></tr>";
-
-// foreach ($formattedJobs as $job) {
-//     echo "<tr>";
-//     echo "<td>{$job['job_title']}</td>";
-//     echo "<td>{$job['from']}</td>";
-//     echo "<td>{$job['to']}</td>";
-//     echo "<td>{$job['gross_earnings']}</td>";
-//     echo "<td>{$job['total_days']}</td>";
-//     echo "<td>{$job['no_of_weeks']}</td>";
-//     echo "</tr>";
-// }
-
-// echo "</table>";
 
 $startDate = strtotime($start_date_after_date_of_lose);
 $endDate = strtotime($date);
@@ -268,7 +249,6 @@ echo "<tr><th>From</th><th>To</th><th>Pre Acc Income</th><th>Weeks</th><th>gross
 
 foreach ($matchingObjects as $job) {
     echo "<tr>";
-
     echo "<td>{$job['from']}</td>";
     echo "<td>{$job['to']}</td>";
     echo "<td>{$job['total_pre_accident_income']}</td>";
@@ -277,9 +257,7 @@ foreach ($matchingObjects as $job) {
     echo "<td>{$job['70_per_weekly_income']}</td>";
     echo "</tr>";
 }
-
 echo "</table>";
-
 
 
 // PART 2
@@ -328,12 +306,11 @@ echo "<tr>
         <th>Days</th>
         <th>70% of Gross Weekly Income</th>
         <th> OIRA</th>
-        <th>Total  Policy Max</th>
+        <th>Net Entitlement</th>
         <th>Policy Max</th>
         <th>Weekly IRBs before Applying Post-Accident Income</th>
         <th>70% of Post-Accident Income</th>
         <th>Weekly IRB Payable</th>
-        <th>Number of Weeks in the Period</th>
         <th>Past IRBs Payable</th>
       </tr>";
 
@@ -350,7 +327,6 @@ foreach ($Past_Income_Replacement_Benefits_Payable as $benefit) {
     echo "<td>{$benefit['Weekly_IRBs_before_applying_post_accident_income']}</td>";
     echo "<td>{$benefit['70%_of_post_accident_income']}</td>";
     echo "<td>{$benefit['Weekly_IRB_payable']}</td>";
-    echo "<td>{$benefit['Number_of_weeks_in_the_period']}</td>";
     echo "<td>{$benefit['Past_IRBs_payable']}</td>";
     echo "</tr>";
 }
