@@ -24,6 +24,7 @@ $jobs = [
 
 
 echo "<h2>Jobs entered by User</h2>";
+echo "<h2>Max IRB entitlement : $400</h2>";
 echo "<table border='1' cellpadding='10'>";
 echo "<tr><th>Name</th><th>From</th><th>To</th><th>Gross Earning</th></tr>";
 
